@@ -1,0 +1,69 @@
+<div class="added">
+    <div class="modal fade show" id="basketmodal" tabindex="-1" role="dialog" aria-hidden="true" style="display: flex;">
+        {% set total_cost = namespace(value=0) %}
+        <form action="/payorder" method="post">
+            <div class="basket_modal" role="document">
+                <div class="modal-content">
+                    <div class="close_button" style="cursor: pointer;">
+                        <span class="material-icons">close</span>
+                    </div>
+                    <div class="allinfo">
+                        {% for dish in user_basket.dish_list %}
+                            <div class="tab">
+                                <div class="dish_info">
+                                    <span>{{ dish['dish_name'] }}</span>
+                                    {% if dish['dish_count_in_order'] > 1 %}
+                                        <span class="count_dish"> x {{ dish['dish_count_in_order'] }}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="dish_cost">
+                                    <span>{{ dish['dish_price'] }} ₽</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="total_cost">
+                        <div class="select_table">
+                            <span>Выберите столик заказа</span>
+                            <select name="table">
+                                {% for table in user_basket.tables %}
+                                    <option>{{ table['id'] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="money">
+                            <span>Итого: </span>
+                            <span class="d-none">{% for dish in user_basket.dish_list %}
+                                {% set total_cost.value = total_cost.value+dish['dish_price']*dish['dish_count_in_order'] %}
+                                {{ total_cost }}{% endfor %}{{ total_cost.value }} ₽</span>
+                            <input id="tot_cost" name="total_cost" value="{{ total_cost.value }}" readonly>
+                            <span> ₽</span>
+                        </div>
+                    </div>
+                    <div class="send_to_payment">
+                        <input name="order_id" hidden value="{{ user_basket.dish_list[0]['order_id'] }}">
+                        <button class="btn btn--primary payment_button" type="submit">Оплатить</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="hider"></div>
+
+    <script>
+        $('.close_button').on('click', function () {
+            $('.added').remove();
+        });
+        jQuery(function ($) {
+            $(document).mouseup(function (e) { // событие клика по веб-документу
+                var div = $(".basket_modal"); // тут указываем ID элемента
+                if (!div.is(e.target) // если клик был не по нашему блоку
+                    && div.has(e.target).length === 0) { // и не по его дочерним элементам
+                    $('.added').remove(); // скрываем его
+                }
+            });
+        });
+
+    </script>
+</div>

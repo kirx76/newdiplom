@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}
+    Главная
+{% endblock %}
+{% block content %}
+    <div class="slider d-none">
+        <div class="slider__wrapper">
+            <div class="slider__item">
+                <div style="height: 250px;  background-image: url(../static/img/burgers.png); background-repeat: no-repeat;  background-size: contain; background-position: center; ">
+                    1
+                </div>
+            </div>
+            <div class="slider__item">
+                <div style="height: 250px; background: green;">2</div>
+            </div>
+            <div class="slider__item">
+                <div style="height: 250px; background: violet;">3</div>
+            </div>
+            <div class="slider__item">
+                <div style="height: 250px; background: coral;">4</div>
+            </div>
+        </div>
+        <a class="slider__control slider__control_left" href="#" role="button"></a>
+        <a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
+    </div>
+    <div class="cont d-none" style="width: 100%; display: flex; font-size: 24px;">
+        <div class="items">
+            <div class="smtt" style="">
+                <div class="sss" style=""><span>Замена масел и технической жидкости</span></div>
+                <div class="plate">
+                    <img src="../static/img/burgers.png" width="300" height="200">
+                </div>
+            </div>
+        </div>
+        <div class="items">
+            <div class="smtt" style="">
+                <div class="sss" style=""><span>Шиномонтаж</span></div>
+                <div class="plate">
+                    <img src="../static/img/burgers.png" width="300" height="200">
+                </div>
+            </div>
+        </div>
+        <div class="items">
+            <div class="smtt" style="">
+                <div class="sss" style=""><span>Установка дополнительного оборудования</span></div>
+                <div class="plate">
+                    <img src="../static/img/burgers.png" width="300" height="200">
+                </div>
+            </div>
+        </div>
+    </div>
+    {#{% include 'inputs/registration.html' %}#}
+    {{ dicte.user_info }}
+{% endblock %}

@@ -1,0 +1,449 @@
+@font-face {
+    font-family: JetBrainsMono; /* Гарнитура шрифта */
+    src: url('../fonts/JetBrains/ttf/JetBrainsMono-Medium.ttf'); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: JetBrainsMono-Bold;
+    src: url("../fonts/JetBrains/ttf/JetBrainsMono-Bold.ttf");
+}
+
+.f {
+    font-family: JetBrainsMono;
+}
+
+.myheader {
+    background-color: #fffdf6;
+    height: 30px;
+}
+
+.myheader .row {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.myheader .row > div > span {
+    cursor: pointer;
+}
+
+.myheaderfix {
+    position: fixed;
+    height: 56px;
+    background-color: #494949;
+    width: 100%;
+    z-index: 2;
+}
+
+header {
+    margin-bottom: 56px;
+    z-index: 2;
+}
+
+.dishtypes {
+    display: inline-block;
+    height: 450px;
+}
+
+body {
+    background-color: #fdfcf7;
+    font-family: JetBrainsMono, 'Comic Sans MS', cursive !important;
+    /*padding-right: 0 !important*/
+}
+
+.grids .dishtypes img {
+    transition: 0.2s ease-out 0.1s; /* Время эффекта */
+    z-index: 1;
+}
+
+.grids .dishtypes img:hover {
+    transform: scale(1.1);
+    z-index: 1;
+}
+
+.dishtypes img {
+    z-index: 0;
+}
+
+.dishtypes_block {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.dishtypes a img {
+    width: 100%; /* Ширина изображений */
+    height: 100%; /* Высота изображении */
+    object-fit: cover; /* Вписываем фотографию в область */
+}
+
+.dishtypes_name {
+    z-index: 1;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(236, 233, 218, 0.7);
+    box-shadow: -1px -7px 10px 3px rgba(236, 233, 218, 0.7);
+    position: absolute;
+    top: 80%;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    height: 20%;
+    opacity: 0;
+    transition: 0.2s ease-out;
+    user-select: none;
+}
+
+.dishtypes:hover .dishtypes_name {
+    opacity: 1;
+    transition-delay: 0.5s;
+    transition: 0.2s;
+}
+
+.grids {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: stretch;
+    align-content: stretch;
+    height: auto;
+}
+
+.dishtypes {
+    width: 33.333%;
+    flex-basis: 33.333%;
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: block;
+    position: relative;
+    transition: background-size 0.3s ease;
+    overflow: hidden;
+    z-index: 1;
+    height: 100%;
+}
+
+.dishtypes_name span {
+    font-family: JetBrainsMono-Bold;
+    font-size: 26px;
+    color: #494949;
+}
+
+
+/* СЛАЙДЕР */
+.slider {
+    position: relative;
+    overflow: hidden;
+}
+
+.slider__wrapper {
+    display: flex;
+    transition: transform 0.6s ease;
+}
+
+.slider__item {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.slider__control {
+    position: absolute;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    color: #fff;
+    text-align: center;
+    opacity: 0.5;
+    height: 50px;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, .5);
+}
+
+.slider__control:hover,
+.slider__control:focus {
+    color: #fff;
+    text-decoration: none;
+    outline: 0;
+    opacity: .9;
+}
+
+.slider__control_left {
+    left: 0;
+}
+
+.slider__control_right {
+    right: 0;
+}
+
+.slider__control::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: transparent no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.slider__control_left::before {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+}
+
+.slider__control_right::before {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+}
+
+.slider__item > div {
+    line-height: 250px;
+    font-size: 100px;
+    text-align: center;
+}
+
+/*КОНЕЦ СЛАЙДЕРА*/
+
+.grids_dishs {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 20px;
+}
+
+
+.dishs {
+    display: flex;
+    box-shadow: 0px 0px 11px -1px #00000050;
+    margin-top: 10px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    margin-bottom: 25px;
+    margin-right: 25px;
+    position: relative;
+
+}
+
+@media screen and (max-width: 540px) {
+    .dishs {
+        margin-right: 0;
+    }
+}
+
+.dishs_block {
+    width: 100%;
+    height: 100%;
+}
+
+.dishs_block img {
+    width: 100%;
+    height: 100%;
+}
+
+.dishs_name {
+
+}
+
+.dishs a {
+    background-color: #ffffff70;
+    border-radius: 25px;
+}
+
+.dishs_action {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: #ece9dabd;
+    border-radius: 25px;
+    text-indent: 20px;
+    display: none;
+    flex-direction: column;
+}
+
+.dish_description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.dishs_manipulate {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: 50px;
+}
+
+.dishs_manipulate span {
+    cursor: pointer;
+    user-select: none;
+    font-size: 36px;
+}
+
+.dishs_manipulate .count_of_dish {
+    cursor: default;
+}
+
+.close_dishs_action {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    cursor: pointer;
+}
+
+/*.dishs_manipulate input {*/
+/*width: 30%;*/
+/*border-radius: 20px;*/
+/*text-align: center;*/
+/*border: 1px solid;*/
+/*overflow: hidden;*/
+/*margin: 0;*/
+/*}*/
+
+/*input::-webkit-outer-spin-button,*/
+/*input::-webkit-inner-spin-button {*/
+/*-webkit-appearance: none;*/
+/*margin: 0;*/
+/*}*/
+
+.items {
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.smtt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.smtt .sss span {
+    text-align: center;
+}
+
+.sss {
+    margin-top: auto;
+}
+
+.plate {
+    margin-top: auto;
+}
+
+.basket-main {
+    position: fixed;
+    bottom: 15%;
+    right: 0;
+    z-index: 3000;
+    background-color: #494949;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#basketmodal {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+#basketmodal form {
+    width: 80%;
+}
+
+.basket_modal {
+    /*width: 80%;*/
+}
+
+.allinfo {
+}
+
+.allinfo .tab {
+    width: 100%;
+    display: flex;
+    box-shadow: 0px 0px 23px -16px #000000;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    justify-content: space-between;
+}
+
+.close_button {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.send_to_payment {
+    display: flex;
+    margin-left: auto;
+}
+
+.allinfo .tab .dish_img {
+    width: 25%;
+}
+
+.basket_modal .modal-content {
+    background-color: #fffdf6 !important;
+    padding: 20px;
+}
+
+.count_dish {
+    font-size: small;
+    color: #2125299c;
+}
+
+.total_cost {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.send_to_payment {
+    margin-top: 15px;
+}
+
+.payment_button {
+    background-color: #494949 !important;
+    color: #fffdf6 !important;
+}
+
+.hider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    opacity: .5;
+}
+
+#tot_cost {
+    background-color: transparent;
+    border: 0;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+    text-align: end;
+}
+
+#tot_cost:focus {
+    border: 0;
+    outline: 0;
+}

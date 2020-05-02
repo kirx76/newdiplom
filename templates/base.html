@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %} {% endblock %}</title>
+    {% include 'staticfiles/staticcss.html' %}
+
+</head>
+<body style="background-color: #fdfcf7">
+<header>
+    <div class="myheader">
+        <div class="row w-100">
+            <div class="">
+                <a href="/">FeedFood</a>
+            </div>
+            <div class="">Buttons</div>
+            {% if not user_info %}
+            <div class="">
+                <span data-toggle="modal" data-target="#regmodal">Регистрация</span>
+            </div>
+            <div class="">
+                <span data-toggle="modal" data-target="#authmodal">Авторизация</span>
+            </div>
+            {% else %}
+            <div class="">
+                <span><a href="/user/{{ user_info['id']}}">Личный кабинет</a></span>
+            </div>
+{#            <div class="">#}
+{#                <span data-toggle="modal" data-target="#regmodal">Корзина</span>#}
+{#            </div>#}
+            <div class="">
+                <span><a href="/remc">Выход</a></span>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="myheaderfix">
+        <div class="row w-100">
+            <div class="col-4"><a href="/">FeedFood</a></div>
+            <div class="col-4">Buttons</div>
+            <div class="col-4" id="testbutton">testbutton</div>
+        </div>
+    </div>
+</header>
+{% block content %}
+{% endblock %}
+{% include 'inputs/basket.html' %}
+{% include 'staticfiles/staticjs.html' %}
+{% include 'modals/regmodal.html' %}
+{% include 'modals/authmodal.html' %}
+{#{% include 'modals/basketmodal.html' %}#}
+</html>

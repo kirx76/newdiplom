@@ -1,0 +1,53 @@
+<div class="modal fade" id="regmodal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="form-group">
+                <label>Имя пользователя</label>
+                <input type="text" class="form-control" name="namereg" required>
+            </div>
+            <div class="form-group">
+                <label>Номер телефона</label>
+                <input type="text" class="form-control" name="phonereg" required>
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" class="form-control" name="passwordreg" required>
+            </div>
+            <button type="submit" class="btn btn-primary" id="register">Зарегистрироваться</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#register').on('click', function () {
+            let name = $('input[name="namereg"]').val();
+            let phone = $('input[name="phonereg"]').val();
+            let password = $('input[name="passwordreg"]').val();
+            console.log({
+                name, phone, password
+            });
+            $.ajax({
+                method: "POST",
+                url: "/registration",
+                type: "POST",
+                data: {
+                    name: name,
+                    phone: phone,
+                    password: password
+                },
+                success: function () {
+                    location.reload()
+                },
+                error: function (request) {
+                    note({
+                        content: jQuery.parseJSON(request.responseText).message.message,
+                        type: "error",
+                        time: 5
+                    })
+                }
+            })
+        })
+    });
+</script>
