@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}
+    Заказы пользователей
+{% endblock %}
+{% block content %}
+
+    <div class="all_orders">
+        {% for order in user_orders.orders %}
+            <div class="tab_order">
+                <div class="order_name">
+                    <span>{{ order.dish_name }}</span>
+                    <span style="font-size: small; color: #2125299c;"> x {{ order.dish_count_in_order }}</span>
+                </div>
+                <div class="order_price">
+                    <span>{{ order.dish_price }} ₽</span>
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="back_to_order">
+        <a href="/clientorders" class="back_to_orders">Назад к заказам</a>
+    </div>
+{% endblock %}

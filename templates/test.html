@@ -50,5 +50,49 @@
         </div>
     </div>
     {#{% include 'inputs/registration.html' %}#}
-    {{ dicte.user_info }}
+
+    <label style="margin-bottom: 30px;">ПОШАГОВЫЕ ИНСТРУКЦИИ:</label>
+    <div class="steps_block">
+        <span class="material-icons addsmth">add_circle_outline</span>
+        <div class="alltabs">
+            <div class="tabs" id="id">
+                <div class="d-flex item-block">
+            <textarea>
+                123
+            </textarea>
+                    <select>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                    <button>Submit</button>
+                </div>
+                <div class="closee" style="">
+                    <span class="material-icons closed">close</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        $(document).ready(function () {
+            let count = 0;
+            let maxcount = 10;
+            $('.addsmth').on('click', function () {
+                if (count < maxcount) {
+                    $('#id').clone()
+                        .appendTo('.alltabs')
+                        .attr('id', 'id' + count);
+                    count++;
+                } else {
+                    console.log('ты не можешь добавить больше 10 блоков')
+                }
+                console.log(count);
+            });
+            $('.closed').on('click', function () {
+                console.log($(this).parent().parent())
+            })
+        })
+    </script>
+
 {% endblock %}

@@ -59,9 +59,6 @@ $(document).ready(function () {
         $(this).parent().hide();
     });
 
-    $('#testbutton').on('click', function () {
-        $.notify("Hello World");
-    });
     $('.basket-main').on('click', function () {
         $.ajax({
             method: "POST",
@@ -96,6 +93,22 @@ $(document).ready(function () {
         });
         // $('#basketmodal').modal();
     });
+
+
+    $(document).ready(function () {
+        websocket.onmessage = function (evt) {
+            var mess = evt.data;
+            note({
+                content: mess,
+                type: "success",
+                time: 5
+            });
+            websocket.onerror = function (evt) {
+                console.log(evt);
+            }
+        }
+    })
+
 
 });
 

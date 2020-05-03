@@ -44,9 +44,16 @@
                         {% endif %}
                     </div>
                     <div class="dishs_block">
-                        <img src="../static/img/burgers.png" height="450">
-                        <div class="dishs_name">
-                            <a href="dishview/{{ dish['id'] }}">{{ dish['dish_name'] }}</a>
+                        <div>
+                            <div class="dishs_name">
+                                <a href="dishview/{{ dish['id'] }}">{{ dish['dish_name'] }}</a>
+                            </div>
+                        </div>
+                        <div class="dishes_img">
+                            <img src="{{ dish['dish_image'] }}">
+                        </div>
+                        <div class="dishs_price">
+                            <span>{{ dish['dish_price'] }} ₽</span>
                         </div>
                     </div>
                 </div>

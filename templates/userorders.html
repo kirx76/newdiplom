@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block title %}
+    Заказы пользователей
+{% endblock %}
+{% block content %}
+
+    <div class="all_orders">
+        {% for order in user_orders.orders %}
+            <div class="tab_orders d-flex" id="{{ order.id }}">
+                <div class="tab_order_main">
+                    <div class="order_top">
+                        <div class="order_top_left">
+                            <span>№ {{ order.id }}</span>
+                            <span>Телефон: {{ order.user_phone }}</span>
+                        </div>
+                        <div class="order_top_right">
+                            <span>Дата: {{ order.order_date }}</span>
+                        </div>
+                    </div>
+                    <div class="order_bottom">
+                        <div class="order_left">
+                            <span>Имя клиента: {{ order.user_name }}</span>
+                        </div>
+                        <div class="order_right">
+                            <span>Общая стоимость заказа: {{ order.order_price }} ₽</span>
+                        </div>
+                    </div>
+                    {#                {{ order }}#}
+                </div>
+                <div class="tab_order_info">
+                    <span class="material-icons done" data-executor_id="{{ user_info.id }}"
+                          data-order_id="{{ order.id }}" data-customer_id="{{ order.user_id }}">done</span>
+                    <a href="/clientorders/{{ order.id }}">Подробнее</a>
+                    <span class="material-icons closed" data-executor_id="{{ user_info.id }}"
+                          data-order_id="{{ order.id }}" data-customer_id="{{ order.user_id }}">close</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            $('.done').on('click', function () {
+                let executor_id = $(this).data('executor_id');
+                let order_id = $(this).data('order_id');
+                let customer_id = $(this).data('customer_id');
+                send_aj(order_id, executor_id, 1);
+                send_ping('Ваш заказ успешно одобрен', customer_id, executor_id);
+                console.log(executor_id);
+            });
+            $('.closed').on('click', function () {
+                let executor_id = $(this).data('executor_id');
+                let order_id = $(this).data('order_id');
+                let customer_id = $(this).data('customer_id');
+                send_aj(order_id, executor_id, 0);
+                send_ping('Ваш заказ был отклонен, обратитесь к официанту', customer_id, executor_id);
+                console.log(executor_id);
+            });
+
+            function send_aj(order_id, executor_id, status) {
+                $.ajax({
+                    method: "POST",
+                    url: "/clientorders",
+                    data: {
+                        'order_id': order_id,
+                        'executor_id': executor_id,
+                        'status': status
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        note({
+                            content: data.message.message,
+                            type: "info",
+                            time: 5
+                        });
+                        $('#' + order_id).remove();
+                    },
+                    error: function (data) {
+                        console.log(data);
+                        note({
+                            content: jQuery.parseJSON(data.responseText).message.message,
+                            type: "error",
+                            time: 5
+                        });
+                        $('#' + order_id).remove();
+                    }
+                })
+            }
+
+            function send_ping(message, user_id, sender_id) {
+                websocket.send(JSON.stringify({'message': message, 'user_id': user_id, 'sender_id': sender_id}));
+            }
+        })
+    </script>
+
+{% endblock %}

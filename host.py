@@ -5,6 +5,7 @@ import tornado.web
 import os
 import connections
 import hashlib
+import tornado.websocket
 import transliterate
 # from webassets import Environment as EV
 # static_directory = "../static"
@@ -30,7 +31,7 @@ def get_user_info(phone):
     try:
         with connect.cursor() as cursor:
             sql = """
-            SELECT users.id, user_name, user_img, user_phone, user_password, access_name 
+            SELECT users.id, user_name, user_img, user_phone, user_password, access_name, access_list.id as al_id
             FROM users 
             JOIN users_accesses ON users.id = users_accesses.user_id 
             JOIN access_list ON users_accesses.access_id = access_list.id 
@@ -280,6 +281,7 @@ class addDish(BaseHandler):
         self.set_status(500)
         self.finish({"code": status_code, "message": kwargs})
 
+    @tornado.web.authenticated
     def post(self, ):
         dish_id = self.get_argument('dish_id')
         status = int(self.get_argument('status'))
@@ -374,6 +376,7 @@ class getUserBasket(BaseHandler):
         self.set_status(500)
         self.finish({"code": status_code, "message": kwargs})
 
+    @tornado.web.authenticated
     def post(self):
         phone = json.loads(self.get_secure_cookie("user").decode())['phone']
 
@@ -407,12 +410,14 @@ class getUserBasket(BaseHandler):
         finally:
             connect.close()
 
+
 class payOrder(BaseHandler):
     @tornado.web.authenticated
     def write_error(self, status_code: int, **kwargs):
         self.set_status(500)
         self.finish({"code": status_code, "message": kwargs})
 
+    @tornado.web.authenticated
     def post(self):
         print(self.request.body)
         table_id = int(self.get_argument('table'))
@@ -451,6 +456,108 @@ class payOrder(BaseHandler):
             self.write('Заказ успешно оплачен <a href="/">На главную</a>')
 
 
+class clientOrdersHandler(BaseHandler):
+    @tornado.web.authenticated
+    def write_error(self, status_code: int, **kwargs):
+        self.set_status(status_code)
+        self.finish({"code": status_code, "message": kwargs})
+
+    @tornado.web.authenticated
+    def get(self, *args):
+        print(self.request.body)
+        connect = connections.getConnection()
+        try:
+            user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
+            with connect.cursor() as cursor:
+                allorders = """SELECT * FROM orders 
+                JOIN user_orders ON orders.id = user_orders.order_id 
+                JOIN users ON user_orders.user_id = users.id 
+                WHERE order_status = 1;"""
+                cursor.execute(allorders)
+                orders = cursor.fetchall()
+                template = env.get_template('userorders.html')
+                user_orders = {'orders': orders}
+                self.write(template.render(user_orders=user_orders, user_info=user_info))
+        finally:
+            connect.close()
+
+    @tornado.web.authenticated
+    def post(self):
+        print(self.request.body)
+        order_id = int(self.get_argument('order_id'))
+        executor_id = int(self.get_argument('executor_id'))
+        status = int(self.get_argument('status'))
+
+        connect = connections.getConnection()
+        try:
+            user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
+            with connect.cursor() as cursor:
+                if status == 1:
+                    updateorder = """UPDATE orders SET order_status = %s, order_executor = %s WHERE id = %s"""
+                    cursor.execute(updateorder, (2, executor_id, order_id))
+                    connect.commit()
+                    self.write_error(status_code=200, message='Заказ успешно одобрен')
+                elif status == 0:
+                    updateorder = """UPDATE orders SET order_status = %s, order_executor = %s WHERE id = %s"""
+                    cursor.execute(updateorder, (9, executor_id, order_id))
+                    connect.commit()
+                    self.write_error(status_code=500, message='Заказ перенесен в сомнительные')
+                else:
+                    self.write_error(status_code=500, message='Не удалось обработать запрос')
+        except Exception as e:
+            print(e)
+            self.write_error(status_code=500, message='Непредвиденная ошибка')
+        finally:
+            connect.close()
+
+
+class clientOrdersIdHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self, *args):
+        print(self.request.body)
+        print(args[0])
+
+        connect = connections.getConnection()
+        try:
+            user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
+            with connect.cursor() as cursor:
+                allorders = """SELECT * FROM orders 
+                JOIN user_orders ON orders.id = user_orders.order_id 
+                JOIN users ON user_orders.user_id = users.id 
+                JOIN dishes_in_order ON orders.id = dishes_in_order.order_id 
+                JOIN dishs ON dishes_in_order.dish_id = dishs.id 
+                WHERE order_status = 1 and orders.id = %s"""
+                cursor.execute(allorders, args[0])
+                orders = cursor.fetchall()
+                template = env.get_template('userordersinfo.html')
+                user_orders = {'orders': orders}
+                self.write(template.render(user_orders=user_orders, user_info=user_info))
+        finally:
+            connect.close()
+
+
+class SimpleWebSocket(tornado.websocket.WebSocketHandler):
+    connections = dict()
+
+    def open(self):
+        user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
+        print('Создан пользователь')
+        self.connections[int(user_info['id'])] = self
+
+    def on_message(self, message):
+        target = json.loads(message)
+        try:
+            self.connections[int(target['user_id'])].write_message(str(target['message']))
+            # self.connections[int(target['sender_id'])].write_message('Пользователь оповещен о заказе')
+        except:
+            self.connections[int(target['sender_id'])].write_message('Пользователя нет на сайте, но мы оповестим его')
+        print(self.connections)
+
+
+    def on_close(self):
+        print('closed')
+
+
 def make_app():
     return tornado.web.Application([
         (r"/", MainHandler),
@@ -465,6 +572,9 @@ def make_app():
         (r"/adddish", addDish),
         (r"/getusrbasket", getUserBasket),
         (r"/payorder", payOrder),
+        (r"/clientorders", clientOrdersHandler),
+        (r"/clientorders/([0-9]+)", clientOrdersIdHandler),
+        (r"/websocket", SimpleWebSocket),
 
     ], **settings,
         template_path=os.path.join(os.path.dirname(__file__), "templates"),
