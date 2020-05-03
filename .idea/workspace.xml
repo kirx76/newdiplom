@@ -2,23 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c5e61892-c92c-4d35-a597-2ebfeffaa457" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/static/js/backbone.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/js/backbone.localStorage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/js/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/js/underscore.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/inputs/slider.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/userorders.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/userordersinfo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/host.py" beforeDir="false" afterPath="$PROJECT_DIR$/host.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/burgers.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/img/burgers.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/js.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/js.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dishs.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dishs.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/staticfiles/staticcss.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/staticfiles/staticcss.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/staticfiles/staticjs.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/staticfiles/staticjs.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/test.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,15 +12,15 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/newdiplom$host.coverage" NAME="host Coverage Results" MODIFIED="1588516802721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/newdiplom$host.coverage" NAME="host Coverage Results" MODIFIED="1588517441533" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/host.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="557" selection-start-line="557" selection-end-line="557" />
+            <state relative-caret-position="146">
+              <caret line="508" column="78" selection-start-line="508" selection-start-column="78" selection-end-line="508" selection-end-column="78" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -55,7 +40,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/userorders.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
+            <state relative-caret-position="299">
               <caret line="56" column="73" selection-start-line="56" selection-start-column="73" selection-end-line="56" selection-end-column="73" />
             </state>
           </provider>
@@ -76,8 +61,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/js.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="100" column="8" lean-forward="true" selection-start-line="100" selection-start-column="8" selection-end-line="105" selection-end-column="11" />
+            <state relative-caret-position="1217">
+              <caret line="98" selection-start-line="98" selection-end-line="98" />
             </state>
           </provider>
         </entry>
@@ -91,11 +76,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="52" column="31" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
+            <state relative-caret-position="136">
+              <caret line="8" column="66" selection-start-line="8" selection-start-column="66" selection-end-line="8" selection-end-column="66" />
             </state>
           </provider>
         </entry>
@@ -151,10 +136,10 @@
       <find>update</find>
       <find>index.</find>
       <find>user_info</find>
-      <find>bootstrap.min.css</find>
       <find>error</find>
       <find>transliterate</find>
       <find>info</find>
+      <find>bootstrap.min.css</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -187,11 +172,11 @@
         <option value="$PROJECT_DIR$/templates/inputs/slider.html" />
         <option value="$PROJECT_DIR$/templates/staticfiles/staticjs.html" />
         <option value="$PROJECT_DIR$/templates/staticfiles/staticcss.html" />
-        <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/templates/chat.html" />
-        <option value="$PROJECT_DIR$/host.py" />
-        <option value="$PROJECT_DIR$/static/js/js.js" />
         <option value="$PROJECT_DIR$/templates/userorders.html" />
+        <option value="$PROJECT_DIR$/static/js/js.js" />
+        <option value="$PROJECT_DIR$/host.py" />
+        <option value="$PROJECT_DIR$/templates/base.html" />
       </list>
     </option>
   </component>
@@ -369,12 +354,12 @@
       <workItem from="1588286079824" duration="6261000" />
       <workItem from="1588324496367" duration="22804000" />
       <workItem from="1588412512828" duration="22961000" />
-      <workItem from="1588493968234" duration="21266000" />
+      <workItem from="1588493968234" duration="22057000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="121447000" />
+    <option name="totallyTimeSpent" value="122238000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -385,7 +370,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -394,7 +379,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32936078" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -562,13 +547,6 @@
     <entry file="file://$PROJECT_DIR$/templates/inputs/slider.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="52" column="31" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/chat.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -590,13 +568,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/js.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="100" column="8" lean-forward="true" selection-start-line="100" selection-start-column="8" selection-end-line="105" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/userordersinfo.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -609,18 +580,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/userorders.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
+        <state relative-caret-position="299">
           <caret line="56" column="73" selection-start-line="56" selection-start-column="73" selection-end-line="56" selection-end-column="73" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/host.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="557" selection-start-line="557" selection-end-line="557" />
+        <state relative-caret-position="146">
+          <caret line="508" column="78" selection-start-line="508" selection-start-column="78" selection-end-line="508" selection-end-column="78" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/js.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1217">
+          <caret line="98" selection-start-line="98" selection-end-line="98" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="66" selection-start-line="8" selection-start-column="66" selection-end-line="8" selection-end-column="66" />
         </state>
       </provider>
     </entry>

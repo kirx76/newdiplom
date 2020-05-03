@@ -5,52 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %} {% endblock %}</title>
     {% include 'staticfiles/staticcss.html' %}
-<script>
-    var websocket = new WebSocket("ws://localhost:8888/websocket");
-</script>
+    <script>
+        var websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+    </script>
 
 </head>
 <body style="background-color: #fdfcf7">
 <header>
     <div class="myheader">
         <div class="row w-100">
-{#            <div class="">#}
-{#                <a href="/">FeedFood</a>#}
-{#            </div>#}
-{#            <div class="">Buttons</div>#}
+            {#            <div class="">#}
+            {#                <a href="/">FeedFood</a>#}
+            {#            </div>#}
+            {#            <div class="">Buttons</div>#}
             {% if not user_info %}
-            <div class="">
-                <span data-toggle="modal" data-target="#regmodal">Регистрация</span>
-            </div>
-            <div class="">
-                <span data-toggle="modal" data-target="#authmodal">Авторизация</span>
-            </div>
+                <div class="">
+                    <span data-toggle="modal" data-target="#regmodal">Регистрация</span>
+                </div>
+                <div class="">
+                    <span data-toggle="modal" data-target="#authmodal">Авторизация</span>
+                </div>
             {% else %}
-            <div class="">
-                <span><a href="/user/{{ user_info['id']}}">Личный кабинет</a></span>
-            </div>
-{#            <div class="">#}
-{#                <span data-toggle="modal" data-target="#regmodal">Корзина</span>#}
-{#            </div>#}
-            <div class="">
-                <span><a href="/remc">Выход</a></span>
-            </div>
+                <div class="">
+                    <span><a href="/user/{{ user_info['id'] }}">Личный кабинет</a></span>
+                </div>
+                {#            <div class="">#}
+                {#                <span data-toggle="modal" data-target="#regmodal">Корзина</span>#}
+                {#            </div>#}
+                <div class="">
+                    <span><a href="/remc">Выход</a></span>
+                </div>
             {% endif %}
         </div>
     </div>
     <div class="myheaderfix">
         <div class="row w-100" style="justify-content: space-evenly;">
             <div class=""><a href="/">FeedFood</a></div>
-{#            <div class="col-4">Buttons</div>#}
+            {#            <div class="col-4">Buttons</div>#}
             {% if user_info['al_id'] == 2 %}
-            <div class="" id="testbutton">
-                <a href="/clientorders" class="client_orders">Заказы пользователей</a>
-            </div>
+                <div class="" id="testbutton">
+                    <a href="/clientorders" class="client_orders">Заказы пользователей</a>
+                </div>
             {% endif %}
         </div>
     </div>
 </header>
-<button id="test">TEST</button>
 {% block content %}
 {% endblock %}
 {% include 'inputs/basket.html' %}
