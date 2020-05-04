@@ -22,17 +22,22 @@
                             <span>Имя клиента: {{ order.user_name }}</span>
                         </div>
                         <div class="order_right">
-                            <span>Общая стоимость заказа: {{ order.order_price }} ₽</span>
+                            <span>Общая стоимость: {{ order.order_price }} ₽</span>
                         </div>
                     </div>
                     {#                {{ order }}#}
                 </div>
                 <div class="tab_order_info">
-                    <span class="material-icons done" data-executor_id="{{ user_info.id }}"
-                          data-order_id="{{ order.id }}" data-customer_id="{{ order.user_id }}">done</span>
-                    <a href="/clientorders/{{ order.id }}">Подробнее</a>
-                    <span class="material-icons closed" data-executor_id="{{ user_info.id }}"
-                          data-order_id="{{ order.id }}" data-customer_id="{{ order.user_id }}">close</span>
+                    <div class="tab_order_func">
+                        <span class="material-icons done" data-executor_id="{{ user_info.id }}"
+                              data-order_id="{{ order.id }}"
+                              data-customer_id="{{ order.user_id }}">done</span>
+                        <a href="/clientorders/{{ order.id }}">
+                            <span class="material-icons info">priority_high</span>
+                        </a>
+                        <span class="material-icons closed" data-executor_id="{{ user_info.id }}"
+                              data-order_id="{{ order.id }}" data-customer_id="{{ order.user_id }}">close</span>
+                    </div>
                 </div>
             </div>
         {% endfor %}

@@ -11,48 +11,66 @@ $(document).ready(function () {
     //     })
 
 
-    $('.dishs_manipulate .plus').on('click', function () {
-        $(this).parent().find('.count_of_dish').text(parseInt($(this).parent().find('.count_of_dish').text()) + 1);
-        let dish_id = $(this).parent().find('input').val();
+    // $('.dishs_manipulate .plus').on('click', function () {
+    //     $(this).parent().find('.count_of_dish').text(parseInt($(this).parent().find('.count_of_dish').text()) + 1);
+    //     let dish_id = $(this).parent().find('input').val();
+    //     $.ajax({
+    //         method: "POST",
+    //         url: "/adddish",
+    //         data: {
+    //             'dish_id': dish_id,
+    //             'status': 1
+    //         },
+    //         success: function (data) {
+    //             console.log(data)
+    //         },
+    //         error: function (data) {
+    //             console.log(data)
+    //         }
+    //     })
+    //
+    // });
+    // $('.dishs_manipulate .minus').on('click', function () {
+    //     if (parseInt($(this).parent().find('.count_of_dish').text()) >= 1) {
+    //         $(this).parent().find('.count_of_dish').text(parseInt($(this).parent().find('.count_of_dish').text()) - 1);
+    //         let dish_id = $(this).parent().find('input').val();
+    //         $.ajax({
+    //             method: "POST",
+    //             url: "/adddish",
+    //             data: {
+    //                 'dish_id': dish_id,
+    //                 'status': 0
+    //             },
+    //             success: function (data) {
+    //                 console.log(data)
+    //             },
+    //             error: function (data) {
+    //                 console.log(data)
+    //             }
+    //         })
+    //     }
+    // });
+
+    $('.dishs_block').on('click', function () {
+        let dish_id = $(this).data('dish_id');
+        let user_id = $(this).data('user_id');
         $.ajax({
-            method: "POST",
-            url: "/adddish",
+            method: 'POST',
+            url: '/dishord',
             data: {
                 'dish_id': dish_id,
-                'status': 1
+                'user_id': user_id
             },
             success: function (data) {
-                console.log(data)
+                console.log(data);
+                $('#dishordmodal .modal-content').html(data);
             },
             error: function (data) {
                 console.log(data)
-            }
-        })
-
-    });
-    $('.dishs_manipulate .minus').on('click', function () {
-        if (parseInt($(this).parent().find('.count_of_dish').text()) >= 1) {
-            $(this).parent().find('.count_of_dish').text(parseInt($(this).parent().find('.count_of_dish').text()) - 1);
-            let dish_id = $(this).parent().find('input').val();
-            $.ajax({
-                method: "POST",
-                url: "/adddish",
-                data: {
-                    'dish_id': dish_id,
-                    'status': 0
-                },
-                success: function (data) {
-                    console.log(data)
-                },
-                error: function (data) {
-                    console.log(data)
-                }
-            })
-        }
-    });
-
-    $('.dishs_block').on('click', function () {
-        $(this).parent().find('.dishs_action').css('display', 'flex');
+            },
+        });
+        $('#dishordmodal').modal();
+        // $(this).parent().find('.dishs_action').css('display', 'flex');
     });
 
     $('.close_dishs_action').on('click', function () {
@@ -107,8 +125,49 @@ $(document).ready(function () {
                 console.log(evt);
             }
         }
-    })
+    });
 
+    $('.clean').on('click', function () {
+        $(this).prev().val('');
+    });
+
+
+    $("select").on("click", function () {
+
+        $(this).parent(".select-box").toggleClass("open");
+
+    });
+
+    $(document).mouseup(function (e) {
+        var container = $(".select-box");
+
+        if (container.has(e.target).length === 0) {
+            container.removeClass("open");
+        }
+    });
+
+
+    $("select").on("change", function () {
+
+        var selection = $(this).find("option:selected").text(),
+            labelFor = $(this).attr("id"),
+            label = $("[for='" + labelFor + "']");
+
+        label.find(".label-desc").html(selection);
+
+    });
+
+
+//    МАСКИ ДЛЯ ТЕЛЕФОНОВ
+    $(document).ready(function () {
+        $('#notuser_phone').mask("8(999) 999-9999");
+        $('#user_phone').mask("8(999) 999-9999");
+        $('input[name="phonereg"]').mask("8(999) 999-9999");
+        $('input[name="phoneauth"]').mask("8(999) 999-9999");
+        $('#notuser_phone').mask("8(999) 999-9999")
+    });
+
+//    КОНЕЦ МАСОК
 
 });
 

@@ -23,26 +23,64 @@
                         {% endfor %}
                     </div>
                     <div class="total_cost">
-                        <div class="select_table">
-                            <span>Выберите столик заказа</span>
-                            <select name="table">
-                                {% for table in user_basket.tables %}
-                                    <option>{{ table['id'] }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="money">
-                            <span>Итого: </span>
-                            <span class="d-none">{% for dish in user_basket.dish_list %}
-                                {% set total_cost.value = total_cost.value+dish['dish_price']*dish['dish_count_in_order'] %}
-                                {{ total_cost }}{% endfor %}{{ total_cost.value }} ₽</span>
-                            <input id="tot_cost" name="total_cost" value="{{ total_cost.value }}" readonly>
-                            <span> ₽</span>
+                        <div class="order_tabmoney">
+                            <div class="select_table">
+                                <span>№ столика: </span>
+                                <div class="dropdown">
+                                    <select name="table" class="dropdown-select">
+                                        {% for table in user_basket.tables %}
+
+                                            <option value="{{ table['id'] }}">{{ table['id'] }}</option>
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+
+
+                                {#                                <select name="table">#}
+                                {#                                    {% for table in user_basket.tables %}#}
+                                {#                                        <option>{{ table['id'] }}</option>#}
+                                {#                                    {% endfor %}#}
+                                {#                                </select>#}
+                            </div>
+                            {% if user_basket.user_info.al_id == 2 %}
+                                <div class="select_user">
+                                    <span>Пользователь:</span>
+                                    <div class="dropdown">
+                                        <select name="user" class="dropdown-select" id="statususer">
+                                            <option value="{{ user_basket.user_info.id }}">Для себя</option>
+                                            <option value="for_another_user">Для клиента</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="selected_user" style="display: none;">
+                                    <div class="notuser_phone">
+                                        <span>Номер клиента:</span>
+                                        <input value="" placeholder="Введите номер телефона" name="notuser_phone"
+                                               id="notuser_phone">
+                                    </div>
+                                    <div class="notuser_name">
+                                        <span>Имя клиента:</span>
+                                        <input value="" placeholder="Введите имя клиента" name="notuser_name"
+                                               id="notuser_name">
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="money">
+                                <span>Итого: </span>
+                                <span class="d-none">{% for dish in user_basket.dish_list %}
+                                    {% set total_cost.value = total_cost.value+dish['dish_price']*dish['dish_count_in_order'] %}
+                                    {{ total_cost }}{% endfor %}{{ total_cost.value }} ₽</span>
+                                <input id="tot_cost" name="total_cost" value="{{ total_cost.value }}" readonly>
+                                <span> ₽</span>
+                            </div>
                         </div>
                     </div>
                     <div class="send_to_payment">
                         <input name="order_id" hidden value="{{ user_basket.dish_list[0]['order_id'] }}">
-                        <button class="btn btn--primary payment_button" type="submit">Оплатить</button>
+                        <button class="btn btn--primary payment_button" type="submit"
+                                data-customer_id="{{ user_basket.user_info.id }}">Оплатить
+                        </button>
                     </div>
 
                 </div>
@@ -64,6 +102,36 @@
                 }
             });
         });
+        $(document).ready(function () {
+            $("#statususer").on('change', function () {
+                if ($(this).val() === "for_another_user") {
+                    $('.selected_user').show();
+                } else {
+                    $('.selected_user').hide();
+                }
+            });
 
+
+            $('#notuser_phone').mask("8(999) 999-9999");
+
+            //    ОТПРАВКА СООБЩЕНИЯ ПО СОКЕТУ
+            function send_ping(message, user_id, sender_id, for_all_executors) {
+                websocket.send(JSON.stringify({
+                    'message': message,
+                    'user_id': user_id,
+                    'sender_id': sender_id,
+                    'for_executors': for_all_executors
+                }));
+            }
+
+            //    КОНЕЦ ОПТРАВКИ СООБЩЕНИЯ ПО СОКЕТУ
+
+            $('.payment_button').on('click', function () {
+                let customer_id = $(this).data('customer_id');
+                send_ping('Новый заказ ждет подтверждения', 0, customer_id, true)
+            });
+
+
+        })
     </script>
 </div>

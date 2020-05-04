@@ -4,67 +4,74 @@
 {% endblock %}
 {% block content %}
 
-    <div class="slider">
-        <div class="slider__wrapper">
-            <div class="slider__item">
-                <div style="height: 250px; background: orange;">1</div>
-            </div>
-            <div class="slider__item">
-                <div style="height: 250px; background: green;">2</div>
-            </div>
-            <div class="slider__item">
-                <div style="height: 250px; background: violet;">3</div>
-            </div>
-            <div class="slider__item">
-                <div style="height: 250px; background: coral;">4</div>
-            </div>
-        </div>
-        <a class="slider__control slider__control_left" href="#" role="button"></a>
-        <a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
-    </div>
+    {#    <div class="container-fluid">#}
+    {#        <div class="grids_dishs">#}
+    {#            {% for dish in dishs %}#}
+    {#                <div class="dishs">#}
+    {#                    <div class="dishs_action">#}
+    {#                        <div class="dish_description">#}
+    {#                            <span>{{ dish['dish_description'] }}</span>#}
+    {#                        </div>#}
+    {#                        <div class="close_dishs_action">#}
+    {#                            <span class="material-icons">cancel</span>#}
+    {#                        </div>#}
+    {#                        {% if user_info %}#}
+    {#                            <div class="dishs_manipulate">#}
+    {#                                <input hidden value="{{ dish ['id'] }}">#}
+    {#                                <span class="material-icons minus">remove_circle_outline</span>#}
+    {#                                <span class="count_of_dish">{% for dishc in dish_count %}#}
+    {#                                    {% if dish['id'] == dishc['dish_id'] %}{{ dishc['dish_count_in_order'] }}#}
+    {#                                    {% endif %}{% endfor %}</span>#}
+    {#                                <span class="material-icons plus">add_circle_outline</span>#}
+    {#                            </div>#}
+    {#                        {% endif %}#}
+    {#                    </div>#}
+    {#                    <div class="dishs_block">#}
+    {#                        <div>#}
+    {#                            <div class="dishs_name">#}
+    {#                                <a href="dishview/{{ dish['id'] }}">{{ dish['dish_name'] }}</a>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                        <div class="dishes_img">#}
+    {#                            <img src="{{ dish['dish_image'] }}">#}
+    {#                        </div>#}
+    {#                        <div class="dishs_price">#}
+    {#                            <span>{{ dish['dish_price'] }} ₽</span>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            {% endfor %}#}
+    {#        </div>#}
+    {#    </div>#}
 
-    <div class="container-fluid">
-        <div class="grids_dishs">
-            {% for dish in dishs %}
-                <div class="dishs">
-                    <div class="dishs_action">
-                        <div class="dish_description">
-                            <span>{{ dish['dish_description'] }}</span>
-                        </div>
-                        <div class="close_dishs_action">
-                            <span class="material-icons">cancel</span>
-                        </div>
-                        {% if user_info %}
-                            <div class="dishs_manipulate">
-                                <input hidden value="{{ dish ['id'] }}">
-                                <span class="material-icons minus">remove_circle_outline</span>
-                                <span class="count_of_dish">{% for dishc in dish_count %}{% if dish['id'] == dishc['dish_id'] %}{{ dishc['dish_count_in_order'] }}{% endif %}{% endfor %}</span>
-                                <span class="material-icons plus">add_circle_outline</span>
+
+    <div class="all_types">
+{#    {{ dishs }}#}
+        {% for dish in dishs %}
+            <div class="dishs">
+                <div class="dishs_block" data-user_id="{{ user_info.id }}" data-dish_id="{{ dish.id }}">
+                    <div class="dish_outer_block">
+                        <div class="type_block">
+                            <div class="type_img">
+                                <img src="{{ dish['dish_image'] }}">
                             </div>
-                        {% endif %}
-                    </div>
-                    <div class="dishs_block">
-                        <div>
-                            <div class="dishs_name">
-                                <a href="dishview/{{ dish['id'] }}">{{ dish['dish_name'] }}</a>
+                            <div class="type_desc">
+                                <span class="type_name">{{ dish.dish_name }}</span>
+                                <span class="type_name">{{ dish.dish_price }} ₽</span>
                             </div>
-                        </div>
-                        <div class="dishes_img">
-                            <img src="{{ dish['dish_image'] }}">
-                        </div>
-                        <div class="dishs_price">
-                            <span>{{ dish['dish_price'] }} ₽</span>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
     </div>
+
+
     <script>
-    $('.count_of_dish').each(function () {
-        if ($(this).text() === ""){
-            $(this).text(0)
-        }
-    })
+        $('.count_of_dish').each(function () {
+            if ($(this).text() === "") {
+                $(this).text(0)
+            }
+        })
     </script>
 {% endblock %}

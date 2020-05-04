@@ -21,13 +21,10 @@
 
 <script>
     $(document).ready(function () {
-        $('#register').on('click', function () {
+        function reg() {
             let name = $('input[name="namereg"]').val();
             let phone = $('input[name="phonereg"]').val();
             let password = $('input[name="passwordreg"]').val();
-            console.log({
-                name, phone, password
-            });
             $.ajax({
                 method: "POST",
                 url: "/registration",
@@ -48,6 +45,17 @@
                     })
                 }
             })
-        })
+        }
+
+        $('#regmodal').keydown(function (e) { //отлавливаем нажатие клавиш
+            if (e.keyCode == 13) { //если нажали Enter, то true
+                reg()
+            }
+        });
+        $('#register').on('click', function () {
+            reg()
+        });
+
+
     });
 </script>

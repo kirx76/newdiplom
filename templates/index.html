@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
 {% block title %}
-Главная
+    Главная
 {% endblock %}
 {% block content %}
 
-{% include 'inputs/slider.html' %}
-<div class="container-fluid">
-    <div class="grids">
+    <div class="all_types">
         {% for dish_type in dish_types %}
-            <!--{{ dish_type }}-->
-            <div class="dishtypes">
-                <a class="dishtypes_block" href="dishtypes/{{dish_type['dish_type_translit']}}">
-                    <img src="{{ dish_type['dish_type_img'] }}" height="450">
-                    <div class="dishtypes_name">
-                        <span>{{ dish_type['dish_type_name'] }}</span>
+            <div class="outer_type_block">
+                <a href="dishtypes/{{ dish_type.dish_type_translit }}">
+                    <div class="type_block">
+                        <div class="type_img">
+                            <img src="{{ dish_type['dish_type_img'] }}">
+                        </div>
+                        <div class="type_desc">
+                            <span class="type_name">{{ dish_type.dish_type_name }}</span>
+                        </div>
                     </div>
                 </a>
             </div>
         {% endfor %}
     </div>
-</div>
 
 {% endblock %}

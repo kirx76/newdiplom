@@ -1,4 +1,5 @@
 import json
+import random
 
 import tornado.ioloop
 import tornado.web
@@ -6,6 +7,7 @@ import os
 import connections
 import hashlib
 import tornado.websocket
+import requests
 import transliterate
 # from webassets import Environment as EV
 # static_directory = "../static"
@@ -66,7 +68,6 @@ class MainHandler(tornado.web.RequestHandler):
         dish_types = cursor.fetchall()
         # self.render('index.html', dish_types=dish_types)
         usr = self.get_secure_cookie("user")
-        print(usr)
         if usr is not None:
             user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
         else:
@@ -165,7 +166,6 @@ class NotFoundHandler(tornado.web.RequestHandler):
 class UserProfile(BaseHandler):
     @tornado.web.authenticated
     def get(self, *args):
-        print(*args)
         usr = self.get_secure_cookie("user")
         if usr is not None:
             user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
@@ -178,7 +178,6 @@ class UserProfile(BaseHandler):
 
 class testcoockie(tornado.web.RequestHandler):
     def get(self):
-        print(hashlib.sha256(b'123').hexdigest())
         self.set_secure_cookie('user', hashlib.md5(b'1234444321').hexdigest())
 
 
@@ -210,10 +209,9 @@ class registrationHandler(tornado.web.RequestHandler):
 
     def post(self, *args):
         name = self.get_argument('name')
-        phone = ''.join(x for x in self.get_argument('phone') if x.isdigit())
+        phone = ''.join(x for x in self.get_argument('phone') if x.isdigit())[1:]
         password = self.get_argument('password')
         crypt_password = hashlib.md5(password.encode()).hexdigest()
-        print(name, phone, password)
         connect = connections.getConnection()
         cursor = connect.cursor()
         try:
@@ -229,7 +227,6 @@ class registrationHandler(tornado.web.RequestHandler):
                     cursor.execute(adduser, (name, phone, crypt_password))
                     connect.commit()
                     newuser = cursor.lastrowid
-                    print(newuser)
                     adduser_role = "INSERT INTO `users_accesses` VALUES (%s, 1)"
                     cursor.execute(adduser_role, (newuser))
                     connect.commit()
@@ -254,7 +251,7 @@ class authHandler(tornado.web.RequestHandler):
         print(self.request.body)
 
     def post(self):
-        phone = ''.join(x for x in self.get_argument('phone') if x.isdigit())
+        phone = ''.join(x for x in self.get_argument('phone') if x.isdigit())[1:]
         password = self.get_argument('password')
         crypt_password = hashlib.md5(password.encode()).hexdigest()
         connect = connections.getConnection()
@@ -276,7 +273,6 @@ class authHandler(tornado.web.RequestHandler):
 
 
 class addDish(BaseHandler):
-    @tornado.web.authenticated
     def write_error(self, status_code: int, **kwargs):
         self.set_status(500)
         self.finish({"code": status_code, "message": kwargs})
@@ -371,7 +367,6 @@ class addDish(BaseHandler):
 
 
 class getUserBasket(BaseHandler):
-    @tornado.web.authenticated
     def write_error(self, status_code: int, **kwargs):
         self.set_status(500)
         self.finish({"code": status_code, "message": kwargs})
@@ -379,7 +374,7 @@ class getUserBasket(BaseHandler):
     @tornado.web.authenticated
     def post(self):
         phone = json.loads(self.get_secure_cookie("user").decode())['phone']
-
+        user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
         connect = connections.getConnection()
         try:
             with connect.cursor() as cursor:
@@ -396,14 +391,15 @@ class getUserBasket(BaseHandler):
                 table = "SELECT * FROM tables"
                 cursor.execute(table)
                 tables = cursor.fetchall()
-                print(answer)
                 if answer is None or answer == "" or count < 1:
                     self.write_error(500, message='Ваша корзина пуста')
                 else:
                     # self.write(json.dumps(listToDict(answer), indent=4, sort_keys=True, default=str))
-
+                    getallusers = "SELECT * FROM users"
+                    cursor.execute(getallusers)
+                    allusers = cursor.fetchall()
                     template = env.get_template('modals/basketmodal.html')
-                    user_basket = {'dish_list': answer, 'tables': tables}
+                    user_basket = {'dish_list': answer, 'tables': tables, 'user_info': user_info, 'allusers': allusers}
                     self.write(template.render(user_basket=user_basket))
         except Exception as e:
             print(e)
@@ -412,18 +408,20 @@ class getUserBasket(BaseHandler):
 
 
 class payOrder(BaseHandler):
-    @tornado.web.authenticated
     def write_error(self, status_code: int, **kwargs):
-        self.set_status(500)
+        self.set_status(status_code)
         self.finish({"code": status_code, "message": kwargs})
 
     @tornado.web.authenticated
     def post(self):
-        print(self.request.body)
         table_id = int(self.get_argument('table'))
         total_cost = int(self.get_argument('total_cost'))
         order_id = int(self.get_argument('order_id'))
         phone = json.loads(self.get_secure_cookie("user").decode())['phone']
+        try:
+            notuser_phone = self.get_argument('notuser_phone')
+        except:
+            notuser_phone = None
         connect = connections.getConnection()
         try:
             with connect.cursor() as cursor:
@@ -440,13 +438,45 @@ class payOrder(BaseHandler):
                 tot_cost = 0
                 for item in check_total:
                     tot_cost += int(item['dish_price']) * int(item['dish_count_in_order'])
-                print(tot_cost)
-                if tot_cost == total_cost:
-                    update_order = """UPDATE orders set order_price = %s, order_status = 1, order_table = %s where orders.id = %s"""
-                    cursor.execute(update_order, (tot_cost, table_id, order_id))
-                    connect.commit()
+                if notuser_phone == "" or notuser_phone is None:
+                    if tot_cost == total_cost:
+                        update_order = """UPDATE orders set order_price = %s, order_status = 1, order_table = %s where orders.id = %s"""
+                        cursor.execute(update_order, (tot_cost, table_id, order_id))
+                        connect.commit()
+                    else:
+                        self.write_error(500, message='Не стоит менять цену заказа :)')
                 else:
-                    self.write_error(500, message='Не стоит менять цену заказа :)')
+                    try:
+                        chars = 'abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+                        user_password = ''
+                        for i in range(6):
+                            user_password += random.choice(chars)
+                        nowuser_password = hashlib.md5(user_password.encode()).hexdigest()
+                        notuser_phone = ''.join(x for x in self.get_argument('notuser_phone') if x.isdigit())[1:]
+                        notuser_name = self.get_argument('notuser_name')
+                        createuser = """INSERT INTO users VALUES (0, %s, 'default.png', %s, %s)"""
+                        cursor.execute(createuser, (notuser_name, notuser_phone, nowuser_password))
+                        connect.commit()
+                        newuser_id = cursor.lastrowid
+                        adduser_role = "INSERT INTO `users_accesses` VALUES (%s, 1)"
+                        cursor.execute(adduser_role, (newuser_id))
+                        connect.commit()
+                        message = f"FeedFood\nВаш пароль для входа на сайт: {user_password}"
+                        req = requests.get(
+                            f'https://smsc.ru/sys/send.php?login=ekirichenk8&psw=769323vS&phones=7{notuser_phone}&mes={message}')
+                        changeordertouser = """UPDATE user_orders SET user_id = %s WHERE order_id = %s"""
+                        cursor.execute(changeordertouser, (newuser_id, order_id))
+                        connect.commit()
+                        user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
+                        order_executor_id = user_info['id']
+                        update_order = """UPDATE orders set order_price = %s, order_status = 2, order_executor = %s, order_table = %s where orders.id = %s"""
+                        cursor.execute(update_order, (tot_cost, order_executor_id, table_id, order_id))
+                        connect.commit()
+
+                    except Exception as e:
+                        print(e)
+
+
         except Exception as e:
             print(e)
             self.write_error(500, message='Заказ не создан')
@@ -464,7 +494,6 @@ class clientOrdersHandler(BaseHandler):
 
     @tornado.web.authenticated
     def get(self, *args):
-        print(self.request.body)
         connect = connections.getConnection()
         try:
             user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
@@ -472,7 +501,7 @@ class clientOrdersHandler(BaseHandler):
                 allorders = """SELECT * FROM orders 
                 JOIN user_orders ON orders.id = user_orders.order_id 
                 JOIN users ON user_orders.user_id = users.id 
-                WHERE order_status = 1;"""
+                WHERE order_status = 1 order by orders.id DESC;"""
                 cursor.execute(allorders)
                 orders = cursor.fetchall()
                 template = env.get_template('userorders.html')
@@ -483,7 +512,6 @@ class clientOrdersHandler(BaseHandler):
 
     @tornado.web.authenticated
     def post(self):
-        print(self.request.body)
         order_id = int(self.get_argument('order_id'))
         executor_id = int(self.get_argument('executor_id'))
         status = int(self.get_argument('status'))
@@ -514,9 +542,6 @@ class clientOrdersHandler(BaseHandler):
 class clientOrdersIdHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self, *args):
-        print(self.request.body)
-        print(args[0])
-
         connect = connections.getConnection()
         try:
             user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
@@ -540,22 +565,150 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
     connections = dict()
 
     def open(self):
-        user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
-        print('Создан пользователь')
-        self.connections[int(user_info['id'])] = self
+        try:
+            user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
+            print('Создан пользователь')
+            self.connections[int(user_info['id'])] = self
+        except Exception as e:
+            print(e)
 
     def on_message(self, message):
         target = json.loads(message)
-        try:
-            self.connections[int(target['user_id'])].write_message(str(target['message']))
-            # self.connections[int(target['sender_id'])].write_message('Пользователь оповещен о заказе')
-        except:
-            self.connections[int(target['sender_id'])].write_message('Пользователя нет на сайте, но мы оповестим его')
         print(self.connections)
+        print(target)
+        connect = connections.getConnection()
+        try:
+            with connect.cursor() as cursor:
+                getallexecutors = """SELECT users.id FROM users JOIN users_accesses ON users.id = users_accesses.user_id WHERE users_accesses.access_id = 2"""
+                cursor.execute(getallexecutors)
+                allexecutors = cursor.fetchall()
+                if target['for_executors']:
+                    for executor in self.connections:
+                        for ex in allexecutors:
+                            if int(executor) == int(ex['id']):
+                                self.connections.get(executor, '').write_message(str(target['message']))
+                    # [self.connections.get(executor, '').write_message(str(target['message'])) for executor in self.connections]
+                else:
+                    try:
+                        self.connections[int(target['user_id'])].write_message(str(target['message']))
+                        # self.connections[int(target['sender_id'])].write_message('Пользователь оповещен о заказе')
+                    except:
+                        self.connections[int(target['sender_id'])].write_message(
+                            'Пользователя нет на сайте, но мы оповестим его')
+        except Exception as e:
+            print(e)
 
+        finally:
+            connect.close()
 
     def on_close(self):
         print('closed')
+
+
+class updateUserInfo(BaseHandler):
+    def write_error(self, status_code: int, **kwargs):
+        self.set_status(status_code)
+        self.finish({"code": status_code, "message": kwargs})
+
+    @tornado.web.authenticated
+    def post(self, *args):
+        user_name = self.get_argument('user_name')
+        user_phone = ''.join(x for x in self.get_argument('user_phone') if x.isdigit())[1:]
+        user_password = self.get_argument('user_password')
+        user_id = int(self.get_argument('user_id'))
+        connect = connections.getConnection()
+        try:
+            with connect.cursor() as cursor:
+                getphone = "SELECT * FROM users where user_phone = %s"
+                ishave = cursor.execute(getphone, (user_phone))
+                if ishave == 0:
+                    if user_password is None or user_password == "":
+                        getuser = "SELECT * FROM users WHERE id = %s"
+                        cursor.execute(getuser, (user_id))
+                        user_password = str(cursor.fetchone()['user_password'])
+                        updateprofile = """UPDATE users SET user_name = %s, user_phone = %s WHERE id = %s"""
+                        cursor.execute(updateprofile, (user_name, user_phone, user_id))
+                        connect.commit()
+                        self.set_secure_cookie('user', json.dumps(
+                            {'user': user_name, 'secret': user_password,
+                             'phone': user_phone}))
+                    else:
+                        user_password = str(hashlib.md5(user_password.encode()).hexdigest())
+                        updateprofile = """UPDATE users SET user_name = %s, user_phone = %s, user_password = %s WHERE id = %s"""
+                        cursor.execute(updateprofile, (user_name, user_phone, user_password, user_id))
+                        connect.commit()
+                        self.set_secure_cookie('user', json.dumps(
+                            {'user': user_name, 'secret': user_password,
+                             'phone': user_phone}))
+                    self.redirect('/')
+
+                else:
+                    checklastphone = """SELECT * FROM users WHERE id = %s"""
+                    cursor.execute(checklastphone, (user_id))
+                    last_phone = cursor.fetchone()['user_phone']
+                    if last_phone == user_phone:
+                        if user_password is None or user_password == "":
+                            getuser = "SELECT * FROM users WHERE id = %s"
+                            cursor.execute(getuser, (user_id))
+                            user_password = str(cursor.fetchone()['user_password'])
+                            updateprofile = """UPDATE users SET user_name = %s, user_phone = %s WHERE id = %s"""
+                            cursor.execute(updateprofile, (user_name, user_phone, user_id))
+                            connect.commit()
+                            self.set_secure_cookie('user', json.dumps(
+                                {'user': user_name, 'secret': user_password,
+                                 'phone': user_phone}))
+                        else:
+                            user_password = str(hashlib.md5(user_password.encode()).hexdigest())
+                            updateprofile = """UPDATE users SET user_name = %s, user_phone = %s, user_password = %s WHERE id = %s"""
+                            cursor.execute(updateprofile, (user_name, user_phone, user_password, user_id))
+                            connect.commit()
+                            self.set_secure_cookie('user', json.dumps(
+                                {'user': user_name, 'secret': user_password,
+                                 'phone': user_phone}))
+                        self.redirect('/')
+                    else:
+                        self.write_error(status_code=500, message='Такой номер телефона уже зарегестрирован ')
+        except Exception as e:
+            print(e)
+        finally:
+            connect.close()
+
+
+class dishord(BaseHandler):
+    def write_error(self, status_code: int, **kwargs):
+        self.set_status(status_code)
+        self.finish({"code": status_code, "message": kwargs})
+
+    @tornado.web.authenticated
+    def post(self):
+        user_id = int(self.get_argument('user_id'))
+        dish_id = int(self.get_argument('dish_id'))
+        user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
+        connect = connections.getConnection()
+        try:
+            with connect.cursor() as cursor:
+                getuserdish = """SELECT * FROM users 
+                JOIN user_orders ON users.id = user_orders.user_id 
+                JOIN orders ON user_orders.order_id = orders.id 
+                JOIN dishes_in_order ON dishes_in_order.order_id = orders.id 
+                JOIN dishs ON dishes_in_order.dish_id = dishs.id 
+                WHERE users.id = %s
+                AND dishs.id = %s 
+                AND orders.order_status = 0;"""
+
+                cursor.execute(getuserdish, (user_id, dish_id))
+                dish_info = cursor.fetchone()
+                getalldish = """SELECT * FROM dishs WHERE id = %s"""
+                cursor.execute(getalldish, (dish_id))
+                dish_info_total = cursor.fetchone()
+                template = env.get_template('inputs/dishord.html')
+                dishord = {'dish': dish_info, 'user_info': user_info, 'dish_info': dish_info_total}
+                self.write(template.render(dishord=dishord))
+        except Exception as e:
+            print(e)
+
+        finally:
+            connect.close()
 
 
 def make_app():
@@ -575,6 +728,8 @@ def make_app():
         (r"/clientorders", clientOrdersHandler),
         (r"/clientorders/([0-9]+)", clientOrdersIdHandler),
         (r"/websocket", SimpleWebSocket),
+        (r"/updateprofile", updateUserInfo),
+        (r"/dishord", dishord)
 
     ], **settings,
         template_path=os.path.join(os.path.dirname(__file__), "templates"),

@@ -217,23 +217,22 @@ body {
 
 
 .dishs {
-    display: flex;
-    box-shadow: 0px 0px 11px -1px #00000050;
-    margin-top: 10px;
-    -webkit-border-radius: 25px;
-    -moz-border-radius: 25px;
-    border-radius: 25px;
-    margin-bottom: 25px;
-    margin-right: 25px;
+    /*display: flex;*/
+    /*box-shadow: 0px 0px 11px -1px #00000050;*/
+    /*margin-top: 10px;*/
+    /*-webkit-border-radius: 25px;*/
+    /*-moz-border-radius: 25px;*/
+    /*border-radius: 25px;*/
+    /*margin-bottom: 25px;*/
+    /*margin-right: 25px;*/
     position: relative;
-
+    width: calc(96% / 3);
 }
 
 @media screen and (max-width: 540px) {
-    .dishs {
-        margin-right: 0;
-    }
-
+    /*.dishs {*/
+    /*margin-right: 0;*/
+    /*}*/
     .dishtypes {
         width: unset;
         flex-basis: unset;
@@ -258,10 +257,10 @@ body {
     padding-top: 10px;
 }
 
-.dishs_block img {
-    width: 90%;
-    height: 90%;
-}
+/*.dishs_block img {*/
+/*width: 90%;*/
+/*height: 90%;*/
+/*}*/
 
 .dishs_price {
     display: flex;
@@ -289,10 +288,12 @@ body {
     height: 100%;
     position: absolute;
     background-color: #ece9dabd;
-    border-radius: 25px;
+    border-radius: 20px;
     text-indent: 20px;
     display: none;
     flex-direction: column;
+    z-index: 1;
+    height: 300px;
 }
 
 .dish_description {
@@ -309,7 +310,7 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: auto;
-    margin-bottom: 50px;
+    /*margin-bottom: 50px;*/
 }
 
 .dishs_manipulate span {
@@ -471,6 +472,7 @@ body {
     user-select: none;
     cursor: default;
     text-align: end;
+    width: 100%;
 }
 
 #tot_cost:focus {
@@ -486,6 +488,8 @@ body {
     width: 100%;
     margin: auto;
     padding: 3%;
+    flex-wrap: wrap;
+    display: flex;
 }
 
 .tab_order {
@@ -493,27 +497,48 @@ body {
     width: 100%;
 }
 
-.tab_order_main {
-    margin-bottom: 15px;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0px 0px 35px -20px #000000;
-    padding: 10px;
-    width: 75%;
-}
+/*!*.tab_order_main {*!*/
+/*!*margin-bottom: 15px;*!*/
+/*!*background-color: white;*!*/
+/*!*border-radius: 15px;*!*/
+/*!*box-shadow: 0px 0px 35px -20px #000000;*!*/
+/*!*padding: 10px;*!*/
+/*!*width: 75%;*!*/
+/*!*}*!*/
 
-.tab_order_info {
-    margin-bottom: 15px;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0px 0px 35px -20px #000000;
-    padding: 10px;
-    width: 20%;
-    margin-left: auto;
-    align-items: center;
-    justify-content: space-between;
-    display: flex;
-}
+/*.tab_order_main {*/
+/*margin-bottom: 15px;*/
+/*background-color: white;*/
+/*padding: 10px;*/
+/*}*/
+
+/*!*.tab_order_info {*!*/
+/*!*margin-bottom: 15px;*!*/
+/*!*background-color: white;*!*/
+/*!*border-radius: 15px;*!*/
+/*!*box-shadow: 0px 0px 35px -20px #000000;*!*/
+/*!*padding: 10px;*!*/
+/*!*width: 20%;*!*/
+/*!*margin-left: auto;*!*/
+/*!*align-items: center;*!*/
+/*!*justify-content: space-between;*!*/
+/*!*display: flex;*!*/
+/*!*}*!*/
+
+/*.tab_order_info {*/
+/*margin-bottom: 15px;*/
+/*background-color: white;*/
+/*border-radius: 15px;*/
+/*padding: 10px;*/
+/*align-items: center;*/
+/*justify-content: space-between;*/
+/*display: flex;*/
+/*}*/
+
+/*.tab_orders {*/
+/*box-shadow: 0px 0px 35px -20px #000000;*/
+/*border-radius: 15px;*/
+/*}*/
 
 .order_bottom {
     display: flex;
@@ -562,42 +587,428 @@ body {
     text-decoration: none;
 }
 
-.tab_order_info .closed {
-    margin-right: 15px;
-}
+/*.tab_order_info .closed {*/
+/*margin-right: 15px;*/
+/*}*/
 
-.tab_order_info .done {
-    margin-left: 15px;
-}
+/*.tab_order_info .done {*/
+/*margin-left: 15px;*/
+/*}*/
 
 .tab_order_info a {
     color: #25292d;
+    transform: rotate(180deg);
+}
+
+.tab_orders {
+    background-color: white;
+    border-radius: 15px;
+    padding: 15px;
+    flex-direction: row;
+    box-shadow: 0px 0px 35px -20px #000000;
+    width: 45%;
+    max-width: 50%;
+    margin: auto;
+    margin-bottom: 25px;
+}
+
+
+.tab_order_info {
+    display: flex;
+    margin-left: auto;
+}
+
+.tab_order_func {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tab_order_func .closed {
+    background-color: var(--danger);
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+
+}
+
+.tab_order_func .done {
+    background-color: var(--success);
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+
+}
+
+.tab_order_func .info {
+    background-color: var(--info);
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+}
+
+
+.tab_order_main div {
+    margin-bottom: 5px;
+    flex-direction: column;
+}
+
+.order_top {
+    margin-bottom: unset !important;
 }
 
 @media screen and (max-width: 540px) {
-    .tab_order_info .closed {
-        margin-right: 0;
+    /*.tab_order_info .closed {*/
+    /*margin-right: 0;*/
+    /*}*/
+    /*.tab_order_info .done {*/
+    /*margin-left: 0;*/
+    /*}*/
+    /*.tab_order_info {*/
+    /*flex-direction: column;*/
+    /*}*/
+    /*.tab_order_info a {*/
+    /*font-size: small;*/
+    /*}*/
+    /*.tab_order_main div {*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*margin-bottom: 15px;*/
+    /*}*/
+    /*.tab_order_main div:last-child {*/
+    /*margin-bottom: 0;*/
+    /*}*/
+    .tab_orders {
+        width: 100%;
+        max-width: unset;
+        margin: 0;
+        margin-bottom: 25px;
     }
 
-    .tab_order_info .done {
-        margin-left: 0;
+    .all_orders {
+        flex-wrap: unset;
+        display: block;
+    }
+}
+
+.user_profile_info > div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.user_profile_info div input {
+    border: 0;
+    border-bottom: 1px solid #252525;
+}
+
+.modal-dialog {
+    margin-top: 35% !important;
+}
+
+#authmodal .modal-content, #regmodal .modal-content {
+    padding: 25px;
+}
+
+.p-rel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.p-rel input:focus {
+    outline: 0;
+}
+
+span.clean {
+    position: absolute;
+    right: 0;
+}
+
+.headf {
+    height: 100%;
+    display: flex;
+}
+
+.headf > div {
+    margin: auto;
+}
+
+.headf a {
+    color: #fffdf6;
+}
+
+.headf a:hover {
+    color: #fffdf6;
+}
+
+.all_types {
+    flex-wrap: wrap;
+    align-content: start;
+    flex-direction: row;
+    display: flex;
+    padding: 10px;
+}
+
+.type_block {
+    height: 300px;
+    position: relative;
+}
+
+.type_img {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+}
+
+.type_desc {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    bottom: 0;
+    height: 25%;
+    background-color: rgba(248, 247, 242, 0.5);
+    border-radius: 20px;
+    align-items: center;
+}
+
+.type_img img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.outer_type_block {
+    width: calc(96% / 3);
+    margin: auto;
+    border-radius: 20px;
+    background-color: white;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.1);
+}
+
+.outer_type_block a {
+    color: #212529;
+}
+
+.outer_type_block a:hover {
+    color: #212529;
+}
+
+@media screen and (max-width: 540px) {
+    .outer_type_block {
+        width: 100%;
+    }
+}
+
+.dishord {
+    background-color: white;
+}
+
+#dishordmodal .modal-dialog {
+    width: 100%;
+    margin: 1.75rem auto;
+    margin-top: 25% !important;
+}
+
+#dishordmodal .modal-content {
+    padding: 15px;
+}
+
+.dishord_func {
+    margin-top: 25px;
+}
+
+.dish_outer_block {
+    margin: 5%;
+    border-radius: 20px;
+    background-color: white;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 540px) {
+    .dishs {
+        width: 100%;
     }
 
-    .tab_order_info {
-        flex-direction: column;
+    #dishordmodal .modal-dialog {
+        margin: 0;
     }
+}
 
-    .tab_order_info a {
-        font-size: small;
-    }
+.order_tabmoney {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
 
-    .tab_order_main div {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 15px;
-    }
+.select_table {
+    display: flex;
+    justify-content: space-between;
+}
 
-    .tab_order_main div:last-child {
-        margin-bottom: 0;
+.money {
+    margin-top: 15px;
+    display: flex;
+}
+
+
+/* Красивый выпадающий список */
+.container {
+    margin: 80px auto;
+    width: 400px;
+    text-align: center;
+}
+
+.container > .dropdown {
+    margin: 0 20px;
+    vertical-align: top;
+}
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    height: 28px;
+    width: 150px;
+    background: #f2f2f2;
+    border: 1px solid;
+    border-color: white #f7f7f7 whitesmoke;
+    border-radius: 3px;
+    background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+    background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+    background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+    background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.06));
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+
+.dropdown:before, .dropdown:after {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    top: 9px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 4px dashed;
+    border-color: #888888 transparent;
+    pointer-events: none;
+}
+
+.dropdown:before {
+    border-bottom-style: solid;
+    border-top: none;
+}
+
+.dropdown:after {
+    margin-top: 7px;
+    border-top-style: solid;
+    border-bottom: none;
+}
+
+.dropdown-select {
+    position: relative;
+    width: 130%;
+    margin: 0;
+    padding: 6px 8px 6px 10px;
+    height: 28px;
+    line-height: 14px;
+    font-size: 12px;
+    color: #62717a;
+    text-shadow: 0 1px white;
+    background: #f2f2f2; /* Fallback for IE 8 */
+    background: rgba(0, 0, 0, 0) !important; /* "transparent" doesn't work with Opera */
+    border: 0;
+    border-radius: 0;
+    -webkit-appearance: none;
+}
+
+.dropdown-select:focus {
+    z-index: 3;
+    width: 100%;
+    color: #394349;
+    outline: 2px solid #49aff2;
+    outline: 2px solid -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+.dropdown-select > option {
+    margin: 3px;
+    padding: 6px 8px;
+    text-shadow: none;
+    background: #f2f2f2;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* Fix for IE 8 putting the arrows behind the select element. */
+
+.lt-ie9 .dropdown {
+    z-index: 1;
+}
+
+.lt-ie9 .dropdown-select {
+    z-index: -1;
+}
+
+.lt-ie9 .dropdown-select:focus {
+    z-index: 3;
+}
+
+/* Dirty fix for Firefox adding padding where it shouldn't. */
+
+@-moz-document url-prefix() {
+    .dropdown-select {
+        padding-left: 6px;
     }
+}
+
+.dropdown-dark {
+    background: #444;
+    border-color: #111111 #0a0a0a black;
+    background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
+    background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
+    background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
+    background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.4));
+    -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-select:focus {
+    outline: 0;
+}
+
+/* Конец выпадающего списка */
+
+.select_user {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0 !important;
+}
+
+.selected_user {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.selected_user input {
+    width: 100%;
+}
+
+.selected_user > div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.order_tabmoney > div {
+    margin-bottom: 15px;
 }

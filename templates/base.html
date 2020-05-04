@@ -27,7 +27,8 @@
                 </div>
             {% else %}
                 <div class="">
-                    <span><a href="/user/{{ user_info['id'] }}">Личный кабинет</a></span>
+                    <span><span class="profile" data-id="{{ user_info.id }}" data-toggle="modal"
+                                data-target="#userprofile">Профиль</span></span>
                 </div>
                 {#            <div class="">#}
                 {#                <span data-toggle="modal" data-target="#regmodal">Корзина</span>#}
@@ -39,22 +40,38 @@
         </div>
     </div>
     <div class="myheaderfix">
-        <div class="row w-100" style="justify-content: space-evenly;">
-            <div class=""><a href="/">FeedFood</a></div>
-            {#            <div class="col-4">Buttons</div>#}
-            {% if user_info['al_id'] == 2 %}
-                <div class="" id="testbutton">
+        {#        <div class="row w-100" style="justify-content: space-evenly;">#}
+        {#            <div class=""><a href="/">FeedFood</a></div>#}
+        {#            <div class="col-4">Buttons</div>#}
+        {#            {% if user_info['al_id'] == 2 %}#}
+        {#                <div class="" id="testbutton">#}
+        {#                    <a href="/clientorders" class="client_orders">Заказы пользователей</a>#}
+        {#                </div>#}
+        {#            {% endif %}#}
+        {#        </div>#}
+        <div class="headf">
+            <div class="main_link">
+                <a href="/">Главная</a>
+            </div>
+            <div class="action_link">
+                {% if user_info['al_id'] == 2 %}
                     <a href="/clientorders" class="client_orders">Заказы пользователей</a>
-                </div>
-            {% endif %}
+                {% elif user_info['al_id'] == 3 %}
+                    <a href="/clientorders" class="client_orders">Админ-панель</a>
+                {% endif %}
+            </div>
         </div>
     </div>
 </header>
 {% block content %}
 {% endblock %}
-{% include 'inputs/basket.html' %}
+{% if user_info %}
+    {% include 'inputs/basket.html' %}
+{% endif %}
+{% include 'inputs/userinfo.html' %}
 {% include 'staticfiles/staticjs.html' %}
 {% include 'modals/regmodal.html' %}
 {% include 'modals/authmodal.html' %}
+{% include 'modals/dishordmodal.html' %}
 {#{% include 'modals/basketmodal.html' %}#}
 </html>

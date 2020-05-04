@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `access_list` (
 
 -- Дамп данных таблицы newdiplom.access_list: ~4 rows (приблизительно)
 /*!40000 ALTER TABLE `access_list` DISABLE KEYS */;
-INSERT IGNORE INTO `access_list` (`id`, `access_name`) VALUES
+REPLACE INTO `access_list` (`id`, `access_name`) VALUES
 	(1, 'Клиент'),
 	(2, 'Официант'),
 	(3, 'Кассир'),
@@ -45,9 +45,9 @@ CREATE TABLE IF NOT EXISTS `dishes_in_order` (
   CONSTRAINT `FK_dishes_in_order_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы newdiplom.dishes_in_order: ~15 rows (приблизительно)
+-- Дамп данных таблицы newdiplom.dishes_in_order: ~51 rows (приблизительно)
 /*!40000 ALTER TABLE `dishes_in_order` DISABLE KEYS */;
-INSERT IGNORE INTO `dishes_in_order` (`id`, `dish_id`, `order_id`, `dish_count_in_order`) VALUES
+REPLACE INTO `dishes_in_order` (`id`, `dish_id`, `order_id`, `dish_count_in_order`) VALUES
 	(82, 1, 62, 5),
 	(83, 3, 62, 4),
 	(84, 4, 62, 3),
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `dishs` (
 
 -- Дамп данных таблицы newdiplom.dishs: ~4 rows (приблизительно)
 /*!40000 ALTER TABLE `dishs` DISABLE KEYS */;
-INSERT IGNORE INTO `dishs` (`id`, `dish_name`, `dish_price`, `dish_sold`, `dish_type_id`, `dish_description`, `dish_image`) VALUES
+REPLACE INTO `dishs` (`id`, `dish_name`, `dish_price`, `dish_sold`, `dish_type_id`, `dish_description`, `dish_image`) VALUES
 	(1, 'Биг мак', 0000000100, 0, 1, '«Биг Мак» — гамбургер, предлагаемый компанией McDonald’s в своих заведениях. Он является одним из наиболее известных продуктов компании в мире, наряду с Quarter Pounder.', '../static/img/burgers.png'),
 	(2, 'Биг тейсти', 0000000150, 0, 1, 'Это сандвич с большим, рубленым бифштексом из 100% говядины на большой булочке с кунжутом. Особенный вкус сандвичу придают три кусочка сыра «эмменталь», два ломтика помидора, свежий салат, лук и пикантный соус «Гриль».', '../static/img/bigteisti.png'),
 	(3, 'Чизбургер', 0000000050, 0, 1, 'Чи́збургер — вид гамбургера с обязательным добавлением сыра. В дополнение к мясу чизбургер может иметь большое количество разнообразных приправ, например: кетчуп и майонез. Чизбургер часто подают вместе с картофелем фри, яичницей либо салатами.', '../static/img/cheesburger.png'),
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `dish_types` (
 
 -- Дамп данных таблицы newdiplom.dish_types: ~9 rows (приблизительно)
 /*!40000 ALTER TABLE `dish_types` DISABLE KEYS */;
-INSERT IGNORE INTO `dish_types` (`id`, `dish_type_name`, `dish_type_img`, `dish_type_translit`) VALUES
+REPLACE INTO `dish_types` (`id`, `dish_type_name`, `dish_type_img`, `dish_type_translit`) VALUES
 	(1, 'Бургеры', '../static/img/burgers.png', 'Burgery'),
 	(2, 'Салаты', '../static/img/salads.png', NULL),
 	(3, 'Напитки', '../static/img/drinks.png', NULL),
@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `ingredients` (
 
 -- Дамп данных таблицы newdiplom.ingredients: ~12 rows (приблизительно)
 /*!40000 ALTER TABLE `ingredients` DISABLE KEYS */;
-INSERT IGNORE INTO `ingredients` (`id`, `ingredient_name`, `ingredient_description`, `ingredient_calories`) VALUES
+REPLACE INTO `ingredients` (`id`, `ingredient_name`, `ingredient_description`, `ingredient_calories`) VALUES
 	(1, 'Листья салата Айсберг', 'Салат Айсберг Салат Айсберг – овощная культура, относящаяся к кочанным салатам, имеет светло-зелёные листья, завернутые в небольшие, не очень плотные кочаны, сочные и хрустящие на вкус.', 0000000014),
 	(2, 'Королевские креветки', 'Королевские креветки – это не определенный вид ракообразных, а общее название больших по размеру креветок.', 0000000087),
 	(3, 'Панировочные сухари', 'Панировочные сухари — сухарная крошка из пшеничного хлеба, используемая для обсыпки обжариваемых изделий из мяса, рыбы и овощей.', 0000000395),
@@ -188,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `ingredients_in_dish` (
 
 -- Дамп данных таблицы newdiplom.ingredients_in_dish: ~22 rows (приблизительно)
 /*!40000 ALTER TABLE `ingredients_in_dish` DISABLE KEYS */;
-INSERT IGNORE INTO `ingredients_in_dish` (`id`, `dish_id`, `ingredient_id`, `weight`) VALUES
+REPLACE INTO `ingredients_in_dish` (`id`, `dish_id`, `ingredient_id`, `weight`) VALUES
 	(1, 4, 1, 10),
 	(2, 4, 2, 10),
 	(3, 4, 3, 10),
@@ -226,9 +226,9 @@ CREATE TABLE IF NOT EXISTS `orders` (
   KEY `order_table` (`order_table`)
 ) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы newdiplom.orders: ~7 rows (приблизительно)
+-- Дамп данных таблицы newdiplom.orders: ~42 rows (приблизительно)
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT IGNORE INTO `orders` (`id`, `order_date`, `order_price`, `order_status`, `order_executor`, `order_table`) VALUES
+REPLACE INTO `orders` (`id`, `order_date`, `order_price`, `order_status`, `order_executor`, `order_table`) VALUES
 	(62, '2020-05-04 19:56:08', 1006, '9', 11, 1),
 	(63, '2020-05-04 20:18:48', 700, '2', 11, 2),
 	(64, '2020-05-04 20:41:25', 200, '2', 11, 1),
@@ -279,9 +279,9 @@ CREATE TABLE IF NOT EXISTS `tables` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы newdiplom.tables: ~2 rows (приблизительно)
+-- Дамп данных таблицы newdiplom.tables: ~3 rows (приблизительно)
 /*!40000 ALTER TABLE `tables` DISABLE KEYS */;
-INSERT IGNORE INTO `tables` (`id`) VALUES
+REPLACE INTO `tables` (`id`) VALUES
 	(1),
 	(2),
 	(3);
@@ -297,9 +297,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы newdiplom.users: ~8 rows (приблизительно)
+-- Дамп данных таблицы newdiplom.users: ~9 rows (приблизительно)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT IGNORE INTO `users` (`id`, `user_name`, `user_img`, `user_phone`, `user_password`) VALUES
+REPLACE INTO `users` (`id`, `user_name`, `user_img`, `user_phone`, `user_password`) VALUES
 	(6, '123123', 'default.png', '79196413562', '259138cadddfa6d5d75f8d53ec169c0a'),
 	(7, 'kirx', 'default.png', '919', '46f94c8de14fb36680850768ff1b7f2a'),
 	(11, 'Официант', 'default.png', '1111111111', '46f94c8de14fb36680850768ff1b7f2a'),
@@ -321,9 +321,9 @@ CREATE TABLE IF NOT EXISTS `users_accesses` (
   CONSTRAINT `users_accesses_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы newdiplom.users_accesses: ~8 rows (приблизительно)
+-- Дамп данных таблицы newdiplom.users_accesses: ~9 rows (приблизительно)
 /*!40000 ALTER TABLE `users_accesses` DISABLE KEYS */;
-INSERT IGNORE INTO `users_accesses` (`user_id`, `access_id`) VALUES
+REPLACE INTO `users_accesses` (`user_id`, `access_id`) VALUES
 	(7, 1),
 	(6, 2),
 	(11, 2),
@@ -347,9 +347,9 @@ CREATE TABLE IF NOT EXISTS `user_orders` (
   CONSTRAINT `FK__users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы newdiplom.user_orders: ~7 rows (приблизительно)
+-- Дамп данных таблицы newdiplom.user_orders: ~39 rows (приблизительно)
 /*!40000 ALTER TABLE `user_orders` DISABLE KEYS */;
-INSERT IGNORE INTO `user_orders` (`id`, `order_id`, `user_id`) VALUES
+REPLACE INTO `user_orders` (`id`, `order_id`, `user_id`) VALUES
 	(33, 62, 11),
 	(34, 63, 11),
 	(35, 64, 7),

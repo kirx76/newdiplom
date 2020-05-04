@@ -9,7 +9,7 @@
                 <label>Пароль</label>
                 <input type="password" class="form-control" name="passwordauth" required>
             </div>
-            <button type="submit" class="btn btn-primary" id="authorization">Авторизироваться</button>
+            <button type="button" class="btn btn-primary" id="authorization">Авторизироваться</button>
         </div>
     </div>
 
@@ -17,12 +17,9 @@
 
 <script>
     $(document).ready(function () {
-        $('#authorization').on('click', function () {
+        function auth() {
             let phone = $('input[name="phoneauth"]').val();
             let password = $('input[name="passwordauth"]').val();
-            console.log({
-                phone, password
-            });
             $.ajax({
                 method: "POST",
                 url: "/authentication",
@@ -42,6 +39,17 @@
                     })
                 }
             })
+        }
+
+        $('#authmodal').keydown(function (e) { //отлавливаем нажатие клавиш
+            if (e.keyCode == 13) { //если нажали Enter, то true
+                auth()
+            }
+        });
+        $('#authorization').on('click', function () {
+            auth()
         })
+
+
     });
 </script>

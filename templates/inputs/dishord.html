@@ -1,0 +1,70 @@
+<div class="dishord">
+{#{{ dishord }}#}
+    {#    <div class="dishord_img">#}
+    {#        <img src="{{ dish }}">#}
+    {#    </div>#}
+    <div class="dishord_desc">
+        <div class="dishord_name">
+            <span>{{ dishord.dish_info.dish_name }}</span>
+        </div>
+        <div class="dishord_description">
+            <span>{{ dishord.dish_info.dish_description }}</span>
+        </div>
+    </div>
+    {% if dishord.user_info %}
+        <div class="dishord_func">
+            <div class="dishs_manipulate">
+                <input hidden value="{{ dishord.dish_info.id}}">
+                <span class="material-icons minus">remove_circle_outline</span>
+                {% if dishord.dish %}
+                    <span class="count_of_dish">{{ dishord.dish.dish_count_in_order }}</span>
+                {% else %}
+                    <span class="count_of_dish">0</span>
+                {% endif %}
+                <span class="material-icons plus">add_circle_outline</span>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    $('.dishs_manipulate .plus').on('click', function () {
+        $(this).parent().find('.count_of_dish').text(parseInt($(this).parent().find('.count_of_dish').text()) + 1);
+        let dish_id = $(this).parent().find('input').val();
+        $.ajax({
+            method: "POST",
+            url: "/adddish",
+            data: {
+                'dish_id': dish_id,
+                'status': 1
+            },
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (data) {
+                console.log(data)
+            }
+        })
+
+    });
+    $('.dishs_manipulate .minus').on('click', function () {
+        if (parseInt($(this).parent().find('.count_of_dish').text()) >= 1) {
+            $(this).parent().find('.count_of_dish').text(parseInt($(this).parent().find('.count_of_dish').text()) - 1);
+            let dish_id = $(this).parent().find('input').val();
+            $.ajax({
+                method: "POST",
+                url: "/adddish",
+                data: {
+                    'dish_id': dish_id,
+                    'status': 0
+                },
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            })
+        }
+    });
+</script>
