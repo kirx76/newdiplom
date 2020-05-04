@@ -52,7 +52,6 @@
                 let customer_id = $(this).data('customer_id');
                 send_aj(order_id, executor_id, 1);
                 send_ping('Ваш заказ успешно одобрен', customer_id, executor_id);
-                console.log(executor_id);
             });
             $('.closed').on('click', function () {
                 let executor_id = $(this).data('executor_id');
@@ -60,7 +59,6 @@
                 let customer_id = $(this).data('customer_id');
                 send_aj(order_id, executor_id, 0);
                 send_ping('Ваш заказ был отклонен, обратитесь к официанту', customer_id, executor_id);
-                console.log(executor_id);
             });
 
             function send_aj(order_id, executor_id, status) {
@@ -73,7 +71,6 @@
                         'status': status
                     },
                     success: function (data) {
-                        console.log(data);
                         note({
                             content: data.message.message,
                             type: "info",
@@ -82,7 +79,6 @@
                         $('#' + order_id).remove();
                     },
                     error: function (data) {
-                        console.log(data);
                         note({
                             content: jQuery.parseJSON(data.responseText).message.message,
                             type: "error",

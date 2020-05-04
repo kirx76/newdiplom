@@ -44,7 +44,6 @@
             let phone = $('input[name="user_phone"]').val();
             let password = $('input[name="user_password"]').val();
             let user_id = $('input[name="user_id"]').val();
-            console.log(123);
             $.ajax({
                 method: "POST",
                 url: "/updateprofile",
@@ -57,10 +56,8 @@
                 },
                 success: function (data) {
                     location.reload();
-                    console.log(data)
                 },
                 error: function (request) {
-                    console.log(request);
                     note({
                         content: jQuery.parseJSON(request.responseText).message.message,
                         type: "error",
