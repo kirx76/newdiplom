@@ -1,0 +1,68 @@
+<div class="newdishtype">
+    <form enctype="multipart/form-data" method="POST" action="/adminfunc" id="newdish">
+        <input hidden name="func_status" value="newdish">
+        <div class="newdishtypeinfo">
+            <div class="dishtypename">
+                <label for="newdish_name">Введите название блюда</label>
+                <input placeholder="Введите название" id="newdish_name" name="newdish_name" required>
+
+                <label for="newdish_price">Введите стоимость блюда</label>
+                <input placeholder="Введите цену" id="newdish_price" name="newdish_price" required>
+
+                <label for="dropdown">Выберите тип блюда</label>
+                <div class="dropdown" id="dropdown">
+                    <select name="newdish_dish_type" class="dropdown-select" required>
+                        {% for type in new_dish.alltypes %}
+                            <option value="{{ type.id }}">{{ type.dish_type_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <label for="newdishtype_name">Введите описание блюда</label>
+                <textarea onkeyup="textAreaAdjust(this)" style="overflow:hidden" name="newdish_desc" required></textarea>
+            </div>
+        </div>
+        <div class="newdishtypeimg">
+            <input type="file" accept="image/png" name="newdish_img" required>
+            <div class="ingrs">
+                <div class="ingr_text">
+                    <span>Выберите ингредиенты</span>
+                    <span id="addingrindish">
+                        <span class="material-icons" style="cursor: pointer;">add</span>
+                    </span>
+
+                </div>
+                <div class="addingrdish" id="fisrtc">
+                    <div class="curingr">
+                        <div class="dropdown" id="dropdown">
+                            <select name="newdish_ingredients" class="dropdown-select ingredients">
+
+                                {% for ingr in new_dish.allingr %}
+                                    <option value="{{ ingr.id }}">{{ ingr.ingredient_name }} <span
+                                            style="font-size: small;">({{ ingr.ingredient_calories }}Ккал)</span>
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <input name="newdish_ingredients_weight" id="newdish_ingredients_weight" placeholder="грамм" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit">Сохранить</button>
+    </form>
+</div>
+
+<script>
+    function textAreaAdjust(o) {
+        o.style.height = "1px";
+        o.style.height = (25 + o.scrollHeight) + "px";
+    }
+
+    $(document).ready(function () {
+        $('#addingrindish').on('click', function () {
+            $('#fisrtc').find('.curingr').first().clone().insertAfter($('#fisrtc').find('.curingr').last())
+        });
+
+    })
+</script>

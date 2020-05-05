@@ -88,6 +88,54 @@ $(document).ready(function () {
     });
 
 
+    $('#customerorders').on('click', function () {
+        let user_id = $(this).data('user_id');
+        $.ajax({
+            method: 'POST',
+            url: '/customerorders',
+            data: {
+                'user_id': user_id
+            },
+            success: function (data) {
+                console.log(data);
+                $('#customerordersmodal .modal-content').html(data);
+            },
+            error: function (data) {
+                console.log(data);
+            },
+        });
+        $('#customerordersmodal').modal();
+    });
+
+    function sendadminajax(target){
+        $.ajax({
+          method: "POST",
+          url: "/admin",
+          data: {
+              'target': target
+          },
+            success: function (data) {
+                console.log(data);
+                $('.admin_tabs_content .maincontent').html(data);
+                // console.log(1)
+            },
+            error: function (data) {
+                console.log(data);
+                // console.log(2)
+            },
+        })
+    }
+
+    $('.admin_tabs>div').on('click', function () {
+       console.log($(this).find('span').text());
+        $('.admin_tabs>div').each(function () {
+            $(this).removeClass('active');
+        });
+        $(this).addClass('active');
+        sendadminajax($(this).data('target'))
+    });
+
+
 //    МАСКИ ДЛЯ ТЕЛЕФОНОВ
     $(document).ready(function () {
         $('#notuser_phone').mask("8(999) 999-9999");

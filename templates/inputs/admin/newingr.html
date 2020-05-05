@@ -1,0 +1,25 @@
+<div class="newdishtype">
+    <form enctype="multipart/form-data" method="POST" action="/adminfunc">
+        <input hidden name="func_status" value="newingr">
+        <div class="newdishtypeinfo">
+            <div class="dishtypename">
+                <label for="newingr_name">Введите название ингредиента</label>
+                <input placeholder="Введите название" id="newingr_name" name="newingr_name">
+
+                <label for="newingr_cal">Введите количество каллорий</label>
+                <input placeholder="Введите цену" id="newingr_cal" name="newingr_cal">
+
+                <label for="newingr_desc">Введите описание ингредиента</label>
+                <textarea onkeyup="textAreaAdjust(this)" style="overflow:hidden" name="newingr_desc"></textarea>
+            </div>
+        </div>
+        <button type="submit">Сохранить</button>
+    </form>
+</div>
+
+<script>
+    function textAreaAdjust(o) {
+        o.style.height = "1px";
+        o.style.height = (25 + o.scrollHeight) + "px";
+    }
+</script>

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}
+    Админпанель
+{% endblock %}
+{% block content %}
+    <div class="admin">
+        <div class="adminpanel">
+            <div class="admin_tabs">
+                <div class="adduser" data-target="1">
+                    <span>Добавить пользователя</span>
+                </div>
+                <div class="banuser" data-target="2">
+                    <span>Статус пользователя</span>
+                </div>
+                <div class="adddishtype" data-target="3">
+                    <span>Добавить тип блюда</span>
+                </div>
+                <div class="addingr" data-target="4">
+                    <span>Добавить ингредиент</span>
+                </div>
+                <div class="adddish" data-target="5">
+                    <span>Добавить блюдо</span>
+                </div>
+            </div>
+            <div class="admin_tabs_content">
+                <div class="maincontent">
+                    {{ admin }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,68 @@
+<div class="all_users">
+    {% for user in block_user.allusers %}
+        <div class="user">
+            <div class="user_name">
+                <span>Имя:</span>
+                <span>{{ user.user_name }}</span>
+            </div>
+            <div class="user_phone">
+                <span>Телефон:</span>
+                <span>{{ user.user_phone }}</span>
+            </div>
+            <div class="user_status">
+                <div class="dropdown">
+                    <select name="user_status" class="dropdown-select" data-user_id="{{ user.id }}"
+                            data-func_status="blockuser">
+                        <option value="{{ user.access_id }}">{{ user.access_name }}</option>
+                        {% for access in block_user.access_list %}
+                            {% if access.id != user.access_id %}
+                                <option value="{{ access.id }}">{{ access.access_name }}</option>
+                            {% endif %}
+                        {% endfor %}
+
+                    </select>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        function sendchangeuserstatus(user_id, access_lvl, func_status) {
+            $.ajax({
+                method: "POST",
+                url: "/adminfunc",
+                data: {
+                    'user_id': user_id,
+                    'access_lvl': access_lvl,
+                    'func_status': func_status
+                },
+                success: function (data) {
+                    note({
+                        content: data.message.message,
+                        type: "success",
+                        time: 5
+                    });
+                },
+                error: function (data) {
+                    note({
+                        content: data.message.message,
+                        type: "error",
+                        time: 5
+                    });
+                },
+            })
+        }
+
+        $('select').on('change', function () {
+            let user_id = $(this).data('user_id');
+            let access_lvl = $(this).val();
+            let func_status = $(this).data('func_status');
+            sendchangeuserstatus(user_id, access_lvl, func_status)
+        });
+
+
+    })
+</script>

@@ -53,13 +53,22 @@
             <div class="main_link">
                 <a href="/">Главная</a>
             </div>
-            <div class="action_link">
-                {% if user_info['al_id'] == 2 %}
-                    <a href="/clientorders" class="client_orders">Заказы пользователей</a>
-                {% elif user_info['al_id'] == 3 %}
-                    <a href="/clientorders" class="client_orders">Админ-панель</a>
+            {% if user_info %}
+                {% if user_info['al_id'] >= 1 %}
+                    <div class="cl_ord">
+                        <a href="#" class="client_orders" id="customerorders"
+                           data-user_id="{{ user_info.id }}">Мои заказы</a>
+                    </div>
                 {% endif %}
-            </div>
+                <div class="action_link">
+
+                    {% if user_info['al_id'] == 2 %}
+                        <a href="/clientorders" class="client_orders">Заказы пользователей</a>
+                    {% elif user_info['al_id'] == 4 %}
+                        <a href="/admin" class="client_orders">Админ-панель</a>
+                    {% endif %}
+                </div>
+            {% endif %}
         </div>
     </div>
 </header>
@@ -67,6 +76,7 @@
 {% endblock %}
 {% if user_info %}
     {% include 'inputs/basket.html' %}
+    {% include 'modals/customerordersmodal.html' %}
 {% endif %}
 {% include 'inputs/userinfo.html' %}
 {% include 'staticfiles/staticjs.html' %}

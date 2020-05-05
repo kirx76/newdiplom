@@ -1,0 +1,16 @@
+<div class="newdishtype">
+    <form enctype="multipart/form-data" method="POST" action="/adminfunc">
+        <input hidden name="func_status" value="newdishtype">
+        <div class="newdishtypeinfo">
+            <div class="dishtypename">
+                <label for="newdishtype_name">Введите название типа блюда</label>
+                <input placeholder="Введите название" id="newdishtype_name" name="newdishtype_name">
+            </div>
+        </div>
+        <div class="newdishtypeimg">
+            <input type="file" accept="image/png" name="newdishtype_img">
+        </div>
+        <button type="submit" id="savenewdishtype">Сохранить</button>
+    </form>
+</div>
+

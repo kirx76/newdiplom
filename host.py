@@ -1,5 +1,6 @@
 import json
 import random
+import string
 
 import tornado.ioloop
 import tornado.web
@@ -566,9 +567,15 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
 
     def open(self):
         try:
-            user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
+            usr = self.get_secure_cookie("user")
+            if usr is not None:
+                user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
+            else:
+                user_info = None
+            # user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
             print('Создан пользователь')
-            self.connections[int(user_info['id'])] = self
+            if user_info is not None:
+                self.connections[int(user_info['id'])] = self
         except Exception as e:
             print(e)
 
@@ -679,11 +686,17 @@ class dishord(BaseHandler):
         self.set_status(status_code)
         self.finish({"code": status_code, "message": kwargs})
 
-    @tornado.web.authenticated
     def post(self):
-        user_id = int(self.get_argument('user_id'))
+        try:
+            user_id = int(self.get_argument('user_id'))
+        except:
+            user_id = None
         dish_id = int(self.get_argument('dish_id'))
-        user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
+        usr = self.get_secure_cookie("user")
+        if usr is not None:
+            user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
+        else:
+            user_info = None
         connect = connections.getConnection()
         try:
             with connect.cursor() as cursor:
@@ -711,6 +724,169 @@ class dishord(BaseHandler):
             connect.close()
 
 
+class customerorders(BaseHandler):
+    @tornado.web.authenticated
+    def post(self):
+        print(self.request.body)
+        usr = self.get_secure_cookie("user")
+        if usr is not None:
+            user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
+        else:
+            user_info = None
+        connect = connections.getConnection()
+        try:
+            with connect.cursor() as cursor:
+                sql = """SELECT * FROM users 
+                JOIN user_orders ON users.id = user_orders.user_id 
+                JOIN orders ON user_orders.order_id = orders.id 
+                WHERE users.id = %s """
+                cursor.execute(sql, (user_info['id']))
+                user_orders = cursor.fetchall()
+                template = env.get_template('inputs/customerorders.html')
+                orders = {'user_orders': user_orders, 'user_info': user_info}
+                self.write(template.render(orders=orders))
+
+        finally:
+            connect.close()
+
+
+class adminPanelHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        usr = self.get_secure_cookie("user")
+        if usr is not None:
+            user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
+        else:
+            user_info = None
+        template = env.get_template('adminpanel.html')
+        admin = {'user_info': user_info}
+        self.write(template.render(admin=admin, user_info=user_info))
+
+    @tornado.web.authenticated
+    def post(self):
+        usr = self.get_secure_cookie("user")
+        if usr is not None:
+            user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
+        else:
+            user_info = None
+        print(self.request.body)
+        target = int(self.get_argument('target'))
+        print(target)
+        connect = connections.getConnection()
+
+        try:
+            with connect.cursor() as cursor:
+                if target == 1:
+                    pass
+                elif target == 2:
+                    getallusers = """SELECT * FROM users JOIN users_accesses ON users.id = users_accesses.user_id JOIN access_list ON users_accesses.access_id = access_list.id"""
+                    cursor.execute(getallusers)
+                    allusers = cursor.fetchall()
+                    getallaccesslvl = """SELECT * FROM access_list"""
+                    cursor.execute(getallaccesslvl)
+                    access_list = cursor.fetchall()
+                    template = env.get_template('inputs/admin/blockuser.html')
+                    block_user = {'user_info': user_info, 'allusers': allusers, 'access_list': access_list}
+                    self.write(template.render(block_user=block_user, user_info=user_info))
+                elif target == 3:
+                    template = env.get_template('inputs/admin/newdishtype.html')
+                    new_dish_type = {'user_info': user_info}
+                    self.write(template.render(new_dish_type=new_dish_type, user_info=user_info))
+
+                elif target == 4:
+                    template = env.get_template('inputs/admin/newingr.html')
+                    self.write(template.render(user_info=user_info))
+                elif target == 5:
+                    template = env.get_template('inputs/admin/newdish.html')
+                    getalltypes = """SELECT * FROM dish_types"""
+                    cursor.execute(getalltypes)
+                    alltypes = cursor.fetchall()
+                    getallingr = """SELECT * FROM ingredients"""
+                    cursor.execute(getallingr)
+                    allingr = cursor.fetchall()
+                    new_dish = {'alltypes': alltypes, 'allingr': allingr}
+                    self.write(template.render(new_dish=new_dish, user_info=user_info))
+        except Exception as e:
+            print(e)
+        finally:
+            connect.close()
+
+
+class adminfunc(BaseHandler):
+    def write_error(self, status_code: int, **kwargs):
+        self.set_status(status_code)
+        self.finish({"code": status_code, "message": kwargs})
+
+    @tornado.web.authenticated
+    def post(self):
+        print(self.request.body)
+        func_status = str(self.get_argument('func_status'))
+        connect = connections.getConnection()
+        print(func_status)
+        try:
+            with connect.cursor() as cursor:
+                if func_status == 'blockuser':
+                    user_id = int(self.get_argument('user_id'))
+                    access_lvl = int(self.get_argument('access_lvl'))
+                    changestatus = """UPDATE users_accesses SET access_id = %s WHERE user_id = %s"""
+                    cursor.execute(changestatus, (access_lvl, user_id))
+                    connect.commit()
+                    self.write_error(status_code=200, message='Статус пользователя успешно изменен')
+                elif func_status == 'newdishtype':
+                    newdishtype_name = str(self.get_argument('newdishtype_name'))
+                    fname = transliterate.translit(newdishtype_name, reversed=True)
+                    file1 = self.request.files['newdishtype_img'][0]
+                    final_filename = fname + '.png'
+                    output_file = open("static/img/" + final_filename, 'wb')
+                    output_file.write(file1['body'])
+                    addnewdishtype = """INSERT INTO dish_types values(0, %s, %s, %s)"""
+                    cursor.execute(addnewdishtype, (newdishtype_name, '../static/img/' + final_filename, fname))
+                    connect.commit()
+                    self.redirect('/admin')
+
+                elif func_status == 'newdish':
+                    print("NEWDISHES")
+                    newdish_name = str(self.get_argument('newdish_name'))
+                    newdish_desc = str(self.get_argument('newdish_desc'))
+                    newdish_price = int(self.get_argument('newdish_price'))
+                    newdish_dish_type = int(self.get_argument('newdish_dish_type'))
+                    newdish_ingredients = self.get_arguments('newdish_ingredients')
+                    newdish_ingredients_weight = self.get_arguments('newdish_ingredients_weight')
+                    print(newdish_ingredients)
+                    print(newdish_ingredients_weight)
+
+                    fname = transliterate.translit(newdish_name, reversed=True)
+                    file1 = self.request.files['newdish_img'][0]
+                    final_filename = fname + '.png'
+                    output_file = open("static/img/" + final_filename, 'wb')
+                    output_file.write(file1['body'])
+                    addnewdishtype = """INSERT INTO dishs values(0, %s, %s, 0, %s, %s, %s)"""
+                    cursor.execute(addnewdishtype, (
+                    newdish_name, newdish_price, newdish_dish_type, newdish_desc, '../static/img/' + final_filename))
+                    connect.commit()
+                    newdish_id = cursor.lastrowid
+                    for i, item in enumerate(newdish_ingredients):
+                        insertingrindish = """INSERT INTO ingredients_in_dish VALUES(0, %s, %s, %s)"""
+                        cursor.execute(insertingrindish, (newdish_id, item, newdish_ingredients_weight[i]))
+                        connect.commit()
+                    self.redirect('/admin')
+
+                elif func_status == 'newingr':
+                    newingr_name = str(self.get_argument('newingr_name'))
+                    newingr_desc = str(self.get_argument('newingr_desc'))
+                    newingr_cal = int(self.get_argument('newingr_cal'))
+
+                    addnewingr = """INSERT INTO ingredients values(0, %s, %s, %s)"""
+                    cursor.execute(addnewingr, (newingr_name, newingr_desc, newingr_cal))
+                    connect.commit()
+                    self.redirect('/admin')
+        except Exception as e:
+            print(e)
+
+        finally:
+            connect.close()
+
+
 def make_app():
     return tornado.web.Application([
         (r"/", MainHandler),
@@ -729,7 +905,10 @@ def make_app():
         (r"/clientorders/([0-9]+)", clientOrdersIdHandler),
         (r"/websocket", SimpleWebSocket),
         (r"/updateprofile", updateUserInfo),
-        (r"/dishord", dishord)
+        (r"/dishord", dishord),
+        (r"/customerorders", customerorders),
+        (r"/admin", adminPanelHandler),
+        (r"/adminfunc", adminfunc),
 
     ], **settings,
         template_path=os.path.join(os.path.dirname(__file__), "templates"),
