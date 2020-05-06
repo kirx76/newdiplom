@@ -820,7 +820,12 @@ span.clean {
 #dishordmodal .modal-dialog {
     width: 100%;
     margin: 1.75rem auto;
-    margin-top: 50% !important;
+}
+
+@media screen and (max-width: 540px){
+    #dishordmodal .modal-dialog {
+        margin-top: 50% !important;
+    }
 }
 
 #dishordmodal .modal-content {
