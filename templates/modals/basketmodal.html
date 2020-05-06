@@ -26,8 +26,8 @@
                         <div class="order_tabmoney">
                             <div class="select_table">
                                 <span>№ столика: </span>
-                                <div class="dropdown">
-                                    <select name="table" class="dropdown-select">
+                                <div class="dropdowns">
+                                    <select name="table" class="dropdowns-select">
                                         {% for table in user_basket.tables %}
 
                                             <option value="{{ table['id'] }}">{{ table['id'] }}</option>
@@ -46,8 +46,8 @@
                             {% if user_basket.user_info.al_id == 2 %}
                                 <div class="select_user">
                                     <span>Пользователь:</span>
-                                    <div class="dropdown">
-                                        <select name="user" class="dropdown-select" id="statususer">
+                                    <div class="dropdowns">
+                                        <select name="user" class="dropdowns-select" id="statususer">
                                             <option value="{{ user_basket.user_info.id }}">Для себя</option>
                                             <option value="for_another_user">Для клиента</option>
                                         </select>

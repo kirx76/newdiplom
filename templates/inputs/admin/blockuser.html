@@ -10,8 +10,8 @@
                 <span>{{ user.user_phone }}</span>
             </div>
             <div class="user_status">
-                <div class="dropdown">
-                    <select name="user_status" class="dropdown-select" data-user_id="{{ user.id }}"
+                <div class="dropdowns">
+                    <select name="user_status" class="dropdowns-select" data-user_id="{{ user.id }}"
                             data-func_status="blockuser">
                         <option value="{{ user.access_id }}">{{ user.access_name }}</option>
                         {% for access in block_user.access_list %}

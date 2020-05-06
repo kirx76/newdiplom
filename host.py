@@ -152,7 +152,7 @@ class testhandler(tornado.web.RequestHandler):
         finally:
             connect.close()
         dicte = {'dishs': dishs, 'user_info': user_info, 'dish_count': dish_count}
-        self.write(template.render(dicte=dicte))
+        self.write(template.render(dicte=dicte, user_info=user_info))
 
 
 class NotFoundHandler(tornado.web.RequestHandler):
@@ -589,7 +589,13 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
                 getallexecutors = """SELECT users.id FROM users JOIN users_accesses ON users.id = users_accesses.user_id WHERE users_accesses.access_id = 2"""
                 cursor.execute(getallexecutors)
                 allexecutors = cursor.fetchall()
-                if target['for_executors']:
+                print(123)
+                # print(target['for_executors'])
+                try:
+                    targ = target['for_executors']
+                except:
+                    targ = False
+                if targ:
                     for executor in self.connections:
                         for ex in allexecutors:
                             if int(executor) == int(ex['id']):
@@ -714,8 +720,14 @@ class dishord(BaseHandler):
                 getalldish = """SELECT * FROM dishs WHERE id = %s"""
                 cursor.execute(getalldish, (dish_id))
                 dish_info_total = cursor.fetchone()
+                getingrs = """SELECT * FROM dishs 
+                JOIN ingredients_in_dish ON dishs.id = ingredients_in_dish.dish_id 
+                JOIN ingredients ON ingredients_in_dish.ingredient_id = ingredients.id 
+                WHERE dishs.id = %s"""
+                cursor.execute(getingrs, (dish_id))
+                dish_ingrs = cursor.fetchall()
                 template = env.get_template('inputs/dishord.html')
-                dishord = {'dish': dish_info, 'user_info': user_info, 'dish_info': dish_info_total}
+                dishord = {'dish': dish_info, 'user_info': user_info, 'dish_info': dish_info_total, 'dish_ingrs': dish_ingrs}
                 self.write(template.render(dishord=dishord))
         except Exception as e:
             print(e)

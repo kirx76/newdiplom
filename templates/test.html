@@ -3,96 +3,246 @@
     Главная
 {% endblock %}
 {% block content %}
-    <div class="slider d-none">
-        <div class="slider__wrapper">
-            <div class="slider__item">
-                <div style="height: 250px;  background-image: url(../static/img/burgers.png); background-repeat: no-repeat;  background-size: contain; background-position: center; ">
-                    1
-                </div>
-            </div>
-            <div class="slider__item">
-                <div style="height: 250px; background: green;">2</div>
-            </div>
-            <div class="slider__item">
-                <div style="height: 250px; background: violet;">3</div>
-            </div>
-            <div class="slider__item">
-                <div style="height: 250px; background: coral;">4</div>
-            </div>
-        </div>
-        <a class="slider__control slider__control_left" href="#" role="button"></a>
-        <a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
-    </div>
-    <div class="cont d-none" style="width: 100%; display: flex; font-size: 24px;">
-        <div class="items">
-            <div class="smtt" style="">
-                <div class="sss" style=""><span>Замена масел и технической жидкости</span></div>
-                <div class="plate">
-                    <img src="../static/img/burgers.png" width="300" height="200">
-                </div>
-            </div>
-        </div>
-        <div class="items">
-            <div class="smtt" style="">
-                <div class="sss" style=""><span>Шиномонтаж</span></div>
-                <div class="plate">
-                    <img src="../static/img/burgers.png" width="300" height="200">
-                </div>
-            </div>
-        </div>
-        <div class="items">
-            <div class="smtt" style="">
-                <div class="sss" style=""><span>Установка дополнительного оборудования</span></div>
-                <div class="plate">
-                    <img src="../static/img/burgers.png" width="300" height="200">
-                </div>
-            </div>
-        </div>
-    </div>
+    {#    <div class="slider d-none">#}
+    {#        <div class="slider__wrapper">#}
+    {#            <div class="slider__item">#}
+    {#                <div style="height: 250px;  background-image: url(../static/img/burgers.png); background-repeat: no-repeat;  background-size: contain; background-position: center; ">#}
+    {#                    1#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            <div class="slider__item">#}
+    {#                <div style="height: 250px; background: green;">2</div>#}
+    {#            </div>#}
+    {#            <div class="slider__item">#}
+    {#                <div style="height: 250px; background: violet;">3</div>#}
+    {#            </div>#}
+    {#            <div class="slider__item">#}
+    {#                <div style="height: 250px; background: coral;">4</div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#        <a class="slider__control slider__control_left" href="#" role="button"></a>#}
+    {#        <a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>#}
+    {#    </div>#}
+    {#    <div class="cont d-none" style="width: 100%; display: flex; font-size: 24px;">#}
+    {#        <div class="items">#}
+    {#            <div class="smtt" style="">#}
+    {#                <div class="sss" style=""><span>Замена масел и технической жидкости</span></div>#}
+    {#                <div class="plate">#}
+    {#                    <img src="../static/img/burgers.png" width="300" height="200">#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#        <div class="items">#}
+    {#            <div class="smtt" style="">#}
+    {#                <div class="sss" style=""><span>Шиномонтаж</span></div>#}
+    {#                <div class="plate">#}
+    {#                    <img src="../static/img/burgers.png" width="300" height="200">#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#        <div class="items">#}
+    {#            <div class="smtt" style="">#}
+    {#                <div class="sss" style=""><span>Установка дополнительного оборудования</span></div>#}
+    {#                <div class="plate">#}
+    {#                    <img src="../static/img/burgers.png" width="300" height="200">#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
     {#{% include 'inputs/registration.html' %}#}
+    {##}
+    {#    <label style="margin-bottom: 30px;">ПОШАГОВЫЕ ИНСТРУКЦИИ:</label>#}
+    {#    <div class="steps_block">#}
+    {#        <span class="material-icons addsmth">add_circle_outline</span>#}
+    {#        <div class="alltabs">#}
+    {#            <div class="tabs" id="id">#}
+    {#                <div class="d-flex item-block">#}
+    {#            <textarea>#}
+    {#                123#}
+    {#            </textarea>#}
+    {#                    <select>#}
+    {#                        <option>1</option>#}
+    {#                        <option>2</option>#}
+    {#                        <option>3</option>#}
+    {#                    </select>#}
+    {#                    <button>Submit</button>#}
+    {#                </div>#}
+    {#                <div class="closee" style="">#}
+    {#                    <span class="material-icons closed">close</span>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {##}
+    {#    </div>#}
+    {#    <script>#}
+    {#        $(document).ready(function () {#}
+    {#            let count = 0;#}
+    {#            let maxcount = 10;#}
+    {#            $('.addsmth').on('click', function () {#}
+    {#                if (count < maxcount) {#}
+    {#                    $('#id').clone()#}
+    {#                        .appendTo('.alltabs')#}
+    {#                        .attr('id', 'id' + count);#}
+    {#                    count++;#}
+    {#                } else {#}
+    {#                    console.log('ты не можешь добавить больше 10 блоков')#}
+    {#                }#}
+    {#                console.log(count);#}
+    {#            });#}
+    {#            $('.closed').on('click', function () {#}
+    {#                console.log($(this).parent().parent())#}
+    {#            })#}
+    {#        })#}
+    {#    </script>#}
+    {#    <style>#}
+    {#    #myElement {#}
+    {#  background: silver;#}
+    {#  height: 300px;#}
+    {#  text-align: center;#}
+    {#  font: 30px/300px Helvetica, Arial, sans-serif;}#}
+    {#    </style>#}
+    {#<script src="https://hammerjs.github.io/dist/hammer.js"></script>#}
+    {##}
+    {#<div id="myElement"></div>#}
+    {#    <script>#}
+    {#    var myElement = document.getElementById('myElement');#}
+    {##}
+    {#// create a simple instance#}
+    {#// by default, it only adds horizontal recognizers#}
+    {#var mc = new Hammer(myElement);#}
+    {##}
+    {#// listen to events...#}
+    {#mc.on("panleft panright tap press", function(ev) {#}
+    {#    myElement.textContent = ev.type +" gesture detected.";});#}
+    {#    </script>#}
+    {#    <div id="touchsurface2">#}
+    {#        <div id="inner">Проведите пальцем</div>#}
+    {#    </div>#}
+    {##}
+    {#    <script>#}
+    {##}
+    {#        window.addEventListener('load', function () {#}
+    {##}
+    {#            var touchsurface = document.getElementById('touchsurface'),#}
+    {#                startX,#}
+    {#                startY,#}
+    {#                dist,#}
+    {#                threshold = 50, // минимальное расстояние для swipe#}
+    {#                allowedTime = 100, // максимальное время прохождения установленного расстояния#}
+    {#                elapsedTime,#}
+    {#                startTime#}
+    {##}
+    {#            function handleswipe(isrightswipe) {#}
+    {#                if (isrightswipe)#}
+    {#                    touchsurface.innerHTML = 'Вы пролистнули <span style="color:red">в правую сторону!</span>'#}
+    {#                else {#}
+    {#                    touchsurface.innerHTML = 'Пролистывания в правую сторону не обнаружено.'#}
+    {#                }#}
+    {#            }#}
+    {##}
+    {#            touchsurface.addEventListener('touchstart', function (e) {#}
+    {#                touchsurface.innerHTML = ''#}
+    {#                var touchobj = e.changedTouches[0]#}
+    {#                dist = 0#}
+    {#                startX = touchobj.pageX#}
+    {#                startY = touchobj.pageY#}
+    {#                startTime = new Date().getTime() // время контакта с поверхностью сенсора#}
+    {#                e.preventDefault()#}
+    {#            }, false)#}
+    {##}
+    {#            touchsurface.addEventListener('touchmove', function (e) {#}
+    {#                e.preventDefault() // отключаем стандартную реакцию скроллинга#}
+    {#            }, false)#}
+    {##}
+    {#            touchsurface.addEventListener('touchend', function (e) {#}
+    {#                var touchobj = e.changedTouches[0]#}
+    {#                dist = touchobj.pageX - startX // получаем пройденную дистанцию#}
+    {#                elapsedTime = new Date().getTime() - startTime // узнаем пройденное время#}
+    {#                // проверяем затраченное время,горизонтальное перемещение >= threshold, и вертикальное перемещение <= 100#}
+    {#                var swiperightBol = (elapsedTime <= allowedTime && dist >= threshold && Math.abs(touchobj.pageY - startY) <= 100)#}
+    {#                handleswipe(swiperightBol)#}
+    {#                e.preventDefault()#}
+    {#            }, false)#}
+    {##}
+    {#        }, false)#}
+    {#    </script>#}
+    {##}
+    {#    <div id="touchsurface">Пролестните в правую сторону.</div>#}
+    {#    <div id="touchsurface2">#}
+    {#<div id="inner">Проведите пальцем</div>#}
+    {#</div>#}
+    {#    <script>#}
+    {#    window.addEventListener('load', function(){#}
+    {#    var el = document.getElementById('touchsurface2')#}
+    {#    var inner = document.getElementById('inner')#}
+    {#    var hidetimer = null#}
+    {#    swipedetect(el, function(swipedir){#}
+    {#        if (swipedir != 'none'){#}
+    {#            clearTimeout(hidetimer)#}
+    {#            // префиксы для имен, прим. "leftarrow.png", "rightarrow.png" и т.д.#}
+    {#            var bgimage = swipedir + 'arrow.png'#}
+    {#            inner.style.background = 'transparent url(' + bgimage + ') center center no-repeat'#}
+    {#            hidetimer = setTimeout(function(){ // вернуть фон через 1 сек.#}
+    {#                inner.style.background = ''#}
+    {#            }, 1000)#}
+    {#        }#}
+    {#    })}, false)#}
+    {#    </script>#}
 
-    <label style="margin-bottom: 30px;">ПОШАГОВЫЕ ИНСТРУКЦИИ:</label>
-    <div class="steps_block">
-        <span class="material-icons addsmth">add_circle_outline</span>
-        <div class="alltabs">
-            <div class="tabs" id="id">
-                <div class="d-flex item-block">
-            <textarea>
-                123
-            </textarea>
-                    <select>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                    </select>
-                    <button>Submit</button>
-                </div>
-                <div class="closee" style="">
-                    <span class="material-icons closed">close</span>
-                </div>
-            </div>
-        </div>
-
+    <div class="gestureZone" id="gestureZone">
+    TEST
     </div>
-    <script>
-        $(document).ready(function () {
-            let count = 0;
-            let maxcount = 10;
-            $('.addsmth').on('click', function () {
-                if (count < maxcount) {
-                    $('#id').clone()
-                        .appendTo('.alltabs')
-                        .attr('id', 'id' + count);
-                    count++;
-                } else {
-                    console.log('ты не можешь добавить больше 10 блоков')
-                }
-                console.log(count);
-            });
-            $('.closed').on('click', function () {
-                console.log($(this).parent().parent())
-            })
-        })
-    </script>
+    <div data-swipe-threshold="100"
+     data-swipe-ignore="false">
+        Swiper, get swiping!
+</div>
 
+{#    <script>#}
+{#        document.addEventListener('swiped-down', function (e) {#}
+{#            console.log(e.target); // the element that was swiped#}
+{#        });#}
+{#    </script>#}
+    <script>
+    $(document).ready(function () {
+        let touchstartX = 0;
+        let touchstartY = 0;
+        let touchendX = 0;
+        let touchendY = 0;
+        console.log(document.getElementById('gestureZone'))
+        let gestureZone = document.getElementById('gestureZone');
+
+        gestureZone.addEventListener('touchstart', function (event) {
+            touchstartX = event.changedTouches[0].screenX;
+            touchstartY = event.changedTouches[0].screenY;
+        }, false);
+
+        gestureZone.addEventListener('touchend', function (event) {
+            touchendX = event.changedTouches[0].screenX;
+            touchendY = event.changedTouches[0].screenY;
+            handleGesture();
+        }, false);
+
+        function handleGesture() {
+            if (touchendX <= touchstartX) {
+                console.log('Swiped left');
+            }
+
+            if (touchendX >= touchstartX) {
+                console.log('Swiped right');
+            }
+
+            if (touchendY <= touchstartY) {
+                console.log('Swiped up');
+            }
+
+            if (touchendY >= touchstartY) {
+                console.log('Swiped down');
+            }
+
+            if (touchendY === touchstartY) {
+                console.log('Tap');
+            }
+        }
+    })
+    </script>
 {% endblock %}

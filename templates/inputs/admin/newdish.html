@@ -10,8 +10,8 @@
                 <input placeholder="Введите цену" id="newdish_price" name="newdish_price" required>
 
                 <label for="dropdown">Выберите тип блюда</label>
-                <div class="dropdown" id="dropdown">
-                    <select name="newdish_dish_type" class="dropdown-select" required>
+                <div class="dropdowns" id="dropdown">
+                    <select name="newdish_dish_type" class="dropdowns-select" required>
                         {% for type in new_dish.alltypes %}
                             <option value="{{ type.id }}">{{ type.dish_type_name }}</option>
                         {% endfor %}
@@ -34,8 +34,8 @@
                 </div>
                 <div class="addingrdish" id="fisrtc">
                     <div class="curingr">
-                        <div class="dropdown" id="dropdown">
-                            <select name="newdish_ingredients" class="dropdown-select ingredients">
+                        <div class="dropdowns" id="dropdown">
+                            <select name="newdish_ingredients" class="dropdowns-select ingredients">
 
                                 {% for ingr in new_dish.allingr %}
                                     <option value="{{ ingr.id }}">{{ ingr.ingredient_name }} <span

@@ -1,27 +1,51 @@
 <div class="dishord">
-{#{{ dishord }}#}
-    {#    <div class="dishord_img">#}
-    {#        <img src="{{ dish }}">#}
-    {#    </div>#}
-    <div class="dishord_desc">
-        <div class="dishord_name">
-            <span>{{ dishord.dish_info.dish_name }}</span>
+    <div class="close_dishord" data-dismiss="modal">
+        <span class="material-icons">close</span>
+    </div>
+    {#    {{ dishord }}#}
+    <div class="img_desc">
+        <div class="dishord_img">
+            <img src="{{ dishord.dish_info.dish_image }}">
         </div>
-        <div class="dishord_description">
-            <span>{{ dishord.dish_info.dish_description }}</span>
+        <div class="dishord_desc">
+            <div class="dishord_name">
+                <span>{{ dishord.dish_info.dish_name }}</span>
+            </div>
+            <div class="dishord_description">
+                <span>{{ dishord.dish_info.dish_description }}</span>
+            </div>
         </div>
     </div>
     {% if dishord.user_info %}
         <div class="dishord_func">
             <div class="dishs_manipulate">
-                <input hidden value="{{ dishord.dish_info.id}}">
+                <input hidden value="{{ dishord.dish_info.id }}">
                 <span class="material-icons minus">remove_circle_outline</span>
                 {% if dishord.dish %}
                     <span class="count_of_dish">{{ dishord.dish.dish_count_in_order }}</span>
+                    <input hidden id="prevval" value="{{ dishord.dish.dish_count_in_order }}">
                 {% else %}
                     <span class="count_of_dish">0</span>
+                    <input hidden id="prevval" value="0">
                 {% endif %}
                 <span class="material-icons plus">add_circle_outline</span>
+            </div>
+            <button class="accordion mb-2">Ингредиенты</button>
+            {#            <div class="panel">#}
+            {#                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore#}
+            {#                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut#}
+            {#                    aliquip ex ea commodo consequat.</p>#}
+            {#            </div>#}
+            <div class="panel">
+
+                {% for ingr in dishord.dish_ingrs %}
+                    <p style="display: flex; justify-content: space-between;">
+                        <span>{{ ingr.ingredient_name }}</span><span class="ingr_cal"
+                                                                     style="font-size: small;">{{ (ingr.ingredient_calories * ingr.weight) / 100 }} Ккал</span>
+                    </p>
+                {% endfor %}
+                <p style="display: flex; justify-content: space-between;"><span>Всего калорий</span><span
+                        class="ingr_cal_all" style="font-size: small;"></span></p>
             </div>
         </div>
     {% endif %}
@@ -39,6 +63,11 @@
                 'status': 1
             },
             success: function (data) {
+                note({
+                    content: 'Блюдо успешно добавлено в заказ',
+                    type: "success",
+                    time: 5
+                })
             },
             error: function (data) {
             }
@@ -57,10 +86,47 @@
                     'status': 0
                 },
                 success: function (data) {
+                    note({
+                        content: 'Блюдо убрано из заказа',
+                        type: "warn",
+                        time: 5
+                    })
                 },
                 error: function (data) {
                 }
             })
         }
     });
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+                this.blur();
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+            this.blur();
+        });
+    }
+
+    $(document).ready(function () {
+        var ingr_cal = 0;
+        $(".ingr_cal").each(function () {
+            ingr_cal += parseFloat($(this).text().split(' '));
+        });
+        $('.ingr_cal_all').text(ingr_cal + ' Ккал')
+    });
+
+    {#document.addEventListener('swiped-down', function (e) {#}
+    {#    console.log($(this))#}
+    {#    $(e).find('#dishordmodal').modal('hide')#}
+    {##}
+    {#})
+    ;
+    #}
 </script>

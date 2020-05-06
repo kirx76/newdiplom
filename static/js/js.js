@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    // var curdishcount = 0;
     $('.dishs_block').on('click', function () {
         let dish_id = $(this).data('dish_id');
         let user_id = $(this).data('user_id');
@@ -11,6 +12,9 @@ $(document).ready(function () {
             },
             success: function (data) {
                 $('#dishordmodal .modal-content').html(data);
+                // console.log($('#prevval').val());
+                // curdishcount = parseInt($('#prevval').val());
+                // console.log($('#dishordmodal .modal-content').find('.count_of_dish').text());
             },
             error: function (data) {
             },
@@ -18,6 +22,27 @@ $(document).ready(function () {
         $('#dishordmodal').modal();
         // $(this).parent().find('.dishs_action').css('display', 'flex');
     });
+
+    // $('#dishordmodal').on('hidden.bs.modal', function () {
+    //     if ($('#prevval')) {
+    //         let curdishcount = parseInt($('#prevval').val());
+    //         let exitcountdish = parseInt($('#dishordmodal .modal-content').find('.count_of_dish').text());
+    //         console.log(exitcountdish);
+    //         if (exitcountdish > curdishcount) {
+    //             note({
+    //                 content: 'Блюда успешно добавлены в заказ',
+    //                 type: "success",
+    //                 time: 5
+    //             })
+    //         } else if (exitcountdish < curdishcount) {
+    //             note({
+    //                 content: 'Заказ в корзине обновлен',
+    //                 type: "warn",
+    //                 time: 5
+    //             })
+    //         }
+    //     }
+    // });
 
     $('.close_dishs_action').on('click', function () {
         $(this).parent().hide();
@@ -107,13 +132,13 @@ $(document).ready(function () {
         $('#customerordersmodal').modal();
     });
 
-    function sendadminajax(target){
+    function sendadminajax(target) {
         $.ajax({
-          method: "POST",
-          url: "/admin",
-          data: {
-              'target': target
-          },
+            method: "POST",
+            url: "/admin",
+            data: {
+                'target': target
+            },
             success: function (data) {
                 console.log(data);
                 $('.admin_tabs_content .maincontent').html(data);
@@ -127,7 +152,7 @@ $(document).ready(function () {
     }
 
     $('.admin_tabs>div').on('click', function () {
-       console.log($(this).find('span').text());
+        console.log($(this).find('span').text());
         $('.admin_tabs>div').each(function () {
             $(this).removeClass('active');
         });

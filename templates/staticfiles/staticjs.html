@@ -14,24 +14,28 @@
 <script src="../static/js/slider.js"></script>
 <script src="../static/js/notify.js"></script>
 <script src="../static/js/jquery.maskedinput.min.js"></script>
+<script src="../static/js/swiped-events.js"></script>
+{#<script src="../static/js/hammer.min.js"></script>#}
+{#<script type="text/javascript" src="jquery.touchSwipe.min.js"></script>#}
+
 {#<script src="../static/js/main.js"></script>#}
 <!--<script src="../static/js/toast.js"></script>-->
 
-<script>
-    function headup() {
-        if (window.pageYOffset >= 1) {
-            $('.myheader').hide();
-            $('.myheaderfix').css('top', '0');
-        } else {
-            $('.myheader').show();
-            $('.myheaderfix').css('top', 'unset');
-        }
-    }
-
-    $(document).ready(function () {
-        headup();
-        $(document).on('scroll', function () {
-            headup()
-        })
-    })
-</script>
+{#<script>#}
+{#    function headup() {#}
+{#        if (window.pageYOffset >= 1) {#}
+{#            $('.myheader').hide();#}
+{#            $('.myheaderfix').css('top', '0');#}
+{#        } else {#}
+{#            $('.myheader').show();#}
+{#            $('.myheaderfix').css('top', 'unset');#}
+{#        }#}
+{#    }#}
+{##}
+{#    $(document).ready(function () {#}
+{#        headup();#}
+{#        $(document).on('scroll', function () {#}
+{#            headup()#}
+{#        })#}
+{#    })#}
+{#</script>#}

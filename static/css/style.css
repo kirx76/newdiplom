@@ -32,6 +32,11 @@
     background-color: #494949;
     width: 100%;
     z-index: 2;
+    top: 0;
+}
+
+.allmainbody {
+    margin-top: 56px;
 }
 
 header {
@@ -381,6 +386,8 @@ body {
     background-color: #494949;
     padding: 10px;
     cursor: pointer;
+    color: #fffdf6;
+    border-radius: 10px 0 0 10px;
 }
 
 #basketmodal {
@@ -813,7 +820,7 @@ span.clean {
 #dishordmodal .modal-dialog {
     width: 100%;
     margin: 1.75rem auto;
-    margin-top: 25% !important;
+    margin-top: 50% !important;
 }
 
 #dishordmodal .modal-content {
@@ -822,6 +829,11 @@ span.clean {
 
 .dishord_func {
     margin-top: 25px;
+}
+
+.dishord_img img {
+    width: 100%;
+    height: 100%;
 }
 
 .dish_outer_block {
@@ -866,12 +878,12 @@ span.clean {
     text-align: center;
 }
 
-.container > .dropdown {
+.container > .dropdowns {
     margin: 0 20px;
     vertical-align: top;
 }
 
-.dropdown {
+.dropdowns {
     display: inline-block;
     position: relative;
     overflow: hidden;
@@ -889,7 +901,7 @@ span.clean {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
 }
 
-.dropdown:before, .dropdown:after {
+.dropdowns:before, .dropdowns:after {
     content: '';
     position: absolute;
     z-index: 2;
@@ -902,18 +914,18 @@ span.clean {
     pointer-events: none;
 }
 
-.dropdown:before {
+.dropdowns:before {
     border-bottom-style: solid;
     border-top: none;
 }
 
-.dropdown:after {
+.dropdowns:after {
     margin-top: 7px;
     border-top-style: solid;
     border-bottom: none;
 }
 
-.dropdown-select {
+.dropdowns-select {
     position: relative;
     width: 130%;
     margin: 0;
@@ -930,7 +942,7 @@ span.clean {
     -webkit-appearance: none;
 }
 
-.dropdown-select:focus {
+.dropdowns-select:focus {
     z-index: 3;
     width: 100%;
     color: #394349;
@@ -939,7 +951,7 @@ span.clean {
     outline-offset: -2px;
 }
 
-.dropdown-select > option {
+.dropdowns-select > option {
     margin: 3px;
     padding: 6px 8px;
     text-shadow: none;
@@ -950,27 +962,27 @@ span.clean {
 
 /* Fix for IE 8 putting the arrows behind the select element. */
 
-.lt-ie9 .dropdown {
+.lt-ie9 .dropdowns {
     z-index: 1;
 }
 
-.lt-ie9 .dropdown-select {
+.lt-ie9 .dropdowns-select {
     z-index: -1;
 }
 
-.lt-ie9 .dropdown-select:focus {
+.lt-ie9 .dropdowns-select:focus {
     z-index: 3;
 }
 
 /* Dirty fix for Firefox adding padding where it shouldn't. */
 
 @-moz-document url-prefix() {
-    .dropdown-select {
+    .dropdowns-select {
         padding-left: 6px;
     }
 }
 
-.dropdown-dark {
+.dropdowns-dark {
     background: #444;
     border-color: #111111 #0a0a0a black;
     background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
@@ -981,7 +993,7 @@ span.clean {
     box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
-.dropdown-select:focus {
+.dropdowns-select:focus {
     outline: 0;
 }
 
@@ -1108,6 +1120,99 @@ span.clean {
 .curingr input {
     width: 20%;
 }
-.curingr .dropdown {
+
+.curingr .dropdowns {
     width: 100%;
+}
+
+.dropdown-item {
+    background-color: #494949 !important;
+}
+
+.dropdown-item:hover {
+    background-color: #6c6c6cf0 !important;
+}
+
+.dropdown-toggle {
+    display: flex !important;
+    flex-direction: row !important;;
+    align-items: center !important;;
+    border: 0 !important;;
+    background-color: unset !important;;
+}
+
+/* АККОРДИОН */
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.accordion:focus {
+    outline: none;
+}
+
+.active {
+    background-color: #ccc;
+    outline: none;
+}
+
+.accordion:after {
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2212";
+}
+
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+/* КОНЕЦ АККОРДИОНА*/
+
+.img_desc {
+    position: relative;
+}
+
+/*.dishord_desc {*/
+/*width: 100%;*/
+/*display: flex;*/
+/*justify-content: space-around;*/
+/*position: absolute;*/
+/*bottom: 0;*/
+/*height: 25%;*/
+/*background-color: rgba(248, 247, 242, 0.5);*/
+/*border-radius: 20px;*/
+/*align-items: center;*/
+/*}*/
+
+/*.dishord_img {*/
+/*width: 100%;*/
+/*height: 90%;*/
+/*display: flex;*/
+/*justify-content: center;*/
+/*}*/
+
+.close_dishord {
+    position: fixed;
+    top: 5%;
+    right: 5%;
+    z-index: 3012;
+    color: #252525;
 }

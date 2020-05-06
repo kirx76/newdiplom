@@ -11,69 +11,70 @@
 
 </head>
 <body style="background-color: #fdfcf7">
-<header>
-    <div class="myheader">
-        <div class="row w-100">
-            {#            <div class="">#}
-            {#                <a href="/">FeedFood</a>#}
-            {#            </div>#}
-            {#            <div class="">Buttons</div>#}
-            {% if not user_info %}
-                <div class="">
-                    <span data-toggle="modal" data-target="#regmodal">Регистрация</span>
-                </div>
-                <div class="">
-                    <span data-toggle="modal" data-target="#authmodal">Авторизация</span>
-                </div>
-            {% else %}
-                <div class="">
-                    <span><span class="profile" data-id="{{ user_info.id }}" data-toggle="modal"
-                                data-target="#userprofile">Профиль</span></span>
-                </div>
-                {#            <div class="">#}
-                {#                <span data-toggle="modal" data-target="#regmodal">Корзина</span>#}
-                {#            </div>#}
-                <div class="">
-                    <span><a href="/remc">Выход</a></span>
-                </div>
-            {% endif %}
-        </div>
-    </div>
-    <div class="myheaderfix">
-        {#        <div class="row w-100" style="justify-content: space-evenly;">#}
-        {#            <div class=""><a href="/">FeedFood</a></div>#}
-        {#            <div class="col-4">Buttons</div>#}
-        {#            {% if user_info['al_id'] == 2 %}#}
-        {#                <div class="" id="testbutton">#}
-        {#                    <a href="/clientorders" class="client_orders">Заказы пользователей</a>#}
-        {#                </div>#}
-        {#            {% endif %}#}
-        {#        </div>#}
-        <div class="headf">
-            <div class="main_link">
-                <a href="/">Главная</a>
-            </div>
-            {% if user_info %}
-                {% if user_info['al_id'] >= 1 %}
-                    <div class="cl_ord">
-                        <a href="#" class="client_orders" id="customerorders"
-                           data-user_id="{{ user_info.id }}">Мои заказы</a>
-                    </div>
-                {% endif %}
-                <div class="action_link">
 
-                    {% if user_info['al_id'] == 2 %}
-                        <a href="/clientorders" class="client_orders">Заказы пользователей</a>
-                    {% elif user_info['al_id'] == 4 %}
-                        <a href="/admin" class="client_orders">Админ-панель</a>
-                    {% endif %}
-                </div>
-            {% endif %}
+<div class="myheaderfix">
+    {#        <div class="row w-100" style="justify-content: space-evenly;">#}
+    {#            <div class=""><a href="/">FeedFood</a></div>#}
+    {#            <div class="col-4">Buttons</div>#}
+    {#            {% if user_info['al_id'] == 2 %}#}
+    {#                <div class="" id="testbutton">#}
+    {#                    <a href="/clientorders" class="client_orders">Заказы пользователей</a>#}
+    {#                </div>#}
+    {#            {% endif %}#}
+    {#        </div>#}
+    <div class="headf">
+        <div class="main_link">
+            <a href="/">Главная</a>
         </div>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="material-icons">person_outline</span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: #494949;">
+                {% if not user_info %}
+                    <a href="#" class="dropdown-item" data-toggle="modal" data-target="#regmodal">Регистрация</a>
+                    <a href="#" class="dropdown-item" data-toggle="modal" data-target="#authmodal">Авторизация</a>
+                {% else %}
+                    <a href="#" class="dropdown-item" data-id="{{ user_info.id }}" data-toggle="modal"
+                          data-target="#userprofile">Профиль</a>
+                    {% if user_info['al_id'] >= 1 %}
+                        <a class="dropdown-item" href="#" id="customerorders"
+                           data-user_id="{{ user_info.id }}">Мои заказы</a>
+                    {% endif %}
+                    {% if user_info['al_id'] == 2 %}
+                        <a class="dropdown-item" href="/clientorders">Заказы пользователей</a>
+                    {% elif user_info['al_id'] == 4 %}
+                        <a class="dropdown-item" href="/admin">Админ-панель</a>
+                    {% endif %}
+                    <a class="dropdown-item" href="/remc">Выход</a>
+
+                {% endif %}
+            </div>
+        </div>
+        {#                {% if user_info %}#}
+        {#                    {% if user_info['al_id'] >= 1 %}#}
+        {#                        <div class="cl_ord">#}
+        {#                            <a href="#" class="client_orders" id="customerorders"#}
+        {#                               data-user_id="{{ user_info.id }}">Мои заказы</a>#}
+        {#                        </div>#}
+        {#                    {% endif %}#}
+        {#                    <div class="action_link">#}
+        {##}
+        {#                        {% if user_info['al_id'] == 2 %}#}
+        {#                            <a href="/clientorders" class="client_orders">Заказы пользователей</a>#}
+        {#                        {% elif user_info['al_id'] == 4 %}#}
+        {#                            <a href="/admin" class="client_orders">Админ-панель</a>#}
+        {#                        {% endif %}#}
+        {#                    </div>#}
+        {#                {% endif %}#}
     </div>
-</header>
-{% block content %}
-{% endblock %}
+</div>
+<div class="allmainbody">
+    {% block content %}
+    {% endblock %}
+</div>
+
 {% if user_info %}
     {% include 'inputs/basket.html' %}
     {% include 'modals/customerordersmodal.html' %}
