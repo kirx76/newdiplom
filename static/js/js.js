@@ -23,26 +23,26 @@ $(document).ready(function () {
         // $(this).parent().find('.dishs_action').css('display', 'flex');
     });
 
-    // $('#dishordmodal').on('hidden.bs.modal', function () {
-    //     if ($('#prevval')) {
-    //         let curdishcount = parseInt($('#prevval').val());
-    //         let exitcountdish = parseInt($('#dishordmodal .modal-content').find('.count_of_dish').text());
-    //         console.log(exitcountdish);
-    //         if (exitcountdish > curdishcount) {
-    //             note({
-    //                 content: 'Блюда успешно добавлены в заказ',
-    //                 type: "success",
-    //                 time: 5
-    //             })
-    //         } else if (exitcountdish < curdishcount) {
-    //             note({
-    //                 content: 'Заказ в корзине обновлен',
-    //                 type: "warn",
-    //                 time: 5
-    //             })
-    //         }
-    //     }
-    // });
+    $('#dishordmodal').on('hidden.bs.modal', function () {
+        if ($('#prevval')) {
+            let curdishcount = parseInt($('#prevval').val());
+            let exitcountdish = parseInt($('#dishordmodal .modal-content').find('.count_of_dish').text());
+            console.log(exitcountdish);
+            if (exitcountdish > curdishcount) {
+                note({
+                    content: 'Блюда успешно добавлены в заказ',
+                    type: "success",
+                    time: 5
+                })
+            } else if (exitcountdish < curdishcount) {
+                note({
+                    content: 'Заказ в корзине обновлен',
+                    type: "warn",
+                    time: 5
+                })
+            }
+        }
+    });
 
     $('.close_dishs_action').on('click', function () {
         $(this).parent().hide();

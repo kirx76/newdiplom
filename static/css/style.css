@@ -1215,9 +1215,9 @@ span.clean {
 /*}*/
 
 .close_dishord {
-    position: fixed;
     top: 5%;
-    right: 5%;
     z-index: 3012;
     color: #252525;
+    position: sticky;
+text-align: right;
 }

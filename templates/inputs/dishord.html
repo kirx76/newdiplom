@@ -63,11 +63,9 @@
                 'status': 1
             },
             success: function (data) {
-                note({
-                    content: 'Блюдо успешно добавлено в заказ',
-                    type: "success",
-                    time: 5
-                })
+                {#note({content: 'Блюдо успешно добавлено в заказ',#}
+                {#    type: "success",#}
+                {#    time: 5})#}
             },
             error: function (data) {
             }
@@ -86,11 +84,9 @@
                     'status': 0
                 },
                 success: function (data) {
-                    note({
-                        content: 'Блюдо убрано из заказа',
-                        type: "warn",
-                        time: 5
-                    })
+                    {#note({content: 'Блюдо убрано из заказа',#}
+                    {#    type: "warn",#}
+                    {#    time: 5})#}
                 },
                 error: function (data) {
                 }
@@ -124,9 +120,6 @@
 
     {#document.addEventListener('swiped-down', function (e) {#}
     {#    console.log($(this))#}
-    {#    $(e).find('#dishordmodal').modal('hide')#}
-    {##}
-    {#})
-    ;
-    #}
+    {#    $(e).find('#dishordmodal').modal('hide')});#}
+
 </script>

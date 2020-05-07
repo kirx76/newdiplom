@@ -1,7 +1,5 @@
 import json
 import random
-import string
-
 import tornado.ioloop
 import tornado.web
 import os
@@ -10,10 +8,6 @@ import hashlib
 import tornado.websocket
 import requests
 import transliterate
-# from webassets import Environment as EV
-# static_directory = "../static"
-# output_directory = "/static"
-# my_env = EV(static_directory, output_directory)
 from jinja2 import Environment, FileSystemLoader
 
 env = Environment(loader=FileSystemLoader('templates'))
@@ -67,7 +61,6 @@ class MainHandler(tornado.web.RequestHandler):
         cursor = connect.cursor()
         cursor.execute(f"select * from dish_types")
         dish_types = cursor.fetchall()
-        # self.render('index.html', dish_types=dish_types)
         usr = self.get_secure_cookie("user")
         if usr is not None:
             user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
@@ -112,7 +105,6 @@ class DishTypesHandler(tornado.web.RequestHandler):
                 cursor.execute(sql, (user_info['user_phone']))
                 dish_count = cursor.fetchall()
         except Exception as e:
-            # self.write_error(status_code=500, message=e)
             dish_count = None
         finally:
             connect.close()
@@ -147,7 +139,6 @@ class testhandler(tornado.web.RequestHandler):
                 cursor.execute(sql, (user_info['user_phone']))
                 dish_count = cursor.fetchall()
         except Exception as e:
-            # self.write_error(status_code=500, message=e)
             dish_count = None
         finally:
             connect.close()
@@ -167,6 +158,7 @@ class NotFoundHandler(tornado.web.RequestHandler):
 class UserProfile(BaseHandler):
     @tornado.web.authenticated
     def get(self, *args):
+        print(self.request.body)
         usr = self.get_secure_cookie("user")
         if usr is not None:
             user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
@@ -195,10 +187,6 @@ class removecockie(tornado.web.RequestHandler):
 class registrationHandler(tornado.web.RequestHandler):
     def prepare(self):
         print(self.request.headers)
-        # if self.request.headers.get("Content-Type", "").startswith("application/json"):
-        #     self.json_args = json.loads(self.request.body)
-        # else:
-        #     self.json_args = None
 
     def get(self):
         template = env.get_template('inputs/registration.html')
@@ -248,10 +236,8 @@ class authHandler(tornado.web.RequestHandler):
         self.set_status(500)
         self.finish({"code": status_code, "message": kwargs})
 
-    def get(self):
-        print(self.request.body)
-
     def post(self):
+        print(self.request.body)
         phone = ''.join(x for x in self.get_argument('phone') if x.isdigit())[1:]
         password = self.get_argument('password')
         crypt_password = hashlib.md5(password.encode()).hexdigest()
@@ -374,6 +360,7 @@ class getUserBasket(BaseHandler):
 
     @tornado.web.authenticated
     def post(self):
+        print(self.request.body)
         phone = json.loads(self.get_secure_cookie("user").decode())['phone']
         user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
         connect = connections.getConnection()
@@ -572,7 +559,6 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
                 user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
             else:
                 user_info = None
-            # user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
             print('Создан пользователь')
             if user_info is not None:
                 self.connections[int(user_info['id'])] = self
@@ -589,8 +575,6 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
                 getallexecutors = """SELECT users.id FROM users JOIN users_accesses ON users.id = users_accesses.user_id WHERE users_accesses.access_id = 2"""
                 cursor.execute(getallexecutors)
                 allexecutors = cursor.fetchall()
-                print(123)
-                # print(target['for_executors'])
                 try:
                     targ = target['for_executors']
                 except:
@@ -692,7 +676,9 @@ class dishord(BaseHandler):
         self.set_status(status_code)
         self.finish({"code": status_code, "message": kwargs})
 
+    @tornado.web.authenticated
     def post(self):
+        print(self.request.body)
         try:
             user_id = int(self.get_argument('user_id'))
         except:
@@ -727,7 +713,8 @@ class dishord(BaseHandler):
                 cursor.execute(getingrs, (dish_id))
                 dish_ingrs = cursor.fetchall()
                 template = env.get_template('inputs/dishord.html')
-                dishord = {'dish': dish_info, 'user_info': user_info, 'dish_info': dish_info_total, 'dish_ingrs': dish_ingrs}
+                dishord = {'dish': dish_info, 'user_info': user_info, 'dish_info': dish_info_total,
+                           'dish_ingrs': dish_ingrs}
                 self.write(template.render(dishord=dishord))
         except Exception as e:
             print(e)
@@ -874,7 +861,8 @@ class adminfunc(BaseHandler):
                     output_file.write(file1['body'])
                     addnewdishtype = """INSERT INTO dishs values(0, %s, %s, 0, %s, %s, %s)"""
                     cursor.execute(addnewdishtype, (
-                    newdish_name, newdish_price, newdish_dish_type, newdish_desc, '../static/img/' + final_filename))
+                        newdish_name, newdish_price, newdish_dish_type, newdish_desc,
+                        '../static/img/' + final_filename))
                     connect.commit()
                     newdish_id = cursor.lastrowid
                     for i, item in enumerate(newdish_ingredients):
