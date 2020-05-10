@@ -3,72 +3,60 @@
     Заказы пользователей
 {% endblock %}
 {% block content %}
-
-    <div class="all_orders">
-        {% for order in user_orders.orders %}
-            <div class="tab_orders d-flex" id="{{ order.id }}">
-                <div class="tab_order_main">
-                    <div class="order_top">
-                        <div class="order_top_left">
-                            <span>№ {{ order.id }}</span>
-                            <span>Телефон: {{ order.user_phone }}</span>
-                        </div>
-                        <div class="order_top_right">
-                            <span>Дата: {{ order.order_date }}</span>
-                        </div>
-                    </div>
-                    <div class="order_bottom">
-                        <div class="order_left">
-                            <span>Имя клиента: {{ order.user_name }}</span>
-                        </div>
-                        <div class="order_right">
-                            <span>Общая стоимость: {{ order.order_price }} ₽</span>
-                        </div>
-                    </div>
-                    {#                {{ order }}#}
-                </div>
-                <div class="tab_order_info">
-                    <div class="tab_order_func">
-                        <span class="material-icons done" data-executor_id="{{ user_info.id }}"
-                              data-order_id="{{ order.id }}"
-                              data-customer_id="{{ order.user_id }}">done</span>
-                        <a href="/clientorders/{{ order.id }}">
-                            <span class="material-icons info">priority_high</span>
-                        </a>
-                        <span class="material-icons closed" data-executor_id="{{ user_info.id }}"
-                              data-order_id="{{ order.id }}" data-customer_id="{{ order.user_id }}">close</span>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
+    <div class="orderers">
+        <div class="client_orders_first">
+            <span>На готовке</span>
+        </div>
+        <div class="all_orders">
+            {% for order in user_orders.first_orders %}
+                {% include 'inputs/garcon/userorders_by_type.html' %}
+            {% endfor %}
+        </div>
+        <div class="client_orders_second">
+            <span>Принятые в обработку</span>
+        </div>
+        <div class="all_orders">
+            {% for order in user_orders.orders %}
+                {% include 'inputs/garcon/userorders_by_type.html' %}
+            {% endfor %}
+        </div>
     </div>
-
-
     <script>
         $(document).ready(function () {
+            $('[class^="client_orders_"]').on('click', function () {
+                if ($(this).next().is(':visible')) {
+                    $(this).next().hide()
+                } else (
+                    $(this).next().show()
+                )
+            });
+
             $('.done').on('click', function () {
                 let executor_id = $(this).data('executor_id');
                 let order_id = $(this).data('order_id');
                 let customer_id = $(this).data('customer_id');
-                send_aj(order_id, executor_id, 1);
+                let order_status = $(this).data('order_status');
+                send_aj(order_id, executor_id, 1, order_status);
                 send_ping('Ваш заказ успешно одобрен', customer_id, executor_id);
             });
             $('.closed').on('click', function () {
                 let executor_id = $(this).data('executor_id');
                 let order_id = $(this).data('order_id');
                 let customer_id = $(this).data('customer_id');
-                send_aj(order_id, executor_id, 0);
+                let order_status = $(this).data('order_status');
+                send_aj(order_id, executor_id, 0, order_status);
                 send_ping('Ваш заказ был отклонен, обратитесь к официанту', customer_id, executor_id);
             });
 
-            function send_aj(order_id, executor_id, status) {
+            function send_aj(order_id, executor_id, status, order_status) {
                 $.ajax({
                     method: "POST",
                     url: "/clientorders",
                     data: {
                         'order_id': order_id,
                         'executor_id': executor_id,
-                        'status': status
+                        'status': status,
+                        'order_status': order_status
                     },
                     success: function (data) {
                         note({

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}
+    Главная
+{% endblock %}
+{% block content %}
+    <div class="payload_main" style="border-radius: 0;">
+        <div class="payload_header">
+            <div class="payload_order mb-2">
+                <span>№ Заказа: {{ payload_form.dishs.0.order_id }}</span>
+            </div>
+            <div class="payload_date">
+                <span>Дата заказа: {{ payload_form.dishs.0.order_date }}</span>
+            </div>
+        </div>
+        <div class="payload_info mt-2">
+            <div class="payload_dishs">
+            <span class="mb-5">Список блюд:</span>
+                    {% for dish in payload_form.dishs %}
+                        <p style="display: flex; justify-content: space-between;" class="mt-3">
+                                <span>{{ dish.dish_name }}<span
+                                        style="font-size: small;"> x{{ dish.dish_count_in_order }}</span></span><span>{{ dish.dish_price }} ₽</span>
+                        </p>
+                    {% endfor %}
+            <div class="payload_total d-flex justify-content-between">
+                <span>Итоговая сумма заказа:</span>
+                <span>{{ payload_form.tot_cost }} ₽</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                    this.blur();
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+                this.blur();
+            });
+        }
+    </script>
+{% endblock %}

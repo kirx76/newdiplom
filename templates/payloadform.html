@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Оплата заказа</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <link href="../static/css/notify.css" rel="stylesheet">
+    <script src="../static/js/jquery-3.5.0.min.js"></script>
+    <link rel="apple-touch-icon" sizes="76x76" href="../static/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../static/favicon/site.webmanifest">
+    <link rel="mask-icon" href="../static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+</head>
+<body>
+<div class="payload">
+    <div class="payload_card_info">
+        <div class="payload_img">
+            <img src="../static/img/payloadimg.png">
+        </div>
+        <div class="payload_card_number">
+            <span>Номер карты</span>
+            <input>
+        </div>
+        <div class="payload_card_time">
+            <span>Месяц/Год</span>
+            <div>
+                <input>
+                <input>
+            </div>
+        </div>
+        <div class="payload_user_name">
+            <span>Имя держателя</span>
+            <input>
+        </div>
+    </div>
+    <div class="payload_main">
+        <div class="payload_header">
+            <div class="payload_order">
+                <span>№ Заказа: {{ payload_form.dishs.0.order_id }}</span>
+            </div>
+            <div class="payload_date">
+                <span>Дата заказа: {{ payload_form.dishs.0.order_date }}</span>
+            </div>
+        </div>
+        <div class="payload_info">
+            <div class="payload_dishs">
+                <button class="accordion mb-2">Список блюд</button>
+                <div class="panel">
+                    {% for dish in payload_form.dishs %}
+                        <p style="display: flex; justify-content: space-between;">
+                                <span>{{ dish.dish_name }}<span
+                                        style="font-size: small;"> x{{ dish.dish_count_in_order }}</span></span><span>{{ dish.dish_price }} ₽</span>
+                        </p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="payload_total">
+                <span>Итоговая сумма заказа:</span>
+                <span>{{ payload_form.tot_cost }} ₽</span>
+            </div>
+        </div>
+    </div>
+</div>
+<button style="text-align: center; display: flex; align-items: center; margin: auto;">
+    <a href="/">Оплатить</a>
+</button>
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+                this.blur();
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+            this.blur();
+        });
+    }
+</script>
+</body>
+</html>

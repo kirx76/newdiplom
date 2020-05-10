@@ -822,7 +822,7 @@ span.clean {
     margin: 1.75rem auto;
 }
 
-@media screen and (max-width: 540px){
+@media screen and (max-width: 540px) {
     #dishordmodal .modal-dialog {
         margin-top: 50% !important;
     }
@@ -1035,8 +1035,10 @@ span.clean {
     flex-direction: row;
     justify-content: space-between;
     padding: 10px;
+    width: 100%;
     box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.1);
 }
+
 
 .order_header {
     /*width: 30%;*/
@@ -1044,6 +1046,17 @@ span.clean {
 
 .order_body {
     /*width: 70%;*/
+    margin: auto;
+}
+
+.order_price_info {
+    display: flex;
+    flex-direction: column;
+}
+
+.order_status {
+    display: flex;
+    flex-direction: column;
 }
 
 .admin {
@@ -1062,7 +1075,7 @@ span.clean {
 }
 
 .admin_tabs_content {
-    background-color: #007bff;
+    background-color: #49494945;
     border-radius: 20px;
     padding: 15px;
 }
@@ -1077,7 +1090,7 @@ span.clean {
 }
 
 .admin_tabs > div.active {
-    background-color: #007bff;
+    background-color: #49494945;
     border-top: black;
     border-radius: 20px 20px 0 0;
     padding: 10px;
@@ -1215,9 +1228,194 @@ span.clean {
 /*}*/
 
 .close_dishord {
+    position: fixed;
     top: 5%;
+    right: 5%;
     z-index: 3012;
     color: #252525;
     position: sticky;
-text-align: right;
+    text-align: right;
+}
+
+@media screen and (max-width: 540px) {
+    .admin_tabs {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        overflow-x: auto;
+    }
+
+    .admin_tabs > div.active {
+        border-radius: 20px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .user {
+        flex-direction: column;
+    }
+
+    .user_info {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .user_status {
+        width: 100%;
+    }
+
+    .user_status .dropdowns {
+        width: 100%;
+    }
+
+    .newdishtype form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 15px;
+        width: 100%;
+    }
+}
+
+.admin_tabs .active:after {
+    content: unset;
+}
+
+.allorders .accordion {
+    display: flex;
+    align-items: center;
+}
+
+.allorders .accordion:after {
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+    display: flex;
+    /* width: 20%; */
+    align-items: center;
+    justify-content: center;
+}
+
+.client_orders_first {
+    padding: 20px;
+    box-shadow: 0px 0px 35px -20px #000000;
+    background-color: white;
+    cursor: pointer;
+}
+
+.client_orders_second {
+    padding: 20px;
+    box-shadow: 0px 0px 35px -20px #000000;
+    background-color: white;
+    cursor: pointer;
+}
+
+.pay_choice {
+    display: flex;
+}
+
+.pay_inputs {
+    margin-right: 15px;
+}
+
+@media screen and (max-width: 540px) {
+    .pay_choice {
+        flex-direction: column;
+    }
+}
+
+.payload_card_info {
+    display: flex;
+    width: 50%;
+    padding: 25px;
+    border-radius: 40px;
+    background-color: white;
+    border: 1px solid;
+    flex-direction: column;
+    height: 100%;
+}
+
+.payload_card_number, .payload_card_time, .payload_user_name {
+    display: flex;
+    flex-direction: column;
+}
+
+.payload_img {
+    width: 20%;
+    margin-left: auto;
+}
+
+.payload_img img {
+    width: 100%;
+    height: 100%;
+}
+
+.payload {
+    display: flex;
+    padding: 40px;
+    justify-content: space-around;
+}
+
+.payload input {
+
+}
+
+.payload_main {
+    display: flex;
+    padding: 25px;
+    border-radius: 40px;
+    background-color: white;
+    border: 1px solid;
+    flex-direction: column;
+}
+
+.bill {
+    /* position: absolute; */
+    /* right: -10%; */
+    background: #49494961;
+    color: #494949;
+    /* width: 10%; */
+    /* height: 3%; */
+    /* align-items: center; */
+    /* text-align: center; */
+    /* vertical-align: middle; */
+    justify-content: center;
+    /* display: flex; */
+    border-radius: 20% 20% 0 0%;
+    /* z-index: -1; */
+    /* margin-top: 7%; */
+    display: flex;
+    cursor: pointer;
+}
+
+.bill_block {
+    /*background-color: #ebebeb;*/
+    margin-top: 5px;
+}
+
+@media screen and (max-width: 540px) {
+    .payload {
+        flex-direction: column;
+    }
+
+    .payload_card_info {
+        width: 100%;
+    }
+
+    .payload_card_time > div {
+        display: flex;
+        width: 100%;
+    }
+
+    .payload_card_time > div input {
+        width: 100%;
+    }
+}
+.bill a {
+    color: #494949;
 }

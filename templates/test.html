@@ -188,61 +188,170 @@
     {#        }#}
     {#    })}, false)#}
     {#    </script>#}
+    {##}
+    {#    <div class="gestureZone" id="gestureZone">#}
+    {#    TEST#}
+    {#    </div>#}
+    {#    <div data-swipe-threshold="100"#}
+    {#     data-swipe-ignore="false">#}
+    {#        Swiper, get swiping!#}
+    {#</div>#}
+    {##}
+    {#    <script>#}
+    {#        document.addEventListener('swiped-down', function (e) {#}
+    {#            console.log(e.target); // the element that was swiped#}
+    {#        });#}
+    {#    </script>#}
+    {#    <script>#}
+    {#    $(document).ready(function () {#}
+    {#        let touchstartX = 0;#}
+    {#        let touchstartY = 0;#}
+    {#        let touchendX = 0;#}
+    {#        let touchendY = 0;#}
+    {#        console.log(document.getElementById('gestureZone'))#}
+    {#        let gestureZone = document.getElementById('gestureZone');#}
+    {##}
+    {#        gestureZone.addEventListener('touchstart', function (event) {#}
+    {#            touchstartX = event.changedTouches[0].screenX;#}
+    {#            touchstartY = event.changedTouches[0].screenY;#}
+    {#        }, false);#}
+    {##}
+    {#        gestureZone.addEventListener('touchend', function (event) {#}
+    {#            touchendX = event.changedTouches[0].screenX;#}
+    {#            touchendY = event.changedTouches[0].screenY;#}
+    {#            handleGesture();#}
+    {#        }, false);#}
+    {##}
+    {#        function handleGesture() {#}
+    {#            if (touchendX <= touchstartX) {#}
+    {#                console.log('Swiped left');#}
+    {#            }#}
+    {##}
+    {#            if (touchendX >= touchstartX) {#}
+    {#                console.log('Swiped right');#}
+    {#            }#}
+    {##}
+    {#            if (touchendY <= touchstartY) {#}
+    {#                console.log('Swiped up');#}
+    {#            }#}
+    {##}
+    {#            if (touchendY >= touchstartY) {#}
+    {#                console.log('Swiped down');#}
+    {#            }#}
+    {##}
+    {#            if (touchendY === touchstartY) {#}
+    {#                console.log('Tap');#}
+    {#            }#}
+    {#        }#}
+    {#    })#}
+    {#    </script>#}
 
-    <div class="gestureZone" id="gestureZone">
-    TEST
+    {#    <select>#}
+    {#        <option disabled>Выберите героя</option>#}
+    {#        <option value="Чебурашка" data-cost="500">Чебурашка</option>#}
+    {#        <option selected value="Крокодил Гена" data-cost="500">Крокодил Гена</option>#}
+    {#        <option value="Шапокляк" data-cost="500">Шапокляк</option>#}
+    {#        <option value="Крыса Лариса" data-cost="500">Крыса Лариса</option>#}
+    {#    </select>#}
+    {#    <select>#}
+    {#        <option disabled>Выберите героя</option>#}
+    {#        <option value="Чебурашка" data-cost="500">Чебурашка</option>#}
+    {#        <option selected value="Крокодил Гена" data-cost="500">Крокодил Гена</option>#}
+    {#        <option value="Шапокляк" data-cost="500">Шапокляк</option>#}
+    {#        <option value="Крыса Лариса" data-cost="500">Крыса Лариса</option>#}
+    {#    </select>#}
+    {#        <select>#}
+    {#        <option disabled>Выберите героя</option>#}
+    {#        <option value="Чебурашка" data-cost="500">Чебурашка</option>#}
+    {#        <option selected value="Крокодил Гена" data-cost="500">Крокодил Гена</option>#}
+    {#        <option value="Шапокляк" data-cost="500">Шапокляк</option>#}
+    {#        <option value="Крыса Лариса" data-cost="500">Крыса Лариса</option>#}
+    {#    </select>#}
+    {#        <select>#}
+    {#        <option disabled>Выберите героя</option>#}
+    {#        <option value="Чебурашка" data-cost="500">Чебурашка</option>#}
+    {#        <option selected value="Крокодил Гена" data-cost="500">Крокодил Гена</option>#}
+    {#        <option value="Шапокляк" data-cost="500">Шапокляк</option>#}
+    {#        <option value="Крыса Лариса" data-cost="500">Крыса Лариса</option>#}
+    {#    </select>#}
+    {##}
+    {#    <script>#}
+    {#    $(document).ready(function () {#}
+    {#        $('select').on('change', function () {#}
+    {#            console.log($(this))#}
+    {#            var selection = $(this).find("option:selected").data('cost')#}
+    {#            console.log(selection)#}
+    {#        })#}
+    {#    })#}
+    {#    </script>#}
+    {#    {{ dicte.dishs }}#}
+    <div class="payload">
+        <div class="payload_card_info">
+            <div class="payload_img">
+                <img src="../static/img/payloadimg.png">
+            </div>
+            <div class="payload_card_number">
+                <span>Номер карты</span>
+                <input>
+            </div>
+            <div class="payload_card_time">
+                <span>Месяц/Год</span>
+                <div>
+                    <input>
+                    <input>
+                </div>
+            </div>
+            <div class="payload_user_name">
+                <span>Имя держателя</span>
+                <input>
+            </div>
+        </div>
+        <div class="payload_main">
+            <div class="payload_header">
+                <div class="payload_order">
+                    <span>№ Заказа: {{ dicte.dishs.0.order_id }}</span>
+                </div>
+                <div class="payload_date">
+                    <span>Дата заказа: {{ dicte.dishs.0.order_date }}</span>
+                </div>
+            </div>
+            <div class="payload_info">
+                <div class="payload_dishs">
+                    <button class="accordion mb-2">Список блюд</button>
+                    <div class="panel">
+                        {% for dish in dicte.dishs %}
+                            <p style="display: flex; justify-content: space-between;">
+                                <span>{{ dish.dish_name }}<span
+                                    style="font-size: small;"> x{{ dish.dish_count_in_order }}</span></span><span>{{ dish.dish_price }} ₽</span>
+                            </p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="payload_total">
+                    <span>Итоговая сумма заказа:</span>
+                    <span>{{ dicte.dishs.0.order_price }} ₽</span>
+                </div>
+            </div>
+        </div>
     </div>
-    <div data-swipe-threshold="100"
-     data-swipe-ignore="false">
-        Swiper, get swiping!
-</div>
-
-{#    <script>#}
-{#        document.addEventListener('swiped-down', function (e) {#}
-{#            console.log(e.target); // the element that was swiped#}
-{#        });#}
-{#    </script>#}
+    <button disabled style="text-align: center; display: flex; align-items: center; margin: auto;">Оплатить</button>
     <script>
-    $(document).ready(function () {
-        let touchstartX = 0;
-        let touchstartY = 0;
-        let touchendX = 0;
-        let touchendY = 0;
-        console.log(document.getElementById('gestureZone'))
-        let gestureZone = document.getElementById('gestureZone');
+        var acc = document.getElementsByClassName("accordion");
+        var i;
 
-        gestureZone.addEventListener('touchstart', function (event) {
-            touchstartX = event.changedTouches[0].screenX;
-            touchstartY = event.changedTouches[0].screenY;
-        }, false);
-
-        gestureZone.addEventListener('touchend', function (event) {
-            touchendX = event.changedTouches[0].screenX;
-            touchendY = event.changedTouches[0].screenY;
-            handleGesture();
-        }, false);
-
-        function handleGesture() {
-            if (touchendX <= touchstartX) {
-                console.log('Swiped left');
-            }
-
-            if (touchendX >= touchstartX) {
-                console.log('Swiped right');
-            }
-
-            if (touchendY <= touchstartY) {
-                console.log('Swiped up');
-            }
-
-            if (touchendY >= touchstartY) {
-                console.log('Swiped down');
-            }
-
-            if (touchendY === touchstartY) {
-                console.log('Tap');
-            }
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                    this.blur();
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+                this.blur();
+            });
         }
-    })
     </script>
 {% endblock %}
+

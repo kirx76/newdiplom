@@ -1,0 +1,43 @@
+<div class="tab_orders d-flex" id="{{ order.id }}">
+    <div class="tab_order_main">
+        <div class="order_top">
+            <div class="order_top_left">
+                <span>№ {{ order.id }}</span>
+                <span>Телефон: {{ order.user_phone }}</span>
+            </div>
+            <div class="order_top_right">
+                <span>Дата: {{ order.order_date }}</span>
+            </div>
+        </div>
+        <div class="order_bottom">
+            <div class="order_left">
+                <span>Имя клиента: {{ order.user_name }}</span>
+            </div>
+            <div class="order_right">
+                <span>Общая стоимость: {{ order.order_price }} ₽</span>
+            </div>
+            <div class="order_end">
+                <span>Оплата:</span>
+                <span>{{ order.order_pay_type_name }}</span>
+            </div>
+            <div class="order_end">
+                <span>Статус:</span>
+                {% include 'inputs/parts/order_status.html' %}
+            </div>
+        </div>
+        {#                {{ order }}#}
+    </div>
+    <div class="tab_order_info">
+        <div class="tab_order_func">
+                        <span class="material-icons done" data-executor_id="{{ user_info.id }}"
+                              data-order_id="{{ order.id }}"
+                              data-customer_id="{{ order.user_id }}"
+                              data-order_status="{{ order.order_status }}">done</span>
+            <a href="/clientorders/{{ order.id }}">
+                <span class="material-icons info">priority_high</span>
+            </a>
+            <span class="material-icons closed" data-executor_id="{{ user_info.id }}"
+                  data-order_id="{{ order.id }}" data-customer_id="{{ order.user_id }}">close</span>
+        </div>
+    </div>
+</div>

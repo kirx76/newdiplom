@@ -1,0 +1,5 @@
+<span style="color:{% if order.order_status == 0 %} var(--info)
+{% elif order.order_status == 1 %} var(--orange)
+{% elif order.order_status == 2 %} var(--green)
+{% else %} var(--danger);{% endif %}">
+    {{ order.order_status_name }}</span>

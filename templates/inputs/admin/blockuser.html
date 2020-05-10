@@ -1,13 +1,15 @@
 <div class="all_users">
     {% for user in block_user.allusers %}
         <div class="user">
-            <div class="user_name">
-                <span>Имя:</span>
-                <span>{{ user.user_name }}</span>
-            </div>
-            <div class="user_phone">
-                <span>Телефон:</span>
-                <span>{{ user.user_phone }}</span>
+            <div class="user_info">
+                <div class="user_name">
+                    <span>Имя:</span>
+                    <span>{{ user.user_name }}</span>
+                </div>
+                <div class="user_phone">
+                    <span>Телефон:</span>
+                    <span>{{ user.user_phone }}</span>
+                </div>
             </div>
             <div class="user_status">
                 <div class="dropdowns">
