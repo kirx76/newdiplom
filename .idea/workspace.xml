@@ -2,20 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c5e61892-c92c-4d35-a597-2ebfeffaa457" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/static/css/beautyInputs.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/bill.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/inputs/garcon/userorders_by_type.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/inputs/parts/order_status.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/payloadform.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/host.py" beforeDir="false" afterPath="$PROJECT_DIR$/host.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/inputs/admin/blockuser.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inputs/admin/blockuser.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/js.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/js.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/inputs/customerorders.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inputs/customerorders.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/modals/basketmodal.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/modals/basketmodal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/staticfiles/staticcss.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/staticfiles/staticcss.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/inputs/dishord.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inputs/dishord.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/inputs/garcon/userorders_by_type.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inputs/garcon/userorders_by_type.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/inputs/parts/order_status.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inputs/parts/order_status.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/test.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/userorders.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/userorders.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/userordersinfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/userordersinfo.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,7 +21,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/newdiplom$host.coverage" NAME="host Coverage Results" MODIFIED="1589120017049" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/newdiplom$host.coverage" NAME="host Coverage Results" MODIFIED="1589210190137" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/newdiplom$Unittests_for_units_TestHelloApp_test_homepage.coverage" NAME="Unittests for units.TestHelloApp.test_homepage Coverage Results" MODIFIED="1588890655409" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/newdiplom$Unittests_for_units_TestMyApp_test_dishord.coverage" NAME="Unittests for units.TestMyApp.test_dishord Coverage Results" MODIFIED="1588892749659" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/newdiplom$Unittests_for_units_TestMyApp_test_stress.coverage" NAME="Unittests for units.TestMyApp.test_stress Coverage Results" MODIFIED="1588891682100" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -35,11 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/host.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="28" selection-start-line="28" selection-end-line="28" />
+            <state relative-caret-position="-364">
+              <caret line="735" selection-start-line="735" selection-end-line="735" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -48,10 +45,52 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/inputs/dishord.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="116" selection-start-line="116" selection-end-line="116" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/userorders.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
+            <state relative-caret-position="476">
+              <caret line="28" column="24" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/userordersinfo.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="24" column="60" selection-start-line="24" selection-start-column="60" selection-end-line="24" selection-end-column="60" />
+              <folding>
+                <element signature="e#369#412#0#HTML" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/test.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="722">
+              <caret line="373" column="13" selection-start-line="373" selection-start-column="13" selection-end-line="373" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/inputs/parts/order_status.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="117" selection-start-column="117" selection-end-column="117" />
+              <folding>
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -59,59 +98,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/inputs/garcon/userorders_by_type.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" selection-start-line="26" selection-end-line="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/test.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="4" selection-end-column="19" />
-              <folding>
-                <element signature="e#14677#14731#0#HTML" expanded="true" />
-                <element signature="e#14415#14440#0#HTML" expanded="true" />
-                <element signature="e#14828#14905#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/payloadform.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="77" selection-start-line="77" selection-end-line="94" selection-end-column="9" />
-              <folding>
-                <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#span#0;n#p#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/bill.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="93" selection-start-line="18" selection-start-column="93" selection-end-line="18" selection-end-column="93" />
-              <folding>
-                <element signature="e#121#144#0#HTML" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#span#0;n#p#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/staticfiles/staticcss.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="459">
+              <caret line="27" column="39" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -119,20 +107,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/inputs/customerorders.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="17" column="56" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="503">
-              <caret line="1419" column="18" selection-start-line="1419" selection-start-column="18" selection-end-line="1419" selection-end-column="18" />
+            <state relative-caret-position="102">
+              <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
             </state>
           </provider>
         </entry>
@@ -140,8 +116,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/js.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="50" column="8" selection-start-line="50" selection-start-column="8" selection-end-line="50" selection-end-column="8" />
+            <state relative-caret-position="238">
+              <caret line="29" selection-start-line="29" selection-end-line="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/css/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="479">
+              <caret line="1401" column="1" lean-forward="true" selection-start-line="1401" selection-start-column="1" selection-end-line="1401" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -160,18 +145,10 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dropdown</find>
-      <find>&lt;div class=&quot;dropdown&quot;&gt;</find>
-      <find>dropdown-select</find>
-      <find>basket0</find>
-      <find>swipedetect</find>
-      <find>&lt;div class=&quot;dropdown&quot;</find>
-      <find>dishord_</find>
       <find>здгы</find>
       <find>print(sel</find>
       <find>userinfo</find>
       <find>basketmodal</find>
-      <find>dishord</find>
       <find>print(self.request.body)</find>
       <find>customerorders</find>
       <find>transl</find>
@@ -190,6 +167,14 @@
       <find>payloadf</find>
       <find>user_info</find>
       <find>print</find>
+      <find>общая стоимость</find>
+      <find>payment</find>
+      <find>on</find>
+      <find>on_me</find>
+      <find>env.get_template</find>
+      <find>web</find>
+      <find>чек</find>
+      <find>dishord</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Users\kirx\PycharmProjects\newdiplom\templates</dir>
@@ -209,7 +194,6 @@
         <option value="$PROJECT_DIR$/templates/inputs/notify.html" />
         <option value="$PROJECT_DIR$/static/js/notify.js" />
         <option value="$PROJECT_DIR$/static/css/notify.css" />
-        <option value="$PROJECT_DIR$/templates/userordersinfo.html" />
         <option value="$PROJECT_DIR$/static/js/main.js" />
         <option value="$PROJECT_DIR$/static/js/underscore.js" />
         <option value="$PROJECT_DIR$/static/js/backbone.js" />
@@ -231,22 +215,23 @@
         <option value="$PROJECT_DIR$/templates/inputs/admin/newdish.html" />
         <option value="$PROJECT_DIR$/templates/staticfiles/staticjs.html" />
         <option value="$PROJECT_DIR$/templates/modals/dishordmodal.html" />
-        <option value="$PROJECT_DIR$/templates/inputs/dishord.html" />
-        <option value="$PROJECT_DIR$/static/js/js.js" />
         <option value="$PROJECT_DIR$/units.py" />
         <option value="$PROJECT_DIR$/templates/inputs/admin/blockuser.html" />
-        <option value="$PROJECT_DIR$/templates/inputs/parts/order_status.html" />
-        <option value="$PROJECT_DIR$/templates/userorders.html" />
         <option value="$PROJECT_DIR$/templates/modals/basketmodal.html" />
         <option value="$PROJECT_DIR$/static/css/beautyInputs.css" />
-        <option value="$PROJECT_DIR$/templates/test.html" />
         <option value="$PROJECT_DIR$/templates/payloadform.html" />
         <option value="$PROJECT_DIR$/templates/staticfiles/staticcss.html" />
-        <option value="$PROJECT_DIR$/templates/inputs/garcon/userorders_by_type.html" />
-        <option value="$PROJECT_DIR$/templates/inputs/customerorders.html" />
-        <option value="$PROJECT_DIR$/static/css/style.css" />
         <option value="$PROJECT_DIR$/templates/bill.html" />
+        <option value="$PROJECT_DIR$/templates/userordersinfo.html" />
+        <option value="$PROJECT_DIR$/templates/inputs/garcon/userorders_by_type.html" />
+        <option value="$PROJECT_DIR$/templates/userorders.html" />
+        <option value="$PROJECT_DIR$/static/css/style.css" />
+        <option value="$PROJECT_DIR$/templates/inputs/customerorders.html" />
+        <option value="$PROJECT_DIR$/templates/inputs/parts/order_status.html" />
         <option value="$PROJECT_DIR$/host.py" />
+        <option value="$PROJECT_DIR$/templates/inputs/dishord.html" />
+        <option value="$PROJECT_DIR$/static/js/js.js" />
+        <option value="$PROJECT_DIR$/templates/test.html" />
       </list>
     </option>
   </component>
@@ -280,6 +265,12 @@
               <item name="newdiplom" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
               <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="newdiplom" type="b2602c69:ProjectViewProjectNode" />
+              <item name="newdiplom" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="newdiplom" type="b2602c69:ProjectViewProjectNode" />
@@ -490,7 +481,8 @@
       <workItem from="1588869655707" duration="8616000" />
       <workItem from="1589011995831" duration="3449000" />
       <workItem from="1589025662336" duration="7556000" />
-      <workItem from="1589098465881" duration="17902000" />
+      <workItem from="1589098465881" duration="18589000" />
+      <workItem from="1589188267504" duration="15520000" />
     </task>
     <servers />
   </component>
@@ -527,9 +519,9 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="243698000" />
+    <option name="totallyTimeSpent" value="259905000" />
   </component>
-  <component name="TodoView">
+  <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
     </todo-panel>
@@ -541,7 +533,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15884861" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16044776" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -552,10 +544,10 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936078" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50053304" side_tool="true" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.25568798" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.25568798" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -651,13 +643,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/userordersinfo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2159">
@@ -745,24 +730,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="41" column="76" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/inputs/admin/blockuser.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="816">
           <caret line="48" column="23" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/inputs/parts/order_status.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -797,24 +768,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/modals/basketmodal.html">
+    <entry file="file://$PROJECT_DIR$/templates/payloadform.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="46" column="50" selection-start-line="46" selection-start-column="40" selection-end-line="46" selection-end-column="50" />
+        <state relative-caret-position="1309">
+          <caret line="77" selection-start-line="77" selection-end-line="94" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/inputs/dishord.html">
+    <entry file="file://$PROJECT_DIR$/templates/bill.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-14">
-          <caret line="83" column="31" lean-forward="true" selection-start-line="83" selection-start-column="31" selection-end-line="83" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/js.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="50" column="8" selection-start-line="50" selection-start-column="8" selection-end-line="50" selection-end-column="8" />
+        <state relative-caret-position="306">
+          <caret line="18" column="93" selection-start-line="18" selection-start-column="93" selection-end-line="18" selection-end-column="93" />
         </state>
       </provider>
     </entry>
@@ -825,80 +789,96 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/userorders.html">
+    <entry file="file://$PROJECT_DIR$/templates/modals/basketmodal.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
+        <state relative-caret-position="198">
+          <caret line="145" selection-start-line="145" selection-end-line="152" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/test.html">
+    <entry file="file://$PROJECT_DIR$/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="4" selection-end-column="19" />
-          <folding>
-            <element signature="e#14677#14731#0#HTML" expanded="true" />
-            <element signature="e#14415#14440#0#HTML" expanded="true" />
-            <element signature="e#14828#14905#0#HTML" expanded="true" />
-          </folding>
+        <state relative-caret-position="-313">
+          <caret line="41" column="76" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="76" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/inputs/garcon/userorders_by_type.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/inputs/customerorders.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="17" column="56" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/payloadform.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="77" selection-start-line="77" selection-end-line="94" selection-end-column="9" />
-          <folding>
-            <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#span#0;n#p#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="459">
+          <caret line="27" column="39" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="1419" column="18" selection-start-line="1419" selection-start-column="18" selection-end-line="1419" selection-end-column="18" />
+        <state relative-caret-position="479">
+          <caret line="1401" column="1" lean-forward="true" selection-start-line="1401" selection-start-column="1" selection-end-line="1401" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/bill.html">
+    <entry file="file://$PROJECT_DIR$/templates/userordersinfo.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="93" selection-start-line="18" selection-start-column="93" selection-end-line="18" selection-end-column="93" />
+        <state relative-caret-position="408">
+          <caret line="24" column="60" selection-start-line="24" selection-start-column="60" selection-end-line="24" selection-end-column="60" />
           <folding>
-            <element signature="e#121#144#0#HTML" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#span#0;n#p#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#369#412#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/userorders.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="28" column="24" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/inputs/customerorders.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/inputs/parts/order_status.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="117" selection-start-column="117" selection-end-column="117" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/host.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        <state relative-caret-position="-364">
+          <caret line="735" selection-start-line="735" selection-end-line="735" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/inputs/dishord.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="116" selection-start-line="116" selection-end-line="116" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/js.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="722">
+          <caret line="373" column="13" selection-start-line="373" selection-start-column="13" selection-end-line="373" selection-end-column="13" />
         </state>
       </provider>
     </entry>

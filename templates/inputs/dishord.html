@@ -16,8 +16,8 @@
             </div>
         </div>
     </div>
-    {% if dishord.user_info %}
-        <div class="dishord_func">
+    <div class="dishord_func">
+        {% if dishord.user_info %}
             <div class="dishs_manipulate">
                 <input hidden value="{{ dishord.dish_info.id }}">
                 <span class="material-icons minus">remove_circle_outline</span>
@@ -30,69 +30,73 @@
                 {% endif %}
                 <span class="material-icons plus">add_circle_outline</span>
             </div>
-            <button class="accordion mb-2">Ингредиенты</button>
-            {#            <div class="panel">#}
-            {#                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore#}
-            {#                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut#}
-            {#                    aliquip ex ea commodo consequat.</p>#}
-            {#            </div>#}
-            <div class="panel">
+        {% endif %}
 
-                {% for ingr in dishord.dish_ingrs %}
-                    <p style="display: flex; justify-content: space-between;">
-                        <span>{{ ingr.ingredient_name }}</span><span class="ingr_cal"
-                                                                     style="font-size: small;">{{ (ingr.ingredient_calories * ingr.weight) / 100 }} Ккал</span>
-                    </p>
-                {% endfor %}
-                <p style="display: flex; justify-content: space-between;"><span>Всего калорий</span><span
-                        class="ingr_cal_all" style="font-size: small;"></span></p>
-            </div>
+        <button class="accordion mb-2">Ингредиенты</button>
+        {#            <div class="panel">#}
+        {#                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore#}
+        {#                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut#}
+        {#                    aliquip ex ea commodo consequat.</p>#}
+        {#            </div>#}
+        <div class="panel">
+
+            {% for ingr in dishord.dish_ingrs %}
+                <p style="display: flex; justify-content: space-between;">
+                    <span>{{ ingr.ingredient_name }}</span><span class="ingr_cal"
+                                                                 style="font-size: small;">{{ (ingr.ingredient_calories * ingr.weight) / 100 }} Ккал</span>
+                </p>
+            {% endfor %}
+            <p style="display: flex; justify-content: space-between;"><span>Всего калорий</span><span
+                    class="ingr_cal_all" style="font-size: small;"></span></p>
         </div>
-    {% endif %}
+    </div>
 </div>
 
 <script>
-    $('.dishs_manipulate .plus').on('click', function () {
-        $(this).parent().find('.count_of_dish').text(parseInt($(this).parent().find('.count_of_dish').text()) + 1);
-        let dish_id = $(this).parent().find('input').val();
-        $.ajax({
-            method: "POST",
-            url: "/adddish",
-            data: {
-                'dish_id': dish_id,
-                'status': 1
-            },
-            success: function (data) {
-                {#note({content: 'Блюдо успешно добавлено в заказ',#}
-                {#    type: "success",#}
-                {#    time: 5})#}
-            },
-            error: function (data) {
-            }
-        })
-
-    });
-    $('.dishs_manipulate .minus').on('click', function () {
-        if (parseInt($(this).parent().find('.count_of_dish').text()) >= 1) {
-            $(this).parent().find('.count_of_dish').text(parseInt($(this).parent().find('.count_of_dish').text()) - 1);
+    {% if dishord.user_info %}
+        $('.dishs_manipulate .plus').on('click', function () {
+            $(this).parent().find('.count_of_dish').text(parseInt($(this).parent().find('.count_of_dish').text()) + 1);
             let dish_id = $(this).parent().find('input').val();
             $.ajax({
                 method: "POST",
                 url: "/adddish",
                 data: {
                     'dish_id': dish_id,
-                    'status': 0
+                    'status': 1
                 },
                 success: function (data) {
-                    {#note({content: 'Блюдо убрано из заказа',#}
-                    {#    type: "warn",#}
+                    {#note({content: 'Блюдо успешно добавлено в заказ',#}
+                    {#    type: "success",#}
                     {#    time: 5})#}
                 },
                 error: function (data) {
                 }
             })
-        }
-    });
+
+        });
+        $('.dishs_manipulate .minus').on('click', function () {
+            if (parseInt($(this).parent().find('.count_of_dish').text()) >= 1) {
+                $(this).parent().find('.count_of_dish').text(parseInt($(this).parent().find('.count_of_dish').text()) - 1);
+                let dish_id = $(this).parent().find('input').val();
+                $.ajax({
+                    method: "POST",
+                    url: "/adddish",
+                    data: {
+                        'dish_id': dish_id,
+                        'status': 0
+                    },
+                    success: function (data) {
+                        {#note({content: 'Блюдо убрано из заказа',#}
+                        {#    type: "warn",#}
+                        {#    time: 5})#}
+                    },
+                    error: function (data) {
+                    }
+                })
+            }
+        });
+    {% endif %}
+
     var acc = document.getElementsByClassName("accordion");
     var i;
 
@@ -109,14 +113,16 @@
             this.blur();
         });
     }
+    {% if dishord.user_info %}
 
-    $(document).ready(function () {
-        var ingr_cal = 0;
-        $(".ingr_cal").each(function () {
-            ingr_cal += parseFloat($(this).text().split(' '));
+        $(document).ready(function () {
+            var ingr_cal = 0;
+            $(".ingr_cal").each(function () {
+                ingr_cal += parseFloat($(this).text().split(' '));
+            });
+            $('.ingr_cal_all').text(ingr_cal + ' Ккал')
         });
-        $('.ingr_cal_all').text(ingr_cal + ' Ккал')
-    });
+    {% endif %}
 
     {#document.addEventListener('swiped-down', function (e) {#}
     {#    console.log($(this))#}

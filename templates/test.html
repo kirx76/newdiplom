@@ -285,73 +285,92 @@
     {#    })#}
     {#    </script>#}
     {#    {{ dicte.dishs }}#}
-    <div class="payload">
-        <div class="payload_card_info">
-            <div class="payload_img">
-                <img src="../static/img/payloadimg.png">
-            </div>
-            <div class="payload_card_number">
-                <span>Номер карты</span>
-                <input>
-            </div>
-            <div class="payload_card_time">
-                <span>Месяц/Год</span>
-                <div>
-                    <input>
-                    <input>
-                </div>
-            </div>
-            <div class="payload_user_name">
-                <span>Имя держателя</span>
-                <input>
-            </div>
-        </div>
-        <div class="payload_main">
-            <div class="payload_header">
-                <div class="payload_order">
-                    <span>№ Заказа: {{ dicte.dishs.0.order_id }}</span>
-                </div>
-                <div class="payload_date">
-                    <span>Дата заказа: {{ dicte.dishs.0.order_date }}</span>
-                </div>
-            </div>
-            <div class="payload_info">
-                <div class="payload_dishs">
-                    <button class="accordion mb-2">Список блюд</button>
-                    <div class="panel">
-                        {% for dish in dicte.dishs %}
-                            <p style="display: flex; justify-content: space-between;">
-                                <span>{{ dish.dish_name }}<span
-                                    style="font-size: small;"> x{{ dish.dish_count_in_order }}</span></span><span>{{ dish.dish_price }} ₽</span>
-                            </p>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="payload_total">
-                    <span>Итоговая сумма заказа:</span>
-                    <span>{{ dicte.dishs.0.order_price }} ₽</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <button disabled style="text-align: center; display: flex; align-items: center; margin: auto;">Оплатить</button>
-    <script>
-        var acc = document.getElementsByClassName("accordion");
-        var i;
+    {#    <div class="payload">#}
+    {#        <div class="payload_card_info">#}
+    {#            <div class="payload_img">#}
+    {#                <img src="../static/img/payloadimg.png">#}
+    {#            </div>#}
+    {#            <div class="payload_card_number">#}
+    {#                <span>Номер карты</span>#}
+    {#                <input>#}
+    {#            </div>#}
+    {#            <div class="payload_card_time">#}
+    {#                <span>Месяц/Год</span>#}
+    {#                <div>#}
+    {#                    <input>#}
+    {#                    <input>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            <div class="payload_user_name">#}
+    {#                <span>Имя держателя</span>#}
+    {#                <input>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#        <div class="payload_main">#}
+    {#            <div class="payload_header">#}
+    {#                <div class="payload_order">#}
+    {#                    <span>№ Заказа: {{ dicte.dishs.0.order_id }}</span>#}
+    {#                </div>#}
+    {#                <div class="payload_date">#}
+    {#                    <span>Дата заказа: {{ dicte.dishs.0.order_date }}</span>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            <div class="payload_info">#}
+    {#                <div class="payload_dishs">#}
+    {#                    <button class="accordion mb-2">Список блюд</button>#}
+    {#                    <div class="panel">#}
+    {#                        {% for dish in dicte.dishs %}#}
+    {#                            <p style="display: flex; justify-content: space-between;">#}
+    {#                                <span>{{ dish.dish_name }}<span#}
+    {#                                    style="font-size: small;"> x{{ dish.dish_count_in_order }}</span></span><span>{{ dish.dish_price }} ₽</span>#}
+    {#                            </p>#}
+    {#                        {% endfor %}#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#                <div class="payload_total">#}
+    {#                    <span>Итоговая сумма заказа:</span>#}
+    {#                    <span>{{ dicte.dishs.0.order_price }} ₽</span>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+    {#    <button disabled style="text-align: center; display: flex; align-items: center; margin: auto;">Оплатить</button>#}
+    {#    <script>#}
+    {#        var acc = document.getElementsByClassName("accordion");#}
+    {#        var i;#}
+    {##}
+    {#        for (i = 0; i < acc.length; i++) {#}
+    {#            acc[i].addEventListener("click", function () {#}
+    {#                this.classList.toggle("active");#}
+    {#                var panel = this.nextElementSibling;#}
+    {#                if (panel.style.maxHeight) {#}
+    {#                    panel.style.maxHeight = null;#}
+    {#                    this.blur();#}
+    {#                } else {#}
+    {#                    panel.style.maxHeight = panel.scrollHeight + "px";#}
+    {#                }#}
+    {#                this.blur();#}
+    {#            });#}
+    {#        }#}
+    {#    </script>#}
+    <script src='../static/js/push.min.js'></script>
 
-        for (i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var panel = this.nextElementSibling;
-                if (panel.style.maxHeight) {
-                    panel.style.maxHeight = null;
-                    this.blur();
-                } else {
-                    panel.style.maxHeight = panel.scrollHeight + "px";
+    <button id="test">TEST</button>
+
+    <script>
+        $('#test').on('click', function () {
+            Push.create('Заголовок', {
+                body: 'Текст внутри уведомления',
+                icon: 'http://imapo.ru/img/blockquote_bg.png', // Иконка уведомления
+                timeout: 5000, // Через сколько закроется уведомление
+                tag: 'notice', // Если задан, по этому параметру можно закрыть уведомление и такое уведомление появится лишь один раз
+                onClick: function () {
+                    window.focus(); // После клика по уведомлению нас вернёт во вкладку, откуда оно пришло
+                    this.close(); // Само уведомление будет закрыто
                 }
-                this.blur();
             });
-        }
+        })
+
     </script>
 {% endblock %}
 

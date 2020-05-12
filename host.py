@@ -485,6 +485,19 @@ class payOrder(BaseHandler):
             self.write_error(500, message='Заказ не создан')
 
         finally:
+            try:
+                with connect.cursor() as cursor:
+                    getdishes = """SELECT * FROM orders JOIN dishes_in_order ON orders.id = dishes_in_order.order_id JOIN dishs ON dishes_in_order.dish_id = dishs.id WHERE orders.id = %s"""
+                    cursor.execute(getdishes, (order_id))
+                    dishes = cursor.fetchall()
+                    print(dishes)
+                    for dish in dishes:
+                        updatedishsold = """UPDATE dishs set dish_sold = dish_sold + %s WHERE id = %s"""
+                        cursor.execute(updatedishsold, (dish['dish_count_in_order'], dish['dish_id']))
+                        connect.commit()
+            except Exception as e:
+                print(e)
+
             connect.close()
             if pay_type == 0:
                 template = env.get_template('payloadform.html')
@@ -532,7 +545,7 @@ class clientOrdersHandler(BaseHandler):
         order_id = int(self.get_argument('order_id'))
         executor_id = int(self.get_argument('executor_id'))
         status = int(self.get_argument('status'))
-        order_status = int(self.get_argument('order_status'))
+        order_status = int(self.get_argument('order_status', None))
         connect = connections.getConnection()
         try:
             user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
@@ -578,7 +591,7 @@ class clientOrdersIdHandler(BaseHandler):
         try:
             user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
             with connect.cursor() as cursor:
-                allorders = """SELECT * FROM orders 
+                allorders = """SELECT * FROM orders JOIN order_status_list ON orders.order_status = order_status_list.order_status_id
                 JOIN user_orders ON orders.id = user_orders.order_id 
                 JOIN users ON user_orders.user_id = users.id 
                 JOIN dishes_in_order ON orders.id = dishes_in_order.order_id 
@@ -631,8 +644,16 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
                     # [self.connections.get(executor, '').write_message(str(target['message'])) for executor in self.connections]
                 else:
                     try:
-                        self.connections[int(target['user_id'])].write_message(str(target['message']))
-                        # self.connections[int(target['sender_id'])].write_message('Пользователь оповещен о заказе')
+                        if target['isupdated']:
+                            self.connections[int(target['user_id'])].write_message(
+                                {
+                                    "isupdated": str(target['isupdated']),
+                                    "order_id": int(target['order_id']),
+                                    "message": str(target['message'])
+                                })
+                        else:
+                            self.connections[int(target['user_id'])].write_message(str(target['message']))
+                            # self.connections[int(target['sender_id'])].write_message('Пользователь оповещен о заказе')
                     except:
                         self.connections[int(target['sender_id'])].write_message(
                             'Пользователя нет на сайте, но мы оповестим его')
@@ -712,15 +733,10 @@ class updateUserInfo(BaseHandler):
 
 
 class dishord(BaseHandler):
-    @tornado.web.authenticated
     def post(self):
-
-        try:
-            user_id = int(self.get_argument('user_id'))
-        except:
-            user_id = None
-        dish_id = int(self.get_argument('dish_id'))
-        usr = self.get_secure_cookie("user")
+        user_id = self.get_argument('user_id', None)
+        dish_id = self.get_argument('dish_id', None)
+        usr = self.get_secure_cookie("user", None)
         if usr is not None:
             user_info = get_user_info(json.loads(self.get_secure_cookie("user").decode())['phone'])
         else:
@@ -728,17 +744,19 @@ class dishord(BaseHandler):
         connect = connections.getConnection()
         try:
             with connect.cursor() as cursor:
-                getuserdish = """SELECT * FROM users 
-                JOIN user_orders ON users.id = user_orders.user_id 
-                JOIN orders ON user_orders.order_id = orders.id 
-                JOIN dishes_in_order ON dishes_in_order.order_id = orders.id 
-                JOIN dishs ON dishes_in_order.dish_id = dishs.id 
-                WHERE users.id = %s
-                AND dishs.id = %s 
-                AND orders.order_status = 0;"""
-
-                cursor.execute(getuserdish, (user_id, dish_id))
-                dish_info = cursor.fetchone()
+                if user_id is not None:
+                    getuserdish = """SELECT * FROM users 
+                    JOIN user_orders ON users.id = user_orders.user_id 
+                    JOIN orders ON user_orders.order_id = orders.id 
+                    JOIN dishes_in_order ON dishes_in_order.order_id = orders.id 
+                    JOIN dishs ON dishes_in_order.dish_id = dishs.id 
+                    WHERE users.id = %s
+                    AND dishs.id = %s 
+                    AND orders.order_status = 0;"""
+                    cursor.execute(getuserdish, (user_id, dish_id))
+                    dish_info = cursor.fetchone()
+                else:
+                    dish_info = None
                 getalldish = """SELECT * FROM dishs WHERE id = %s"""
                 cursor.execute(getalldish, (dish_id))
                 dish_info_total = cursor.fetchone()
@@ -974,6 +992,26 @@ class billHandler(BaseHandler):
         self.write(template.render(payload_form=payload_form, user_info=user_info))
 
 
+class getneworderstat(BaseHandler):
+    @tornado.web.authenticated
+    def post(self):
+        print(self.request.body)
+        print(self.get_argument('order_id', None))
+        connect = connections.getConnection()
+        try:
+            with connect.cursor() as cursor:
+                sql = """SELECT * FROM orders JOIN order_status_list ON orders.order_status = order_status_list.order_status_id where id = %s"""
+                cursor.execute(sql, (self.get_argument('order_id', None)))
+                # new_stat = cursor.fetchone()['order_status_name']
+                # self.write_error(status_code=200, message=new_stat)
+                template = env.get_template('inputs/parts/order_status.html')
+                self.write(template.render(order=cursor.fetchone()))
+        except Exception as e:
+            print(e)
+        finally:
+            connect.close()
+
+
 def make_app():
     return tornado.web.Application([
         (r"/", MainHandler),
@@ -994,6 +1032,7 @@ def make_app():
         (r"/admin", adminPanelHandler),
         (r"/adminfunc", adminfunc),
         (r"/bill/([0-9]+)", billHandler),
+        (r"/getneworderstat", getneworderstat)
 
     ], **settings,
         template_path=os.path.join(os.path.dirname(__file__), "templates"),

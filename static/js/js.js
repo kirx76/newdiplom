@@ -27,7 +27,6 @@ $(document).ready(function () {
         if ($('#prevval')) {
             let curdishcount = parseInt($('#prevval').val());
             let exitcountdish = parseInt($('#dishordmodal .modal-content').find('.count_of_dish').text());
-            console.log(exitcountdish);
             if (exitcountdish > curdishcount) {
                 note({
                     content: 'Блюда успешно добавлены в заказ',
@@ -70,9 +69,25 @@ $(document).ready(function () {
 
     $(document).ready(function () {
         websocket.onmessage = function (evt) {
-            var mess = evt.data;
+            let info = jQuery.parseJSON(evt.data)
+            let isupdated = info['isupdated']
+            if (isupdated === 'True' && window.location.pathname.search('clientorders')) {
+                $.ajax({
+                    method: "POST",
+                    url: "/getneworderstat",
+                    data: {
+                        'order_id': info['order_id']
+                    },
+                    success: function (data) {
+                        $(`[data-order_id="${info['order_id']}"]`).html(data)
+                    },
+                    error: function (data) {
+                        console.log(data)
+                    }
+                })
+            }
             note({
-                content: mess,
+                content: info['message'],
                 type: "success",
                 time: 5
             });
@@ -172,5 +187,39 @@ $(document).ready(function () {
 
 //    КОНЕЦ МАСОК
 
+//    УВЕДОМЛЕНИЯ ВНЕ САЙТА
+
+
+    function sendNotification(title, options) {
+        if (!("Notification" in window)) {
+            alert('Ваш браузер не поддерживает HTML Notifications, его необходимо обновить.');
+        }
+
+        else if (Notification.permission === "granted") {
+            var notification = new Notification(title, options);
+
+            function clickFunc() {
+                alert('Пользователь кликнул на уведомление');
+            }
+
+            notification.onclick = clickFunc;
+        }
+
+        else if (Notification.permission !== 'denied') {
+            Notification.requestPermission(function (permission) {
+                if (permission === "granted") {
+                    var notification = new Notification(title, options);
+
+                } else {
+                    alert('Вы запретили показывать уведомления'); // Юзер отклонил наш запрос на показ уведомлений
+                }
+            });
+        } else {
+        }
+    }
+
+//    КОНЕЦ УВЕДОМЛЕНИЙ ВНЕ САЙТА
 });
+
+
 

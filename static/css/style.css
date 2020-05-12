@@ -580,6 +580,13 @@ body {
 .back_to_order {
     align-items: center;
     text-align: center;
+    padding: 3%;
+    margin-top: 15px;
+}
+
+.ord {
+    display: flex;
+    padding: 3%;
 }
 
 .back_to_orders {
@@ -1041,7 +1048,7 @@ span.clean {
 
 
 .order_header {
-    /*width: 30%;*/
+    width: 40%;
 }
 
 .order_body {
@@ -1051,12 +1058,13 @@ span.clean {
 
 .order_price_info {
     display: flex;
-    flex-direction: column;
+    /*flex-direction: column;*/
+    justify-content: space-between;
 }
 
 .order_status {
     display: flex;
-    flex-direction: column;
+    /*flex-direction: column;*/
 }
 
 .admin {
@@ -1377,20 +1385,20 @@ span.clean {
 .bill {
     /* position: absolute; */
     /* right: -10%; */
-    background: #49494961;
+    /*background: #49494961;*/
     color: #494949;
     /* width: 10%; */
     /* height: 3%; */
     /* align-items: center; */
     /* text-align: center; */
     /* vertical-align: middle; */
-    justify-content: center;
+    /*justify-content: center;*/
     /* display: flex; */
-    border-radius: 20% 20% 0 0%;
+    /*border-radius: 20% 20% 0 0%;*/
     /* z-index: -1; */
     /* margin-top: 7%; */
-    display: flex;
-    cursor: pointer;
+    /*display: flex;*/
+    /*cursor: pointer;*/
 }
 
 .bill_block {
@@ -1415,7 +1423,41 @@ span.clean {
     .payload_card_time > div input {
         width: 100%;
     }
+
+    .ord {
+        flex-direction: column;
+    }
 }
+
 .bill a {
     color: #494949;
+}
+
+.order_status_one {
+    padding: 3%;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 0px 35px -20px #000000;
+}
+
+.order_status_one > div {
+
+}
+
+.ord_info {
+    width: 100%;
+    padding: 3%;
+}
+
+.order_list {
+    color: #494949;
+}
+
+.order_list:hover {
+    text-decoration: none;
+    color: #494949;
+}
+
+.order_list:focus {
+    text-decoration: none;
 }

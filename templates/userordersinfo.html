@@ -4,21 +4,40 @@
 {% endblock %}
 {% block content %}
 
-    <div class="all_orders">
-        {% for order in user_orders.orders %}
-            <div class="tab_order">
-                <div class="order_name">
-                    <span>{{ order.dish_name }}</span>
-                    <span style="font-size: small; color: #2125299c;"> x {{ order.dish_count_in_order }}</span>
+    <div class="ord">
+        <div class="all_orders">
+            {% for order in user_orders.orders %}
+                <div class="tab_order">
+                    <div class="order_name">
+                        <span>{{ order.dish_name }}</span>
+                        <span style="font-size: small; color: #2125299c;"> x {{ order.dish_count_in_order }}</span>
+                    </div>
+                    <div class="order_price">
+                        <span>{{ order.dish_price }} ₽</span>
+                    </div>
                 </div>
-                <div class="order_price">
-                    <span>{{ order.dish_price }} ₽</span>
-
+            {% endfor %}
+        </div>
+        <div class="ord_info">
+            <div class="order_status_one">
+                {% set order = user_orders.orders.0 %}
+                <div class="ord_date">
+                    <span>Дата заказа: {{ order.order_date }}</span>
+                </div>
+                <div class="ord_tot_price">
+                    <span>Общая стоимость: {{ order.order_price }}</span>
+                </div>
+                <div class="ord_stat">
+                    <span>Статус:</span>
+                    {% include 'inputs/parts/order_status.html' %}
                 </div>
             </div>
-        {% endfor %}
+            <div class="back_to_order">
+                <a href="/clientorders" class="back_to_orders">Назад к заказам</a>
+            </div>
+        </div>
     </div>
-    <div class="back_to_order">
-        <a href="/clientorders" class="back_to_orders">Назад к заказам</a>
-    </div>
+
+
+
 {% endblock %}

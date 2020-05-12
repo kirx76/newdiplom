@@ -1,5 +1,6 @@
-<span style="color:{% if order.order_status == 0 %} var(--info)
-{% elif order.order_status == 1 %} var(--orange)
-{% elif order.order_status == 2 %} var(--green)
-{% else %} var(--danger);{% endif %}">
+<span id="span_order_stat" data-order_id="{% if order.order_id %}{{ order.order_id }}{% else %}{{ order.id }}{% endif %}" data-info="{{ order }}"
+      style="color:{% if order.order_status == 0 %} var(--info)
+      {% elif order.order_status == 1 %} var(--orange)
+      {% elif order.order_status == 2 %} var(--green)
+      {% else %} var(--danger);{% endif %}">
     {{ order.order_status_name }}</span>

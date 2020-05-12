@@ -37,7 +37,7 @@
                 let customer_id = $(this).data('customer_id');
                 let order_status = $(this).data('order_status');
                 send_aj(order_id, executor_id, 1, order_status);
-                send_ping('Ваш заказ успешно одобрен', customer_id, executor_id);
+                send_ping('Ваш заказ успешно одобрен', customer_id, executor_id, true, order_id);
             });
             $('.closed').on('click', function () {
                 let executor_id = $(this).data('executor_id');
@@ -45,7 +45,7 @@
                 let customer_id = $(this).data('customer_id');
                 let order_status = $(this).data('order_status');
                 send_aj(order_id, executor_id, 0, order_status);
-                send_ping('Ваш заказ был отклонен, обратитесь к официанту', customer_id, executor_id);
+                send_ping('Ваш заказ был отклонен, обратитесь к официанту', customer_id, executor_id, true, order_id);
             });
 
             function send_aj(order_id, executor_id, status, order_status) {
@@ -77,10 +77,15 @@
                 })
             }
 
-            function send_ping(message, user_id, sender_id) {
-                websocket.send(JSON.stringify({'message': message, 'user_id': user_id, 'sender_id': sender_id}));
+            function send_ping(message, user_id, sender_id, isupdated, order_id) {
+                websocket.send(JSON.stringify({
+                    'message': message,
+                    'user_id': user_id,
+                    'sender_id': sender_id,
+                    'isupdated': isupdated,
+                    'order_id': order_id
+                }));
             }
         })
     </script>
-
 {% endblock %}
